@@ -2,19 +2,25 @@ NAME	=	libft.a
 SRCS	=	src/
 OBJS	=	lib/
 CC		=	gcc
-AR		=	ar rcs
+AR		=	ar -rcs
 CFLAGS	+=	-Wall -Wextra -Werror
 RM		=	rm -f
+INCLUDE	=	include
 
 all		:
 	@make $(NAME)
 
 $(OBJS)	:
 	@mkdir	-d $(OBJS)
-	$(CC) $(CFLAGS) -c $(SRCS)*.c $(OBJS)
+	$(CC) -c $(SRCS)*.c $(OBJS)
 
 $(NAME)	:	$(OBJS)
-	$(AR) 
+	$(AR) $@ $<*.o
 
 clean	:
-	$(RM) 
+	$(RM) $(OBJS)
+
+fclean	:	clean
+	$(RM) $(NAME)
+
+re		:	fclean all

@@ -14,7 +14,7 @@
 
 # include <unistd.h>
 
-char	*strdup(const char *s);
+char	*ft_strdup(const char *s);
 size_t	ft_strlen(const char *s);
 
 #endif
