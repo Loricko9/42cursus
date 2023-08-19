@@ -14,6 +14,8 @@
 
 # include <unistd.h>
 
+int	ft_isalpha(int c);
+void	*ft_memset(void *s, int c, size_t n);
 char	*ft_strdup(const char *s);
 size_t	ft_strlen(const char *s);
 

@@ -1,4 +1,4 @@
-FT 	=	ft_strdup.c ft_strlen.c
+FT 	=	ft_strdup.c ft_strlen.c ft_memset.c ft_isalpha.c 
 
 NAME	=	libft.a
 CC		=	gcc
