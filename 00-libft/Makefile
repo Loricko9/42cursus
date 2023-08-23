@@ -1,6 +1,6 @@
 FT 	=		ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
-			ft_strdup.c  ft_memset.c
-			ft_strlen.c
+			ft_strdup.c  ft_memset.c \
+			ft_strlen.c ft_strlcpy.c
 
 NAME	=	libft.a
 CC		=	gcc
