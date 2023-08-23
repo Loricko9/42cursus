@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 17:48:04 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/08/11 17:48:04 by lle-saul         ###   ########.fr       */
+/*   Created: 2023/08/19 19:33:18 by lle-saul          #+#    #+#             */
+/*   Updated: 2023/08/19 19:33:18 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libft.h"
 
-# include <unistd.h>
-
-int	ft_isprint(int c);
-int	ft_isascii(int c);
-int	ft_isalnum(int c);
-int	ft_isdigit(int c);
-int	ft_isalpha(int c);
-void	*ft_memset(void *s, int c, size_t n);
-char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *s);
-
-#endif
+int	ft_isascii(int c)
+{
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
+}
