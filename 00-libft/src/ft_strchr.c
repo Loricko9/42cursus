@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/24 15:45:18 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/08/24 15:45:18 by lle-saul         ###   ########.fr       */
+/*   Created: 2023/08/24 16:28:36 by lle-saul          #+#    #+#             */
+/*   Updated: 2023/08/24 16:28:36 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+char	*strchr(const char *s, int c)
 {
 	int	i;
-	int	nb;
-	int	sign;
 
 	i = 0;
-	nb = 0;
-	sign = 1;
-	while ((nptr[i] >= '\t' && nptr[i] <= '\r') || nptr[i] == 32)
-		i++;
-	if (nptr[i] == '+' || nptr[i] == '-')
+	while (s[i] != (char)c)
 	{
-		if (nptr[i] == '-')
-			sign = -1;
+		if (s[i] == '\0')
+			return (0);
 		i++;
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		nb = nb * 10 + nptr[i] - 48;
-		i++;
-	}
-	return (nb * sign);
+	return (&s[i]);
 }
