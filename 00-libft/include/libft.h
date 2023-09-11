@@ -34,6 +34,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 char	*ft_strdup(const char *s);
 char	*strchr(const char *s, int c);
 char	*strrchr(const char *s, int c);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
