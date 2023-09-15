@@ -13,6 +13,7 @@
 # define LIBFT_H
 
 # include <unistd.h>
+#include <stdlib.h>
 
 int	ft_isprint(int c);
 int	ft_isascii(int c);
@@ -39,6 +40,8 @@ char	*strchr(const char *s, int c);
 char	*strrchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_itoa(int n);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
