@@ -5,6 +5,8 @@ FT 	=		ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
 			ft_strlen.c ft_strlcpy.c ft_strlcat.c ft_strchr.c ft_strrchr.c ft_strnstr.c ft_strncmp.c
 
+FT_BONUS	=	ft_lstnew.c ft_lstadd_front.c
+
 NAME	=	libft.a
 CC		=	gcc
 AR		=	@ar -rcs
@@ -16,6 +18,8 @@ SRCS_DIR	=	src/
 OBJ_DIR 	=	obj/
 OBJS	=	$(addprefix $(OBJ_DIR), $(FT:.c=.o))
 SRCS 	=	$(addprefix $(SRCS_DIR), $(FT))
+OBJS_BONUS	=	$(addprefix $(OBJ_DIR), $(FT_BONUS:.c=.o))
+SRCS_BONUS	=	$(addprefix $(SRCS_DIR), $(FT_BONUS))
 
 $(OBJ_DIR)%.o 	:	$(SRCS_DIR)%.c
 	$(CC) -I $(INCLUDE) -c $< -o $@
@@ -27,8 +31,11 @@ make_OBJS_DIR	:
 	mkdir -p $(OBJ_DIR)
 
 $(NAME)	:	make_OBJS_DIR $(OBJS)
-	$(AR) $@ $(OBJS)
+	$(AR) $@ $(OBJS) $(OBJS_BONUS)
 	@echo 'Librairy created !'
+
+bonus	:	$(OBJS_BONUS)
+	$(NAME)
 
 clean	:
 	$(RM) $(OBJ_DIR)
