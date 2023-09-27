@@ -13,7 +13,7 @@ CC		=	gcc
 AR		=	@ar -rcs
 CFLAGS	+=	-W -Wall -Wextra -Werror
 RM		=	rm -rf
-INCLUDE	=	include/
+INCLUDE	=	.
 
 SRCS_DIR	=	src/
 OBJ_DIR 	=	obj/
@@ -23,7 +23,7 @@ OBJS_BONUS	=	$(addprefix $(OBJ_DIR), $(FT_BONUS:.c=.o))
 SRCS_BONUS	=	$(addprefix $(SRCS_DIR), $(FT_BONUS))
 
 $(OBJ_DIR)%.o 	:	$(SRCS_DIR)%.c
-	$(CC) -I $(INCLUDE) -c $< -o $@
+	$(CC) -I$(INCLUDE) -c $< -o $@
 
 all		:
 	@make $(NAME)
