@@ -36,5 +36,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 		j++;
 	}
+	tab[i] = '\0';
 	return (tab);
 }
