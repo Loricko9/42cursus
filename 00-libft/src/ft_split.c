@@ -57,7 +57,7 @@ char	**ft_split(char const *s, char c)
 	char	**tab;
 	size_t	i;
 	size_t	j;
-	size_t	index;
+	int		index;
 
 	tab = malloc(sizeof(char *) * ft_countwords(s, c) + 1);
 	if (!tab)
@@ -65,7 +65,7 @@ char	**ft_split(char const *s, char c)
 	i = 0;
 	j = 0;
 	index = -1;
-	while (i != ft_strlen(s))
+	while (i <= ft_strlen(s))
 	{
 		if (s[i] != c && index == -1)
 			index = i;
