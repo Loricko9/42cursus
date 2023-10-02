@@ -17,8 +17,8 @@ INCLUDE	=	.
 
 SRCS_DIR	=	src/
 OBJ_DIR 	=	obj/
-OBJS	=	$(addprefix $(OBJ_DIR), $(FT:.c=.o))
-SRCS 	=	$(addprefix $(SRCS_DIR), $(FT))
+OBJS		=	$(addprefix $(OBJ_DIR), $(FT:.c=.o))
+SRCS 		=	$(addprefix $(SRCS_DIR), $(FT))
 OBJS_BONUS	=	$(addprefix $(OBJ_DIR), $(FT_BONUS:.c=.o))
 SRCS_BONUS	=	$(addprefix $(SRCS_DIR), $(FT_BONUS))
 
