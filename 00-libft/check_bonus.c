@@ -26,7 +26,7 @@ int	main (int argc, char **argv)
 	}
 	int	size = ft_lstsize(list2);
 	printf("size : %d\n", size);
-	ft_lstclear(&list1, del);
-	if (list2 == NULL)
+	ft_lstclear(&list2, del);
+	if (list1 == NULL)
 		printf("OK");
 }
