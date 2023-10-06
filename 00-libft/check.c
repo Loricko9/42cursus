@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 
 void	ft_trans(unsigned int i, char *s)
 {
@@ -44,18 +45,14 @@ int	main(int argc, char **argv)
 	char	*str = (char *)ft_calloc(ft_strlen(argv[2]) + 1, sizeof(char));
 	size_t	i = 0;
 	printf("ft_calloc : ");
-	while (i < ft_strlen(argv[2]) + 1)
-	{
-		printf("%d", (int)str[i]);
-		i++;
-	}
+	 
 	printf("\n\n");
 
 	printf("ft_memccpy : %s\n\n", (char *)ft_memccpy(str, argv[2], argv[1][0], ft_strlen(argv[2])));
 
 	printf("ft_memchr : %s\n\n", (char *)ft_memchr(argv[2], argv[1][0], ft_strlen(argv[2])));
 
-	printf("ft_memcmp : %d\n\n", ft_memcmp(argv[2], argv[3], ft_strlen(argv[2])));
+//	printf("ft_memcmp : %d\n\n", ft_memcmp(argv[2], argv[3], ft_strlen(argv[2])));
 
 	char	*str2 = (char *)ft_calloc(ft_strlen(argv[2]) + 1, sizeof(char));
 	printf("ft_memcpy : %s\n\n", (char *)ft_memcpy(str2, argv[2], ft_strlen(argv[2])));
@@ -101,13 +98,15 @@ int	main(int argc, char **argv)
 
 	printf("ft_strmapi : %s\n\n", ft_strmapi(argv[2], ft_trans2));
 
-	printf("ft_strncmp : %d\n\n", ft_strncmp(argv[2], argv[3], 500));
+	printf("ft_strncmp : %d\n", ft_strncmp(argv[2], argv[3], test));
+	printf("strncmp : %d\n\n", strncmp(argv[2], argv[3], test));
 
 	printf("ft_strnstr : %s\n\n", ft_strnstr(argv[2], argv[3], ft_strlen(argv[2])));
 
 	printf("ft_strrchr : %s\n\n", ft_strrchr(argv[2], argv[1][0]));
 
-	printf("ft_strtrim : %s\n\n", ft_strtrim(argv[2], argv[1]));
+	char *str15 = ft_strtrim(argv[2], argv[1]);
+	printf("ft_strtrim : %s\n\n", str15);
 
 	printf("ft_substr : %s\n\n", ft_substr(argv[2], 2, ft_strlen(argv[2]) - 2));
 
