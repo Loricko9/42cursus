@@ -41,18 +41,10 @@ int	main(int argc, char **argv)
 		printf("ft_isprint : %d\n\n", ft_isprint(argv[2][0]));
 	
 	printf("ft_itoa : %s\n\n", ft_itoa(test));
-	
-	char	*str = (char *)ft_calloc(ft_strlen(argv[2]) + 1, sizeof(char));
-	size_t	i = 0;
-	printf("ft_calloc : ");
-	 
-	printf("\n\n");
-
-	printf("ft_memccpy : %s\n\n", (char *)ft_memccpy(str, argv[2], argv[1][0], ft_strlen(argv[2])));
 
 	printf("ft_memchr : %s\n\n", (char *)ft_memchr(argv[2], argv[1][0], ft_strlen(argv[2])));
 
-//	printf("ft_memcmp : %d\n\n", ft_memcmp(argv[2], argv[3], ft_strlen(argv[2])));
+	printf("ft_memcmp : %d\n\n", ft_memcmp(argv[2], argv[3], ft_strlen(argv[2])));
 
 	char	*str2 = (char *)ft_calloc(ft_strlen(argv[2]) + 1, sizeof(char));
 	printf("ft_memcpy : %s\n\n", (char *)ft_memcpy(str2, argv[2], ft_strlen(argv[2])));
@@ -65,14 +57,14 @@ int	main(int argc, char **argv)
 
 	int	FD = open("test.txt", O_WRONLY);
 
-	ft_putchar_fd(argv[2][0], FD);
-	ft_putchar_fd('\n', FD);
+	//ft_putchar_fd(argv[2][0], FD);
+	//ft_putchar_fd('\n', FD);
 	ft_putendl_fd(argv[2], FD);
-	ft_putnbr_fd(test, FD);
-	ft_putchar_fd('\n', FD);
+	//ft_putnbr_fd(test, FD);
+	//ft_putchar_fd('\n', FD);
 	ft_putstr_fd(argv[2], FD);
 
-	i = 0;
+	int i = 0;
 	char **tab = ft_split(argv[2], argv[1][0]);
 	printf("ft_split : \n");
 	while (tab[i] != NULL)
@@ -103,7 +95,8 @@ int	main(int argc, char **argv)
 
 	printf("ft_strnstr : %s\n\n", ft_strnstr(argv[2], argv[3], ft_strlen(argv[2])));
 
-	printf("ft_strrchr : %s\n\n", ft_strrchr(argv[2], argv[1][0]));
+	printf("ft_strrchr : %p\n", (void *)ft_strrchr(argv[2], '\0'));
+	printf("strrchr : %p\n\n", (void *)strrchr(argv[2], '\0'));
 
 	char *str15 = ft_strtrim(argv[2], argv[1]);
 	printf("ft_strtrim : %s\n\n", str15);

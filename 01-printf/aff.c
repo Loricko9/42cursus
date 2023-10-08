@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   aff.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/24 16:47:47 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/08/24 16:47:47 by lle-saul         ###   ########.fr       */
+/*   Created: 2023/10/08 11:34:18 by lle-saul          #+#    #+#             */
+/*   Updated: 2023/10/08 11:34:18 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
-#include <stdlib.h>
+#include "printf.h"
 
-char	*ft_strrchr(const char *s, int c)
+void	ft_putchar(const char c)
 {
-	char	*temp;
+	write(1, &c, 1);
+}
 
-	temp = NULL;
-	while (*s)
+void	ft_putstr(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
 	{
-		if (*s == (char)c)
-			temp = (char *)s;
-		s++;
+		ft_putchar(str[i]);
+		i++;
 	}
-	if (*temp)
-		return ((char *)temp);
-	if (*s == (char)c)
-		return ((char *s);
-	return (NULL);
 }

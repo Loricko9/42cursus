@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/24 16:47:47 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/08/24 16:47:47 by lle-saul         ###   ########.fr       */
+/*   Created: 2023/10/08 11:11:55 by lle-saul          #+#    #+#             */
+/*   Updated: 2023/10/08 11:11:55 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
-#include <stdlib.h>
+#ifndef PRINTF_H
+# define PRINTF_H
 
-char	*ft_strrchr(const char *s, int c)
-{
-	char	*temp;
+# include <stdarg.h>
+# include <unistd.h>
 
-	temp = NULL;
-	while (*s)
-	{
-		if (*s == (char)c)
-			temp = (char *)s;
-		s++;
-	}
-	if (*temp)
-		return ((char *)temp);
-	if (*s == (char)c)
-		return ((char *s);
-	return (NULL);
-}
+int ft_printf(const char *str, ...);
+void	ft_putchar(const char c);
+void	ft_putstr(const char *str);
+void	ft_find(const char c, va_list args);
+
+
+#endif
