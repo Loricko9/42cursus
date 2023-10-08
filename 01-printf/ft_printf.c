@@ -26,7 +26,6 @@ int ft_printf(const char *str, ...)
 		{
 			i++;
 			ft_find(str[i], args);
-			va_arg(args, int);
 		}
 		i++;
 	}
@@ -36,6 +35,6 @@ int ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	ft_printf("%s\n%s\n%s\n%s\n%s\n", "alors", "tu", "vas", "bien", "?");
-	printf("%s\n%s\n%s\n%s\n%s\n", "alors", "tu", "vas", "bien", "?");
+	ft_printf("%x\n%x\n%x\n%X\n%X\n%X\n\n", -16, 15, -1, 27, 1, -89875);
+	printf("%x\n%x\n%x\n%X\n%X\n%X\n", -16, 15, -1, 27, 1, -89875);
 }

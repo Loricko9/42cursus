@@ -27,3 +27,28 @@ void	ft_putstr(const char *str)
 		i++;
 	}
 }
+
+void	ft_putnbr(int nb)
+{
+	long	nbr;
+
+	nbr = nb;
+	if (nbr < 0)
+	{
+		ft_putchar('-');
+		nbr = nbr * -1;
+	}
+	if (nbr > 9)
+		ft_putnbr(nbr / 10);
+	ft_putchar(nbr % 10 + 48);
+}
+
+void	ft_putnbr_hexa(unsigned int nb, char *base)
+{
+	unsigned long	nbr;
+
+	nbr = nb;
+	if (nbr > 15)
+		ft_putnbr_hexa(nbr / 16, base);
+	ft_putchar(base[nbr % 16]);
+}

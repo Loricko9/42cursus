@@ -22,13 +22,13 @@ void	ft_find(const char c, va_list args)
 	else if (c == 'd')
 		printf("non\n");
 	else if (c == 'i')
-		printf("non\n");
+		ft_putnbr(va_arg(args, int));
 	else if (c == 'u')
 		printf("non\n");
 	else if (c == 'x')
-		printf("non\n");
+		ft_putnbr_hexa(va_arg(args, int), "0123456789abcdef");
 	else if (c == 'X')
-		printf("non\n");
+		ft_putnbr_hexa(va_arg(args, int), "0123456789ABCDEF");
 	else if (c == '%')
 		ft_putchar(c);
 	else
