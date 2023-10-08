@@ -11,6 +11,18 @@
 /* ************************************************************************** */
 #include "printf.h"
 #include <stdio.h>
+
+void	ft_printpoint(long nb)
+{
+	if (nb == 0)
+		ft_putstr("(nil)");
+	else
+	{
+		ft_putstr("0x");
+		ft_putlong_hexa(nb, "0123456789abcdef");
+	}
+}
+
 void	ft_find(const char c, va_list args)
 {
 	if (c == 'c')
@@ -18,7 +30,7 @@ void	ft_find(const char c, va_list args)
 	else if (c == 's')
 		ft_putstr((char *)va_arg(args, int *));
 	else if (c == 'p')
-		printf("non\n");
+		ft_printpoint(va_arg(args, long));
 	else if (c == 'd')
 		printf("non\n");
 	else if (c == 'i')

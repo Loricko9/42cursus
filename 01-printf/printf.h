@@ -15,11 +15,13 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-int 	ft_printf(const char *str, ...);
+int		ft_printf(const char *str, ...);
 void	ft_find(const char c, va_list args);
 void	ft_putchar(const char c);
 void	ft_putstr(const char *str);
 void	ft_putnbr(int nb);
 void	ft_putnbr_hexa(unsigned int nb, char *base);
+void	ft_putlong_hexa(long nb, char *base);
+void	ft_printpoint(long nb);
 
 #endif

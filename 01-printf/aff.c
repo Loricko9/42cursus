@@ -43,6 +43,16 @@ void	ft_putnbr(int nb)
 	ft_putchar(nbr % 10 + 48);
 }
 
+void	ft_putlong_hexa(long nb, char *base)
+{
+	long long	nbr;
+
+	nbr = nb;
+	if (nbr > 15)
+		ft_putlong_hexa(nbr / 16, base);
+	ft_putchar(base[nbr % 16]);
+}
+
 void	ft_putnbr_hexa(unsigned int nb, char *base)
 {
 	unsigned long	nbr;

@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 #include "printf.h"
 #include <stdio.h>
-int ft_printf(const char *str, ...)
+
+int	ft_printf(const char *str, ...)
 {
 	int		i;
 	va_list	args;
@@ -35,6 +36,11 @@ int ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	ft_printf("%x\n%x\n%x\n%X\n%X\n%X\n\n", -16, 15, -1, 27, 1, -89875);
-	printf("%x\n%x\n%x\n%X\n%X\n%X\n", -16, 15, -1, 27, 1, -89875);
+	int test = 56;
+	char *str = "salut";
+	long int *i = 0;
+	int *n = NULL;
+
+	ft_printf("%p\n%p\n%p\n%p\n\n", &test, str, i, n);
+	printf("%p\n%p\n%p\n%p\n", &test, str, i, n);
 }
