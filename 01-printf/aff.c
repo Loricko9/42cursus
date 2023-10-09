@@ -9,7 +9,7 @@
 /*   Updated: 2023/10/08 11:34:18 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "printf.h"
+#include "ft_printf.h"
 
 void	ft_putchar(const char c)
 {

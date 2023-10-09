@@ -1,4 +1,4 @@
-FT 		=	ft_printf.c search.c aff.c
+FT 		=	ft_printf.c aff_unsigned.c aff.c
 
 NAME	=	libftprintf.a
 CC		=	gcc

@@ -9,8 +9,42 @@
 /*   Updated: 2023/10/08 11:10:23 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "printf.h"
-#include <stdio.h>
+#include "ft_printf.h"
+
+void	ft_printpoint(long nb)
+{
+	if (nb == 0)
+		ft_putstr("(nil)");
+	else
+	{
+		ft_putstr("0x");
+		ft_putlong_hexa(nb, "0123456789abcdef");
+	}
+}
+
+void	ft_find(const char c, va_list args)
+{
+	if (c == 'c')
+		ft_putchar((char)va_arg(args, int));
+	else if (c == 's')
+		ft_putstr((char *)va_arg(args, int *));
+	else if (c == 'p')
+		ft_printpoint(va_arg(args, long));
+	else if (c == 'd')
+		ft_putnbr(va_arg(args, int));
+	else if (c == 'i')
+		ft_putnbr(va_arg(args, int));
+	else if (c == 'u')
+		ft_putnbr_unsigned(va_arg(args, unsigned int));
+	else if (c == 'x')
+		ft_putnbr_hexa(va_arg(args, int), "0123456789abcdef");
+	else if (c == 'X')
+		ft_putnbr_hexa(va_arg(args, int), "0123456789ABCDEF");
+	else if (c == '%')
+		ft_putchar(c);
+	else
+		return ;
+}
 
 int	ft_printf(const char *str, ...)
 {
@@ -32,15 +66,4 @@ int	ft_printf(const char *str, ...)
 	}
 	va_end(args);
 	return (0);
-}
-
-int	main(void)
-{
-	int test = 56;
-	char *str = "salut";
-	long int *i = 0;
-	int *n = NULL;
-
-	ft_printf("%p\n%p\n%p\n%p\n\n", &test, str, i, n);
-	printf("%p\n%p\n%p\n%p\n", &test, str, i, n);
 }
