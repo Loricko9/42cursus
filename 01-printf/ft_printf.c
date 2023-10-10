@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_printpoint(long nb, int *count)
+void	ft_printpoint(unsigned long long nb, int *count)
 {
 	if (nb == 0)
 		ft_putstr("(nil)", count);
@@ -30,7 +30,7 @@ void	ft_find(const char c, va_list args, int *count)
 	else if (c == 's')
 		ft_putstr((char *)va_arg(args, int *), count);
 	else if (c == 'p')
-		ft_printpoint(va_arg(args, long), count);
+		ft_printpoint(va_arg(args, unsigned long long), count);
 	else if (c == 'd')
 		ft_putnbr(va_arg(args, int), count);
 	else if (c == 'i')
@@ -50,7 +50,7 @@ void	ft_find(const char c, va_list args, int *count)
 int	ft_printf(const char *str, ...)
 {
 	int		i;
-	int 	count;
+	int		count;
 	va_list	args;
 
 	i = 0;

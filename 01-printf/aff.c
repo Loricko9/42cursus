@@ -21,6 +21,11 @@ void	ft_putstr(const char *str, int *count)
 {
 	int	i;
 
+	if (!str)
+	{
+		ft_putstr("(null)", count);
+		return ;
+	}
 	i = 0;
 	while (str[i] != '\0')
 	{
@@ -44,14 +49,11 @@ void	ft_putnbr(int nb, int *count)
 	ft_putchar(nbr % 10 + 48, count);
 }
 
-void	ft_putlong_hexa(long nb, char *base, int *count)
+void	ft_putlong_hexa(unsigned long long nb, char *base, int *count)
 {
-	long long	nbr;
-
-	nbr = nb;
-	if (nbr > 15)
-		ft_putlong_hexa(nbr / 16, base, count);
-	ft_putchar(base[nbr % 16], count);
+	if (nb > 15)
+		ft_putlong_hexa(nb / 16, base, count);
+	ft_putchar(base[nb % 16], count);
 }
 
 void	ft_putnbr_hexa(unsigned int nb, char *base, int *count)
