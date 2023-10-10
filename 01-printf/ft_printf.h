@@ -17,14 +17,13 @@
 # include <unistd.h>
 
 int		ft_printf(const char *str, ...);
-void	ft_find(const char c, va_list args);
-void	ft_putchar(const char c);
-void	ft_putstr(const char *str);
-void	ft_putnbr(int nb);
-void	ft_putnbr_hexa(unsigned int nb, char *base);
-void	ft_putnbr_unsigned(unsigned int nb);
-void	ft_putlong_hexa(long nb, char *base);
-void	ft_printpoint(long nb);
-void	ft_flags(const char *str, va_list args);
+void	ft_find(const char c, va_list args, int *count);
+void	ft_printpoint(long nb, int *count);
+void	ft_putchar(const char c, int *count);
+void	ft_putstr(const char *str, int *count);
+void	ft_putnbr(int nb, int *count);
+void	ft_putlong_hexa(long nb, char *base, int *count);
+void	ft_putnbr_hexa(unsigned int nb, char *base, int *count);
+void	ft_putnbr_unsigned(unsigned int nb, int *count);
 
 #endif
