@@ -23,9 +23,7 @@ char	*ft_strrchr(const char *s, int c)
 			temp = (char *)s;
 		s++;
 	}
-	if (*temp)
-		return ((char *)temp);
-	if (*s == (char)c)
-		return ((char *s);
-	return (NULL);
+	if ((char)c == 0)
+		return ((char *)s);
+	return (temp);
 }
