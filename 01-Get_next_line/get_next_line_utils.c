@@ -12,6 +12,18 @@
 
 #include "get_next_line.h"
 
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i] != 0)
+		i++;
+	return (i);
+}
+
 char	*ft_calloc(size_t nmemb)
 {
 	char	*tab;
@@ -29,14 +41,14 @@ char	*ft_calloc(size_t nmemb)
 	return (tab);
 }
 
-char	*ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char *src, int size)
 {
 	int	i;
 
 	i = 0;
 	if (!src)
 		return (NULL);
-	while (i < BUFFER_SIZE)
+	while (i < size)
 	{
 		dest[i] = src[i];
 		i++;
@@ -50,25 +62,23 @@ char	*ft_strcat(char *buff, char *stock, int size, int re)
 	int		i;
 	int		j;
 
-	if (stock)
+	temp = NULL;
+	if (stock != NULL)
 	{
 		temp = ft_calloc(size - re);
 		if (!temp)
 			return (NULL);
-		ft_strcpy(temp, stock);
+		ft_strcpy(temp, stock, size - re);
 		free(stock);
 	}
-	if (!ft_calloc(size))
+	stock = ft_calloc(size);
+	if (!stock)
 		return (NULL);
-	ft_strcpy(stock, temp);
-	i = size;
+	ft_strcpy(stock, temp, size - re);
+	i = size - re;
 	j = 0;
 	while (j < re)
-	{
-		stock[i] = buff[j];
-		i++;
-		j++;
-	}
+		stock[i++] = buff[j++];
 	free(temp);
 	return (stock);
 }

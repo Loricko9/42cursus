@@ -15,15 +15,17 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 
 char	*get_next_line(int fd);
-char	*ft_line(char *stock, int *size);
+char	*ft_line(char *stock, int size);
 char	*ft_read(int fd, char *stock, int *size);
 char	*ft_clear_stock(char *stock, int *size);
 char	*ft_calloc(size_t nmemb);
 char	*ft_strcat(char *buff, char *stock, int size, int re);
-char	*ft_strcpy(char *dest, char *src);
+char	*ft_strcpy(char *dest, char *src, int size);
 int		ft_find(char *stock, int size);
+int		ft_strlen(char *str);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 3

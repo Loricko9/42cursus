@@ -12,18 +12,18 @@
 
 #include "get_next_line.h"
 
-char	*ft_line(char *stock, int *size)
+char	*ft_line(char *stock, int size)
 {
 	char	*line;	
 	int		i;
 	int		len;
 
 	i = 0;
-	if (ft_find(stock, *size) >= 0)
-		len = ft_find(stock, *size) + 1;
+	if (ft_find(stock, size) >= 0)
+		len = ft_find(stock, size) + 1;
 	else
-		len = *size;
-	line = malloc(sizeof(char) * len + 1);
+		len = size;
+	line = malloc(sizeof(char) * (len + 1));
 	if (!line)
 		return (NULL);
 	while (i < len)
@@ -57,13 +57,14 @@ char	*ft_read(int fd, char *stock, int *size)
 	int		count;
 	int		re;
 
-	buff = ft_calloc(BUFFER_SIZE);
+	buff = malloc(sizeof(char) * BUFFER_SIZE);
 	if (!buff)
 		return (NULL);
 	re = read(fd, buff, BUFFER_SIZE);
 	count = 1;
-	*size = re;
-	if (re < 0 || !ft_strcat(buff, stock, *size, re))
+	*size = *size + re;
+	stock = ft_strcat(buff, stock, *size, re);
+	if (re < 0 || !stock)
 		return (NULL);
 	while (re == BUFFER_SIZE && ft_find(stock, *size) < 0)
 	{
@@ -73,6 +74,7 @@ char	*ft_read(int fd, char *stock, int *size)
 			return (NULL);
 		count++;
 	}
+	free(buff);
 	return (stock);
 }
 
@@ -89,14 +91,14 @@ char	*ft_clear_stock(char *stock, int *size)
 		temp = ft_calloc(*size);
 		if (!temp)
 			return (NULL);
-		ft_strcpy(temp, stock);
+		ft_strcpy(temp, stock, *size);
 		free(stock);
-		stock = ft_calloc(*size - (ft_find(temp, *size) + 1));
+		stock = ft_calloc(*size - (ft_find(temp, *size) - 1));
 		if (!stock)
 			return (NULL);
 		i = ft_find(temp, *size) + 1;
-		j = -1;
-		while (i < ft_find(temp, *size) + 1)
+		j = 0;
+		while (i < *size)
 			stock[j++] = temp[i++];
 		free(temp);
 	}
@@ -111,10 +113,11 @@ char	*get_next_line(int fd)
 
 	if (!fd || BUFFER_SIZE <= 0)
 		return (NULL);
-	size = 0;
-	if (!ft_read(fd, stock, &size))
+	size = ft_strlen(stock);
+	stock = ft_read(fd, stock, &size);
+	if (!stock)
 		return (NULL);
-	line = ft_line(stock, &size);
+	line = ft_line(stock, size);
 	if (!line)
 		return (NULL);
 	stock = ft_clear_stock(stock, &size);
