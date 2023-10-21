@@ -19,8 +19,10 @@ int	ft_strlen(char *str)
 	if (!str)
 		return (0);
 	i = 0;
-	while (str[i] != 0)
+	while (str[i] != '\0')
+	{	
 		i++;
+	}
 	return (i);
 }
 
@@ -53,32 +55,33 @@ char	*ft_strcpy(char *dest, char *src, int size)
 		dest[i] = src[i];
 		i++;
 	}
+	dest[i] = '\0';
 	return (dest);
 }
 
-char	*ft_strcat(char *buff, char *stock, int size, int re)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*temp;
 	int		i;
 	int		j;
+	char	*tab;
+	size_t	size;
 
-	temp = NULL;
-	if (stock != NULL)
+	if (!s1)
 	{
-		temp = ft_calloc(size - re);
-		if (!temp)
-			return (NULL);
-		ft_strcpy(temp, stock, size - re);
-		free(stock);
+		s1 = malloc(sizeof(char) * 1);
+		s1[0] = '\0';
 	}
-	stock = ft_calloc(size);
-	if (!stock)
+	size = ft_strlen(s1) + ft_strlen(s2) + 1;
+	i = 0;
+	tab = malloc(size * sizeof(char));
+	if (!tab)
 		return (NULL);
-	ft_strcpy(stock, temp, size - re);
-	i = size - re;
+	while (s1[++i] != '\0')
+		tab[i] = s1[i];
 	j = 0;
-	while (j < re)
-		stock[i++] = buff[j++];
-	free(temp);
-	return (stock);
+	while (s2[j] != '\0')
+		tab[i++] = s2[j++];
+	tab[i] = '\0';
+	free(s1);
+	return (tab);
 }
