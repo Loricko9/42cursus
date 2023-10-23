@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   Get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 13:47:24 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/10/20 13:47:24 by lle-saul         ###   ########.fr       */
+/*   Created: 2023/10/22 16:52:00 by lle-saul          #+#    #+#             */
+/*   Updated: 2023/10/22 16:52:00 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdlib.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
 # include <unistd.h>
-# include <stdio.h>
+# include <stdlib.h>
 
 typedef struct s_list
 {
@@ -24,18 +27,14 @@ typedef struct s_list
 }				t_list;
 
 char	*get_next_line(int fd);
-char	*ft_line(t_list *lst, t_list *first);
-char	*ft_strcat(t_list *lst);
-int		ft_find(t_list *lst);
-int		ft_strchr(char *str);
-t_list	*ft_read(int fd, t_list *lst);
-t_list	*ft_lstnew(char *str, int re);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstclear(t_list **lst, void (*del)(void*));
-void	ft_lstdelone(t_list *lst, void (*del)(void*));
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
+char	*ft_line(t_list *stock);
+void	ft_read(t_list **stock, int fd);
+void	ft_add(t_list **stock, char *buff, int size);
+void	ft_clear_stock(t_list **stock);
+void	ft_free_stock(t_list *stock);
+t_list	*ft_lstlast(t_list *stock);
+int		ft_get_size(t_list *stock);
+int		ft_find(t_list *stock);
+int		ft_strlen(char *str);
 
 #endif

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/21 16:52:58 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/10/21 16:52:58 by lle-saul         ###   ########.fr       */
+/*   Created: 2023/10/22 17:06:16 by lle-saul          #+#    #+#             */
+/*   Updated: 2023/10/22 17:06:16 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,24 @@
 
 void	ft_free_stock(t_list *stock)
 {
-	t_list	*next;
+	t_list	*temp;
 
 	while (stock != NULL)
 	{
-		next = stock->next;
+		temp = stock->next;
 		free(stock->str);
 		free(stock);
-		stock = next;
+		stock = temp;
 	}
+}
+
+t_list	*ft_lstlast(t_list *stock)
+{
+	if (!stock)
+		return (NULL);
+	while (stock->next != NULL)
+		stock = stock->next;
+	return (stock);
 }
 
 int	ft_get_size(t_list *stock)
@@ -64,15 +73,6 @@ int	ft_find(t_list *stock)
 		stock = stock->next;
 	}
 	return (0);
-}
-
-t_list	*ft_lstlast(t_list *stock)
-{
-	if (!stock)
-		return (NULL);
-	while (stock->next != NULL)
-		stock = stock->next;
-	return (stock);
 }
 
 int	ft_strlen(char *str)
