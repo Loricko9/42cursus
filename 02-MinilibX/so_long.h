@@ -14,7 +14,7 @@
 # define SO_LONG_H
 
 # include "minilibx-linux/mlx.h"
-#include <X11/keysym.h>
+# include <X11/keysym.h>
 # include <stdlib.h>
 # include "get_next_line.h"
 # include "ft_printf.h"
@@ -45,6 +45,17 @@ typedef struct s_sprite
 	t_img	garage_close;
 	t_img	garage_open;
 	t_img	counter;
+	t_img	victory;
+	t_img	z;
+	t_img	u;
+	t_img	d;
+	t_img	t;
+	t_img	q;
+	t_img	c;
+	t_img	six;
+	t_img	sept;
+	t_img	h;
+	t_img	n;
 }	t_sprite;
 
 typedef struct s_data
@@ -92,9 +103,15 @@ int		ft_key(int key, t_data *data);
 
 //display_utils.c
 int		ft_size(char **map, int n);
-void	ft_ini_img(t_data *data);
-void	ft_ini_img2(t_data *data, int *i, int *j);
+void	finish_img(t_data *data);
 int		ft_clear_display(t_data *data);
+void	ft_put_nb(t_data *data, int count, int *iter);
+void	ft_put_nb2(t_data *data, int count, int *iter);
+
+//display_utils2.c
+void	ft_put_nb3(t_data *data, int count, int *iter);
+void	show_counter(t_data *data);
+char	*ft_itoa(int n);
 
 //edit_map.c
 void	get_ppos(t_data *data);
@@ -102,5 +119,12 @@ void	ft_move(t_data *data, char c);
 void	ft_move2(t_data *data, char c);
 void	ft_garage(t_data *data);
 void	get_counter(t_data *data);
+
+//ini_img.c
+void	ft_ini_img(t_data *data);
+void	ft_ini_img2(t_data *data, int *i, int *j);
+void	ft_ini_img3(t_data *data, int *i, int *j);
+void	ft_ini_img4(t_data *data, int *i, int *j);
+void	ft_ini_img5(t_data *data, int *i, int *j);
 
 #endif

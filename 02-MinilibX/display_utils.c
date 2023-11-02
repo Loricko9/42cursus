@@ -23,6 +23,18 @@ int	ft_clear_display(t_data *data)
 	mlx_destroy_image(data->mlx, data->sprite.car_up.img_ptr);
 	mlx_destroy_image(data->mlx, data->sprite.garage_close.img_ptr);
 	mlx_destroy_image(data->mlx, data->sprite.garage_open.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.victory.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.counter.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.z.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.u.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.d.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.t.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.q.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.c.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.six.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.sept.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.h.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.n.img_ptr);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
@@ -49,61 +61,65 @@ int	ft_size(char **map, int n)
 	}
 }
 
-void	ft_ini_img(t_data *data)
+void	finish_img(t_data *data)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 
-	j = 64;
-	i = 64;
-	data->sprite.plot.img_ptr = mlx_xpm_file_to_image(data->mlx,
-			"textures/Plot.xpm", &i, &j);
-	data->sprite.plot.img_pix_ptr = mlx_get_data_addr(data->mlx, 
-			&data->sprite.plot.bits_per_pix, &data->sprite.plot.line_len, 
-			&data->sprite.plot.endian);
-	data->sprite.jerrican.img_ptr = mlx_xpm_file_to_image(data->mlx, 
-			"textures/Jerrican.xpm", &i, &j);
-	data->sprite.jerrican.img_pix_ptr = mlx_get_data_addr(data->mlx, 
-			&data->sprite.jerrican.bits_per_pix, 
-			&data->sprite.jerrican.line_len, &data->sprite.jerrican.endian);
-	data->sprite.empty.img_ptr = mlx_xpm_file_to_image(data->mlx,
-			"textures/Empty.xpm", &i, &j);
-	data->sprite.empty.img_pix_ptr = mlx_get_data_addr(data->mlx, 
-			&data->sprite.empty.bits_per_pix, &data->sprite.empty.line_len, 
-			&data->sprite.empty.endian);
-	data->sprite.car_down.img_ptr = mlx_xpm_file_to_image(data->mlx, 
-			"textures/Car_down.xpm", &i, &j);
-	ft_ini_img2(data, &i, &j);
+	y = ft_size(data->map, 0);
+	x = ft_size(data->map, 1);
+	mlx_put_image_to_window(data->mlx, data->win, 
+			data->sprite.victory.img_ptr, (x / 2) - 128, (y / 2) - 64);
 }
 
-void	ft_ini_img2(t_data *data, int *i, int *j)
+void	ft_put_nb(t_data *data, int count, int *iter)
 {
-	data->sprite.car_down.img_pix_ptr = mlx_get_data_addr(data->mlx, 
-			&data->sprite.car_down.bits_per_pix, 
-			&data->sprite.car_down.line_len, &data->sprite.car_down.endian);
-	data->sprite.car_left.img_ptr = mlx_xpm_file_to_image(data->mlx,
-			"textures/Car_left.xpm", i, j);
-	data->sprite.car_left.img_pix_ptr = mlx_get_data_addr(data->mlx, 
-			&data->sprite.car_left.bits_per_pix, 
-			&data->sprite.car_left.line_len, &data->sprite.car_left.endian);
-	data->sprite.car_right.img_ptr = mlx_xpm_file_to_image(data->mlx, 
-			"textures/Car_right.xpm", i, j);
-	data->sprite.car_right.img_pix_ptr = mlx_get_data_addr(data->mlx, 
-			&data->sprite.car_right.bits_per_pix, 
-			&data->sprite.car_right.line_len, &data->sprite.car_right.endian);
-	data->sprite.car_up.img_ptr = mlx_xpm_file_to_image(data->mlx, 
-			"textures/Car_up.xpm", i, j);
-	data->sprite.car_up.img_pix_ptr = mlx_get_data_addr(data->mlx, 
-			&data->sprite.car_up.bits_per_pix, 
-			&data->sprite.car_up.line_len, &data->sprite.car_up.endian);
-	data->sprite.garage_close.img_ptr = mlx_xpm_file_to_image(data->mlx, 
-			"textures/Garage_close.xpm", i, j);
-	data->sprite.garage_close.img_pix_ptr = mlx_get_data_addr(data->mlx, 
-			&data->sprite.garage_close.bits_per_pix, 
-			&data->sprite.garage_close.line_len, &data->sprite.garage_close.endian);
-	data->sprite.garage_open.img_ptr = mlx_xpm_file_to_image(data->mlx, 
-			"textures/Garage_open.xpm", i, j);
-	data->sprite.garage_open.img_pix_ptr = mlx_get_data_addr(data->mlx, 
-			&data->sprite.garage_open.bits_per_pix, 
-			&data->sprite.garage_open.line_len, &data->sprite.garage_open.endian);
+	if (count % 10 == 0)
+	{
+		mlx_put_image_to_window(data->mlx, data->win, 
+			data->sprite.z.img_ptr, 110 + *iter, 10);
+		*iter = *iter + 11;
+	}
+	else if (count % 10 == 1)
+	{
+		mlx_put_image_to_window(data->mlx, data->win, 
+			data->sprite.u.img_ptr, 110 + *iter, 10);
+		*iter = *iter + 9;
+	}
+	else if (count % 10 == 2)
+	{
+		mlx_put_image_to_window(data->mlx, data->win, 
+			data->sprite.d.img_ptr, 110 + *iter, 10);
+		*iter = *iter + 11;
+	}
+	ft_put_nb2(data, count, iter);
+	ft_put_nb3(data, count, iter);
+}
+
+void	ft_put_nb2(t_data *data, int count, int *iter)
+{
+	if (count % 10 == 3)
+	{
+		mlx_put_image_to_window(data->mlx, data->win, 
+			data->sprite.t.img_ptr, 110 + *iter, 10);
+		*iter = *iter + 11;
+	}
+	else if (count % 10 == 4)
+	{
+		mlx_put_image_to_window(data->mlx, data->win, 
+			data->sprite.q.img_ptr, 110 + *iter, 10);
+		*iter = *iter + 13;
+	}
+	else if (count % 10 == 5)
+	{
+		mlx_put_image_to_window(data->mlx, data->win, 
+			data->sprite.c.img_ptr, 110 + *iter, 10);
+		*iter = *iter + 11;
+	}
+	else if (count % 10 == 6)
+	{
+		mlx_put_image_to_window(data->mlx, data->win, 
+			data->sprite.six.img_ptr, 110 + *iter, 10);
+		*iter = *iter + 11;
+	}
 }

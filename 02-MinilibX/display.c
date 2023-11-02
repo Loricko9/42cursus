@@ -16,17 +16,19 @@ int	ft_key(int key, t_data *data)
 {
 	if (key == XK_Escape)
 		ft_clear_display(data);
-	else if (key == XK_Down)
-		ft_move(data, 'D');
-	else if (key == XK_Up)
-		ft_move(data, 'U');
-	else if (key == XK_Right)
-		ft_move(data, 'P');
-	else if (key == XK_Left)
-		ft_move(data, 'L');
-	ft_printf("collect : %d\n", data->collect);
-	if (data->collect == 0)
-		ft_garage(data);
+	if (data->collect != -1)
+	{
+		if (key == XK_Down)
+			ft_move(data, 'D');
+		else if (key == XK_Up)
+			ft_move(data, 'U');
+		else if (key == XK_Right)
+			ft_move(data, 'P');
+		else if (key == XK_Left)
+			ft_move(data, 'L');
+		if (data->collect == 0)
+			ft_garage(data);
+	}
 	ft_show_image(data->map, data);
 	return (0);
 }
@@ -74,6 +76,11 @@ void	ft_show_image(char **map, t_data *data)
 	int	j;
 
 	j = 0;
+	if (data->collect == -1)
+	{
+		finish_img(data);
+		return ;
+	}
 	while (map[j] != NULL)
 	{
 		i = 0;
@@ -84,6 +91,10 @@ void	ft_show_image(char **map, t_data *data)
 		}
 		j++;
 	}
+	
+	mlx_put_image_to_window(data->mlx, data->win, 
+			data->sprite.counter.img_ptr, 0, 0);
+	show_counter(data);
 }
 
 int	ft_display(char **map)

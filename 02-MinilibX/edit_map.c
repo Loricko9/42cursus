@@ -38,21 +38,27 @@ void	ft_move(t_data *data, char c)
 {
 	if (data->map[data->y][data->x] != c)
 		data->map[data->y][data->x] = c;
-	else if (c == 'D' && data->map[data->y + 1][data->x] != '1')
+	else if (c == 'D' && data->map[data->y + 1][data->x] != '1' && 
+				data->map[data->y + 1][data->x] != 'E')
 	{
-		if (data->map[data->y + 1][data->x] == 'C')
+		if (data->map[data->y + 1][data->x] == 'C' ||
+				data->map[data->y + 1][data->x] == 'O')
 			data->collect = data->collect - 1;
 		data->map[data->y][data->x] = '0';
 		data->y = data->y + 1;
 		data->map[data->y][data->x] = 'D';
+		data->counter++;
 	}
-	else if (c == 'P' && data->map[data->y][data->x + 1] != '1')
+	else if (c == 'P' && data->map[data->y][data->x + 1] != '1' && 
+				data->map[data->y][data->x + 1] != 'E')
 	{
-		if (data->map[data->y][data->x + 1] == 'C')
+		if (data->map[data->y][data->x + 1] == 'C' ||
+				data->map[data->y][data->x + 1] == 'O')
 			data->collect = data->collect - 1;
 		data->map[data->y][data->x] = '0';
 		data->x = data->x + 1;
 		data->map[data->y][data->x] = 'P';
+		data->counter++;
 	}
 	else if (c == 'U' || c == 'L')
 		ft_move2(data, c);
@@ -60,21 +66,27 @@ void	ft_move(t_data *data, char c)
 
 void	ft_move2(t_data *data, char c)
 {
-	if (c == 'U' && data->map[data->y - 1][data->x] != '1')
+	if (c == 'U' && data->map[data->y - 1][data->x] != '1' && 
+				data->map[data->y - 1][data->x] != 'E')
 	{
-		if (data->map[data->y - 1][data->x] == 'C')
+		if (data->map[data->y - 1][data->x] == 'C' ||
+				data->map[data->y - 1][data->x] == 'O')
 			data->collect = data->collect - 1;
 		data->map[data->y][data->x] = '0';
 		data->y = data->y - 1;
 		data->map[data->y][data->x] = 'U';
+		data->counter++;
 	}
-	else if (c == 'L' && data->map[data->y][data->x - 1] != '1')
+	else if (c == 'L' && data->map[data->y][data->x - 1] != '1' && 
+				data->map[data->y][data->x - 1] != 'E')
 	{
-		if (data->map[data->y][data->x - 1] == 'C')
+		if (data->map[data->y][data->x - 1] == 'C' ||
+				data->map[data->y][data->x - 1] == 'O')
 			data->collect = data->collect - 1;
 		data->map[data->y][data->x] = '0';
 		data->x = data->x - 1;
 		data->map[data->y][data->x] = 'L';
+		data->counter++;
 	}
 }
 
