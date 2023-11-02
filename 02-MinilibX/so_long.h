@@ -33,14 +33,30 @@ typedef struct s_img
 	int		line_len;
 }	t_img;
 
-typedef struct s_data
+typedef struct s_sprite
 {
-	void	*mlx;
-	void	*win;
-	char	**map;
 	t_img	plot;
 	t_img	jerrican;
 	t_img	empty;
+	t_img	car_left;
+	t_img	car_up;
+	t_img	car_down;
+	t_img	car_right;
+	t_img	garage_close;
+	t_img	garage_open;
+	t_img	counter;
+}	t_sprite;
+
+typedef struct s_data
+{
+	void		*mlx;
+	void		*win;
+	char		**map;
+	t_sprite	sprite;
+	int			x;
+	int			y;
+	int			counter;
+	int			collect;
 }	t_data;
 
 //utils_lst.c
@@ -69,13 +85,22 @@ void	check_char_spe(char car, int *e, int *c, int *p);
 
 //display.c
 int		ft_display(char **map);
-void	ft_first_image(char **map, t_data *data);
+void	ft_show_image(char **map, t_data *data);
 void	ft_choose_sprite(char c, t_data *data, int j, int i);
+void	ft_choose_car(char c, t_data *data, int j, int i);
 int		ft_key(int key, t_data *data);
 
 //display_utils.c
 int		ft_size(char **map, int n);
 void	ft_ini_img(t_data *data);
+void	ft_ini_img2(t_data *data, int *i, int *j);
 int		ft_clear_display(t_data *data);
+
+//edit_map.c
+void	get_ppos(t_data *data);
+void	ft_move(t_data *data, char c);
+void	ft_move2(t_data *data, char c);
+void	ft_garage(t_data *data);
+void	get_counter(t_data *data);
 
 #endif
