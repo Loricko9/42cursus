@@ -1,5 +1,5 @@
 SRCS 	=	check_map.c check_map2.c display_utils.c display.c utils_lst.c \
-			get_map.c get_next_line_utils.c get_next_line.c main.c aff.c\
+			get_map.c get_next_line_utils.c get_next_line.c main.c aff.c check_map3.c\
 			edit_map.c ini_img.c display_utils2.c ft_printf.c edit_map2.c
 
 OBJS	=	$(SRCS:.c=.o)

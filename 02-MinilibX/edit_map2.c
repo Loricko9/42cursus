@@ -26,4 +26,3 @@ void	ft_move3(t_data *data, char c)
 		data->counter++;
 	}
 }
-

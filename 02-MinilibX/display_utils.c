@@ -42,13 +42,13 @@ int	ft_size(char **map, int n)
 	{
 		while (map[0][i] != '\0')
 			i++;
-		return (i * 64);
+		return (i);
 	}
 	else
 	{
 		while (map[i] != NULL)
 			i++;
-		return (i * 64);
+		return (i);
 	}
 }
 
@@ -57,8 +57,8 @@ void	finish_img(t_data *data)
 	int	y;
 	int	x;
 
-	y = ft_size(data->map, 0);
-	x = ft_size(data->map, 1);
+	y = ft_size(data->map, 0) * 64;
+	x = ft_size(data->map, 1) * 64;
 	mlx_put_image_to_window(data->mlx, data->win, 
 		data->sprite.victory.img_ptr, (x / 2) - 128, (y / 2) - 64);
 }

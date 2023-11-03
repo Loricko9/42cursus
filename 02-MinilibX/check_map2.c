@@ -48,25 +48,32 @@ int	check_char2(char **map)
 	return (0);
 }
 
-int	get_path(char **map, int j, int i, long long iter)
+int	get_path(char **map, int jend, int iend, t_pos *pos)
 {
-	if (map[j][i] == '1' || (map[j][i] == 'P' && iter > 0))
-		return (1);
-	if (map[j][i] == 'E')
-		return (0);
-	iter++;
-	if (get_path(map, j + 1, i, iter) == 0)
-		return (0);
-	if (get_path(map, j, i + 1, iter) == 0)
-		return (0);
-	if (get_path(map, j - 1, i, iter) == 0)
-		return (0);
-	if (get_path(map, j, i - 1, iter) == 0)
-		return (0);
+	int		top;
+	t_pos	cur;
+
+	top = 1;
+	while (top > 0)
+	{
+		top--;
+		cur.j = pos[top].j;
+		cur.i = pos[top].i;
+		if (cur.j == jend && cur.i == iend)
+			return (0);
+		if (map[cur.j + 1][cur.i] != '1' && map[cur.j + 1][cur.i] != '2')
+		{
+			pos[top].j = cur.j + 1;
+			pos[top].i = cur.i;
+			map[cur.j + 1][cur.i] = '2';
+			top++;
+		}
+		get_path2(map, pos, &top, cur);
+	}
 	return (1);
 }
 
-int	check_path(char **map)
+void	get_start(t_pos *pos, char **map)
 {
 	int	i;
 	int	j;
@@ -78,7 +85,39 @@ int	check_path(char **map)
 		while (map[j][i] != '\0')
 		{
 			if (map[j][i] == 'P')
-				return (get_path(map, j, i, 0));
+			{
+				pos[0].i = i;
+				pos[0].j = j;
+				return ;
+			}
+			i++;
+		}
+		j++;
+	}
+}
+
+int	check_path(char **map)
+{
+	t_pos	pos[STACK_SIZE];
+	int		i;
+	int		j;
+	int		res;
+	char	**map_copy;
+
+	j = 0;
+	get_start(pos, map);
+	map_copy = dup_map(map);
+	while (map[j] != NULL)
+	{
+		i = 0;
+		while (map[j][i] != '\0')
+		{
+			if (map[j][i] == 'E')
+			{
+				res = get_path(map_copy, j, i, pos);
+				free_map(map_copy);
+				return (res);
+			}
 			i++;
 		}
 		j++;

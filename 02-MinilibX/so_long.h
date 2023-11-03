@@ -24,6 +24,14 @@
 # include <fcntl.h>
 # include <stdio.h>
 
+# define STACK_SIZE 1024
+
+typedef struct s_pos
+{
+	int	i;
+	int	j;
+}	t_pos;
+
 typedef struct s_img
 {
 	void	*img_ptr;
@@ -87,12 +95,17 @@ int		check_char(char **map);
 int		check_wall(char **map);
 int		check_wall2(char **map, int j, int end);
 void	free_map(char **map);
+char	**dup_map(char **map);
 
 //check_map2.c
 int		check_path(char **map);
-int		get_path(char **map, int j, int i, long long iter);
+int		get_path(char **map, int jend, int iend, t_pos *pos);
 int		check_char2(char **map);
+void	get_start(t_pos *pos, char **map);
 void	check_char_spe(char car, int *e, int *c, int *p);
+
+//check_map3.c
+void	get_path2(char **map, t_pos *pos, int *top, t_pos cur);
 
 //display.c
 int		ft_display(char **map);

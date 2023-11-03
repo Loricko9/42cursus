@@ -106,8 +106,8 @@ int	ft_display(char **map)
 	get_counter(&data);
 	if (data.mlx == NULL)
 		return (1);
-	data.win = mlx_new_window(data.mlx, ft_size(map, 1), 
-			ft_size(map, 0), "Need For Speed 1950");
+	data.win = mlx_new_window(data.mlx, (ft_size(map, 1) * 64), 
+			(ft_size(map, 0) * 64), "Need For Speed 1950");
 	if (data.win == NULL)
 	{
 		mlx_destroy_display(data.mlx);

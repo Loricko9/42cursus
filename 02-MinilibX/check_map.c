@@ -12,14 +12,28 @@
 
 #include "so_long.h"
 
-void	free_map(char **map)
+char	**dup_map(char **map)
 {
-	int	i;
+	char	**map_copy;
+	int		i;
+	int		j;
 
-	i = 0;
-	while (map[i] != NULL)
-		free(map[i++]);
-	free(map);
+	map_copy = malloc(sizeof(char *) * (ft_size(map, 0) + 1));
+	j = 0;
+	while (map[j] != NULL)
+	{
+		i = 0;
+		map_copy[j] = malloc(sizeof(char) * (ft_size(map, 1) + 1));
+		while (map[j][i] != '\0')
+		{
+			map_copy[j][i] = map[j][i];
+			i++;
+		}
+		map_copy[j][i] = '\0';
+		j++;
+	}
+	map_copy[j] = NULL;
+	return (map_copy);
 }
 
 int	check_char(char **map)
@@ -89,7 +103,7 @@ int	check_wall2(char **map, int j, int end)
 int	check_map(char **map)
 {
 	if (check_char(map) == 1 || check_char2(map) == 1 || 
-		check_wall(map) == 1)
+		check_wall(map) == 1 || check_path(map) == 1)
 	{
 		free_map(map);
 		return (1);
