@@ -1,6 +1,6 @@
-SRCS 	=	aff.c check_map.c check_map2.c display_utils.c display.c ft_printf.c \
-			get_map.c get_next_line_utils.c get_next_line.c main.c utils_lst.c \
-			edit_map.c ini_img.c display_utils2.c
+SRCS 	=	check_map.c check_map2.c display_utils.c display.c utils_lst.c \
+			get_map.c get_next_line_utils.c get_next_line.c main.c aff.c\
+			edit_map.c ini_img.c display_utils2.c ft_printf.c edit_map2.c
 
 OBJS	=	$(SRCS:.c=.o)
 NAME	=	so_long

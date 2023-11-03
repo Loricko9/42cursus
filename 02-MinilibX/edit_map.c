@@ -49,18 +49,9 @@ void	ft_move(t_data *data, char c)
 		data->map[data->y][data->x] = 'D';
 		data->counter++;
 	}
-	else if (c == 'P' && data->map[data->y][data->x + 1] != '1' && 
-				data->map[data->y][data->x + 1] != 'E')
-	{
-		if (data->map[data->y][data->x + 1] == 'C' ||
-				data->map[data->y][data->x + 1] == 'O')
-			data->collect = data->collect - 1;
-		data->map[data->y][data->x] = '0';
-		data->x = data->x + 1;
-		data->map[data->y][data->x] = 'P';
-		data->counter++;
-	}
-	else if (c == 'U' || c == 'L')
+	else if (c == 'P')
+		ft_move3(data, c);
+	else if (c == 'U' || c == 'L') 
 		ft_move2(data, c);
 }
 

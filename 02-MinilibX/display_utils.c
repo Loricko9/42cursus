@@ -14,6 +14,7 @@
 
 int	ft_clear_display(t_data *data)
 {
+	clear_nb_sprite(data);
 	mlx_destroy_image(data->mlx, data->sprite.jerrican.img_ptr);
 	mlx_destroy_image(data->mlx, data->sprite.empty.img_ptr);
 	mlx_destroy_image(data->mlx, data->sprite.plot.img_ptr);
@@ -25,16 +26,6 @@ int	ft_clear_display(t_data *data)
 	mlx_destroy_image(data->mlx, data->sprite.garage_open.img_ptr);
 	mlx_destroy_image(data->mlx, data->sprite.victory.img_ptr);
 	mlx_destroy_image(data->mlx, data->sprite.counter.img_ptr);
-	mlx_destroy_image(data->mlx, data->sprite.z.img_ptr);
-	mlx_destroy_image(data->mlx, data->sprite.u.img_ptr);
-	mlx_destroy_image(data->mlx, data->sprite.d.img_ptr);
-	mlx_destroy_image(data->mlx, data->sprite.t.img_ptr);
-	mlx_destroy_image(data->mlx, data->sprite.q.img_ptr);
-	mlx_destroy_image(data->mlx, data->sprite.c.img_ptr);
-	mlx_destroy_image(data->mlx, data->sprite.six.img_ptr);
-	mlx_destroy_image(data->mlx, data->sprite.sept.img_ptr);
-	mlx_destroy_image(data->mlx, data->sprite.h.img_ptr);
-	mlx_destroy_image(data->mlx, data->sprite.n.img_ptr);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
@@ -69,7 +60,7 @@ void	finish_img(t_data *data)
 	y = ft_size(data->map, 0);
 	x = ft_size(data->map, 1);
 	mlx_put_image_to_window(data->mlx, data->win, 
-			data->sprite.victory.img_ptr, (x / 2) - 128, (y / 2) - 64);
+		data->sprite.victory.img_ptr, (x / 2) - 128, (y / 2) - 64);
 }
 
 void	ft_put_nb(t_data *data, int count, int *iter)

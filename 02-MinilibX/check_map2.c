@@ -24,10 +24,10 @@ void	check_char_spe(char car, int *e, int *c, int *p)
 
 int	check_char2(char **map)
 {
-	int i;
-	int j;
-	int e;
-	int p;
+	int	i;
+	int	j;
+	int	e;
+	int	p;
 	int	c;
 
 	j = -1;
@@ -55,21 +55,21 @@ int	get_path(char **map, int j, int i, long long iter)
 	if (map[j][i] == 'E')
 		return (0);
 	iter++;
-	if (get_path(map , j + 1, i, iter) == 0)
+	if (get_path(map, j + 1, i, iter) == 0)
 		return (0);
-	if (get_path(map , j, i + 1, iter) == 0)
+	if (get_path(map, j, i + 1, iter) == 0)
 		return (0);
-	if (get_path(map , j - 1, i, iter) == 0)
+	if (get_path(map, j - 1, i, iter) == 0)
 		return (0);
-	if (get_path(map , j, i - 1, iter) == 0)
+	if (get_path(map, j, i - 1, iter) == 0)
 		return (0);
 	return (1);
 }
 
 int	check_path(char **map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	while (map[j] != NULL)
@@ -85,4 +85,3 @@ int	check_path(char **map)
 	}
 	return (1);
 }
-

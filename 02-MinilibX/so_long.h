@@ -112,6 +112,7 @@ void	ft_put_nb2(t_data *data, int count, int *iter);
 void	ft_put_nb3(t_data *data, int count, int *iter);
 void	show_counter(t_data *data);
 char	*ft_itoa(int n);
+void	clear_nb_sprite(t_data *data);
 
 //edit_map.c
 void	get_ppos(t_data *data);
@@ -126,5 +127,8 @@ void	ft_ini_img2(t_data *data, int *i, int *j);
 void	ft_ini_img3(t_data *data, int *i, int *j);
 void	ft_ini_img4(t_data *data, int *i, int *j);
 void	ft_ini_img5(t_data *data, int *i, int *j);
+
+//edit_map2.c
+void	ft_move3(t_data *data, char c);
 
 #endif

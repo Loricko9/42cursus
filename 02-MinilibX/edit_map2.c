@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   edit_map2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 14:56:46 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/10/30 14:56:46 by lle-saul         ###   ########.fr       */
+/*   Created: 2023/11/03 13:26:49 by lle-saul          #+#    #+#             */
+/*   Updated: 2023/11/03 13:26:49 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int ac, char **av)
+void	ft_move3(t_data *data, char c)
 {
-	char	**map;
-
-	if (ac != 2)
-		return (1);
-	map = get_map(open(av[1], O_RDONLY));
-	if (!map)
-		return (ft_printf("Memmory alloc ERROR !\n"));
-	if (check_map(map) == 1)
-		return (ft_printf("Map ERROR !\n"));
-	if (ft_display(map) == 1)
+	if (c == 'P' && data->map[data->y][data->x + 1] != '1' && 
+				data->map[data->y][data->x + 1] != 'E')
 	{
-		free_map(map);
-		return (ft_printf("Display ERROR !"));
+		if (data->map[data->y][data->x + 1] == 'C' ||
+				data->map[data->y][data->x + 1] == 'O')
+			data->collect = data->collect - 1;
+		data->map[data->y][data->x] = '0';
+		data->x = data->x + 1;
+		data->map[data->y][data->x] = 'P';
+		data->counter++;
 	}
 }
+

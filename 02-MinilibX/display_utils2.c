@@ -92,3 +92,17 @@ void	show_counter(t_data *data)
 	}
 	free(str);
 }
+
+void	clear_nb_sprite(t_data *data)
+{
+	mlx_destroy_image(data->mlx, data->sprite.z.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.u.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.d.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.t.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.q.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.c.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.six.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.sept.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.h.img_ptr);
+	mlx_destroy_image(data->mlx, data->sprite.n.img_ptr);
+}

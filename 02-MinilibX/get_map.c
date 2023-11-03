@@ -50,14 +50,14 @@ char	**fill_map(char **map, t_list *list)
 void	fill_list(int fd, t_list **list)
 {
 	char	*line;
-	
+
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line)
 			ft_lstadd_back(list, ft_lstnew(line));
 		else 
-			break;
+			break ;
 	}
 }
 

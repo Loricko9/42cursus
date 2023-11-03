@@ -25,7 +25,7 @@ void	free_map(char **map)
 int	check_char(char **map)
 {
 	int	i;
-	int j;
+	int	j;
 
 	j = 0;
 	while (map[j] != NULL)
@@ -46,7 +46,7 @@ int	check_char(char **map)
 int	check_wall(char **map)
 {
 	int	i;
-	int j;
+	int	j;
 	int	end;
 
 	end = ft_strlen(map[0]);
@@ -72,8 +72,8 @@ int	check_wall(char **map)
 
 int	check_wall2(char **map, int j, int end)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	if (ft_strlen(map[j]) != end)
 		return (1);

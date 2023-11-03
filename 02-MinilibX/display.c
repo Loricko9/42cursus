@@ -91,9 +91,8 @@ void	ft_show_image(char **map, t_data *data)
 		}
 		j++;
 	}
-	
 	mlx_put_image_to_window(data->mlx, data->win, 
-			data->sprite.counter.img_ptr, 0, 0);
+		data->sprite.counter.img_ptr, 0, 0);
 	show_counter(data);
 }
 
@@ -106,11 +105,9 @@ int	ft_display(char **map)
 	get_ppos(&data);
 	get_counter(&data);
 	if (data.mlx == NULL)
-	{
-		free_map(map);
 		return (1);
-	}
-	data.win = mlx_new_window(data.mlx, ft_size(map, 1), ft_size(map, 0), "Need For Speed 1950");
+	data.win = mlx_new_window(data.mlx, ft_size(map, 1), 
+			ft_size(map, 0), "Need For Speed 1950");
 	if (data.win == NULL)
 	{
 		mlx_destroy_display(data.mlx);
