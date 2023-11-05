@@ -12,6 +12,19 @@
 
 #include "Push_swap.h"
 
+int		ft_lstsize(t_list *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst != NULL)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
+
 t_list	*ft_lstnew(int nb)
 {
 	t_list	*new;
@@ -49,4 +62,16 @@ t_list	*ft_lstlast(t_list *lst)
 		return (lst);
 	}
 	return (0);
+}
+
+void	ft_free_lst(t_list *lst)
+{
+	t_list	*temp;
+
+	while (lst != NULL)
+	{
+		temp = lst->next;
+		free(lst);
+		lst = temp;
+	}
 }
