@@ -12,26 +12,37 @@
 
 #include "Push_swap.h"
 
-int	check_av(char **av)
+int	check_line(char *str)
 {
 	int	i;
+	int	trig;
+
+	i = 0;
+	trig = 0;
+	while (str[i] != '\0')
+	{
+		if (trig == 0 && (str[i] == '+' || str[i] == '-'))
+			trig = 1;
+		else if (trig == 0 && (str[i] >= '0' && str[i] <= '9'))
+			trig = 1;
+		else if (trig == 1 && ((str[i] >= '\t' && str[i] <= '\r') || str[i] == 32))
+			trig = 0;
+		else if (trig == 1 && (str[i] < '0' || str[i] > '9'))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	check_av(char **av)
+{
 	int j;
 
 	j = 1;
 	while (av[j] != NULL)
 	{
-		i = 0;
-		while (av[j][i] != '\0')
-		{
-			if ((av[j][i] == '-' || av[j][i] == '+') && i == 0)
-			{
-				i++;
-				continue;
-			}
-			if (av[j][i] < 48 || av[j][i] > 57)
-				return (1);
-			i++;
-		}
+		if (check_line(av[j]) == 1)
+			return (1);
 		j++;
 	}
 	return (0);
@@ -56,4 +67,22 @@ int	check_double(t_list *stock)
 		stock = stock->next;
 	}
 	return (0);
+}
+
+int	check_order(t_list *stack_a)
+{
+	t_list	*next;
+	int		i;
+
+	next = stack_a->next;
+	i = 1;
+	while (next != NULL)
+	{
+		if (stack_a->nb > next->nb)
+			return (i);
+		stack_a = stack_a->next;
+		next = next->next;
+		i++;
+	}
+	return (-1);
 }

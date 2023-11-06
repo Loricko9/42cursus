@@ -37,61 +37,60 @@ int	ft_atoi(const char *nptr)
 	return (nb * sign);
 }
 
-t_list	*get_lst(char **av)
+
+
+void	get_lst(char **av, t_list **stack_a)
 {
-	t_list	*stacks_a;
 	t_list	*temp;
 	int		i;
+	int		j;
 
-	i = 1;
-	stacks_a = NULL;
-	while (av[i] != NULL)
+	j = 1;
+	while (av[j] != NULL)
 	{
-		temp = ft_lstnew(ft_atoi(av[i]));
-		if (!temp)
+		i = 0;
+		while ((av[j][i] >= '\t' && av[j][i] <= '\r') || av[j][i] == 32)
+			i++;
+		while (av[j][i] != '\0')
 		{
-			ft_free_lst(stacks_a);
-			return (NULL);
+			while ((av[j][i] >= '\t' && av[j][i] <= '\r') || av[j][i] == 32)
+				i++;
+			temp = ft_lstnew(ft_atoi(av[j] + i));
+			if (!temp)
+			{
+				ft_free_lst(*stack_a);
+				return ;
+			}
+			ft_lstadd_back(stack_a, temp);
+			while ((av[j][i] >= '0' && av[j][i] <= '9') || av[j][i] == '+' || av[j][i] == '-')
+				i++;
+			while ((av[j][i] >= '\t' && av[j][i] <= '\r') || av[j][i] == 32)
+				i++;
 		}
-		ft_lstadd_back(&stacks_a, temp);
-		i++;
+		j++;
 	}
-	return (stacks_a);
 }
 
 int	main(int ac, char **av)
 {
-	t_list	*stacks_a;
-	t_list	*stacks_b;
+	t_list	*stack_a;
+	t_list	*stack_b;
 
-	stacks_b = NULL;	
+	stack_b = NULL;
+	stack_a = NULL;
 	if (ac < 2)
 		return(ft_printf("Error : missing arg\n"));
 	if (check_av(av) == 1)
 		return(ft_printf("Error : invalid character\n"));
-	stacks_a = get_lst(av);
-	if (!stacks_a)
+	get_lst(av, &stack_a);
+	if (!stack_a)
 		return (ft_printf("Error : MALLOC error\n"));
-	if (check_double(stacks_a) == 1)
+	if (check_double(stack_a) == 1)
 		return (ft_printf("Error : Double nb detected\n"));
-	printlst(stacks_a, stacks_b);
-	sab(stacks_a, 1);
-	printlst(stacks_a, stacks_b);
-	pb(&stacks_a, &stacks_b);
-	pb(&stacks_a, &stacks_b);
-	pb(&stacks_a, &stacks_b);
-	printlst(stacks_a, stacks_b);
-	rr(stacks_a, stacks_b);
-	printlst(stacks_a, stacks_b);
-	rrr(stacks_a, stacks_b);
-	printlst(stacks_a, stacks_b);
-	sab(stacks_a, 1);
-	printlst(stacks_a, stacks_b);
-	pa(&stacks_a, &stacks_b);
-	pa(&stacks_a, &stacks_b);
-	pa(&stacks_a, &stacks_b);
-	printlst(stacks_a, stacks_b);
-	ft_free_lst(stacks_a);
+	printlst(stack_a, stack_b);
+	swap(&stack_a, &stack_b);
+	printlst(stack_a, stack_b);
+	ft_free_lst(stack_a);
 }
 
 void	printlst(t_list *stack_a, t_list *stack_b)

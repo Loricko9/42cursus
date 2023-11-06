@@ -1,5 +1,5 @@
 SRCS 	=	Push_swap.c aff.c ft_printf.c list_utils.c \
-			Sort.c Sort2.c check_av.c
+			Sort.c Sort2.c check_av.c Swap.c
 
 OBJS	=	$(SRCS:.c=.o)
 NAME	=	push_swap
