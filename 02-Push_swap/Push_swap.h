@@ -23,9 +23,10 @@ typedef struct s_list
 }	t_list;
 
 //Push_swap.c
-int		ft_atoi(const char *nptr);
-void	get_lst(char **av, t_list **stack_a);
-void	printlst(t_list *stack_a, t_list *stack_b); //-----A RETIRER-----
+long long	ft_atoi(const char *nptr);
+int		create_node(int i, int j, char **av, t_list **stack_a);
+void		get_lst(char **av, t_list **stack_a);
+void		printlst(t_list *stack_a, t_list *stack_b); //-----A RETIRER-----
 
 //list_utils.c
 int		ft_lstsize(t_list *lst);

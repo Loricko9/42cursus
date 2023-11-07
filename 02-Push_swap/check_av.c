@@ -21,7 +21,10 @@ int	check_line(char *str)
 	trig = 0;
 	while (str[i] != '\0')
 	{
-		if (trig == 0 && (str[i] == '+' || str[i] == '-'))
+		if (str[i] != '+' && str[i] != '-' && str[i] != 32 && (str[i] < '0'
+				|| str[i] > '9') && (str[i] < '\t' || str[i] > '\r'))
+			return (1);
+		else if (trig == 0 && (str[i] == '+' || str[i] == '-'))
 			trig = 1;
 		else if (trig == 0 && (str[i] >= '0' && str[i] <= '9'))
 			trig = 1;

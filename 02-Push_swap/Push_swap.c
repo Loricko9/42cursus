@@ -12,11 +12,11 @@
 
 #include "Push_swap.h"
 
-int	ft_atoi(const char *nptr)
+long long	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	nb;
-	int	sign;
+	int			i;
+	long long	nb;
+	int			sign;
 
 	i = 0;
 	nb = 0;
@@ -37,11 +37,31 @@ int	ft_atoi(const char *nptr)
 	return (nb * sign);
 }
 
-
+int	create_node(int i, int j, char **av, t_list **stack_a)
+{
+	t_list		*temp;
+	long long	nb;
+	
+	nb = ft_atoi(av[j] + i);
+	if (nb > 2147483647 || nb < -2147483648)
+	{
+		ft_free_lst(*stack_a);
+		*stack_a = NULL;
+		return (1);
+	}
+	temp = ft_lstnew((int)nb);
+	if (!temp)
+	{
+		ft_free_lst(*stack_a);
+		*stack_a = NULL;
+		return (1);
+	}
+	ft_lstadd_back(stack_a, temp);
+	return (0);
+}
 
 void	get_lst(char **av, t_list **stack_a)
 {
-	t_list	*temp;
 	int		i;
 	int		j;
 
@@ -55,13 +75,8 @@ void	get_lst(char **av, t_list **stack_a)
 		{
 			while ((av[j][i] >= '\t' && av[j][i] <= '\r') || av[j][i] == 32)
 				i++;
-			temp = ft_lstnew(ft_atoi(av[j] + i));
-			if (!temp)
-			{
-				ft_free_lst(*stack_a);
+			if (create_node(i, j, av, stack_a) == 1)
 				return ;
-			}
-			ft_lstadd_back(stack_a, temp);
 			while ((av[j][i] >= '0' && av[j][i] <= '9') || av[j][i] == '+' || av[j][i] == '-')
 				i++;
 			while ((av[j][i] >= '\t' && av[j][i] <= '\r') || av[j][i] == 32)
@@ -78,18 +93,16 @@ int	main(int ac, char **av)
 
 	stack_b = NULL;
 	stack_a = NULL;
-	if (ac < 2)
-		return(ft_printf("Error : missing arg\n"));
-	if (check_av(av) == 1)
-		return(ft_printf("Error : invalid character\n"));
+	if (ac < 2 || check_av(av) == 1)
+		return(ft_printf("Error\n"));
 	get_lst(av, &stack_a);
 	if (!stack_a)
-		return (ft_printf("Error : MALLOC error\n"));
+		return (ft_printf("Error\n"));
 	if (check_double(stack_a) == 1)
-		return (ft_printf("Error : Double nb detected\n"));
-	printlst(stack_a, stack_b);
+		return (ft_printf("Error\n"));
+	//printlst(stack_a, stack_b);
 	swap(&stack_a, &stack_b);
-	printlst(stack_a, stack_b);
+	//printlst(stack_a, stack_b);
 	ft_free_lst(stack_a);
 }
 
