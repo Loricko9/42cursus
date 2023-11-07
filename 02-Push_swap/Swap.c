@@ -20,6 +20,7 @@ void	swap(t_list **stack_a, t_list **stack_b)
 			sab(*stack_a, 1);
 		while (min(*stack_a) >= 1)
 		{
+			
 			if (near(min(*stack_a), ft_lstsize(*stack_a)) == 1)
 				rab(*stack_a, 1);
 			else if (near(min(*stack_a), ft_lstsize(*stack_a)) == 0)
@@ -34,33 +35,36 @@ void	swap(t_list **stack_a, t_list **stack_b)
 
 int	near(int min, int size)
 {
-	if (size % 2 == 0 && size / 2 <= min)
+	if (size % 2 == 0 && size / 2 > min)
 		return (1);
-	else if (size % 2 == 1 && size / 2 <= min)
-		return (1);
-	else if (size % 2 == 0 && size / 2 > min)
-		return (0);
 	else if (size % 2 == 1 && size / 2 > min)
+		return (1);
+	else if (size % 2 == 0 && size / 2 <= min)
+		return (0);
+	else if (size % 2 == 1 && size / 2 <- min)
 		return (0);
 	return (0);
 }
 
 int	min(t_list *stack)
 {
-	int	first;
-	int i;
 	int	min;
+	int i;
+	int	pos;
 
-	first = stack->nb;
+	min = stack->nb;
 	i = 1;
-	min = 0; 
+	pos = 0; 
 	stack = stack->next;
 	while (stack != NULL)
 	{
-		if (first > stack->nb)
-			min = i;
+		if (min > stack->nb)
+		{
+			pos = i;
+			min = stack->nb;
+		}
 		stack = stack->next;
 		i++;
 	}
-	return (min);
+	return (pos);
 }
