@@ -19,7 +19,9 @@
 typedef struct s_list
 {
 	int				nb;
+	int				rank;
 	struct s_list	*next;
+	struct s_list	*prec;
 }	t_list;
 
 //Push_swap.c

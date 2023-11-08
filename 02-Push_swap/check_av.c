@@ -54,11 +54,15 @@ int	check_av(char **av)
 int	check_double(t_list *stock)
 {
 	t_list	*temp;
+	t_list	*last;
+	t_list	*first;
 
-	while (stock != NULL)
+	last = stock->prec;
+	first = stock;
+	while (stock != last)
 	{
 		temp = stock->next;
-		while (temp != NULL)
+		while (temp != first)
 		{
 			if (stock->nb == temp->nb)
 			{

@@ -98,24 +98,48 @@ int	main(int ac, char **av)
 	get_lst(av, &stack_a);
 	if (!stack_a)
 		return (ft_printf("Error\n"));
+	if (stack_a->next == NULL)
+	{
+		ft_free_lst(stack_a);
+		return (1);
+	}
 	if (check_double(stack_a) == 1)
 		return (ft_printf("Error\n"));
-	//printlst(stack_a, stack_b);
-	swap(&stack_a, &stack_b);
+	printlst(stack_a, stack_b);
+	//swap(&stack_a, &stack_b);
 	//printlst(stack_a, stack_b);
 	ft_free_lst(stack_a);
 }
 
 void	printlst(t_list *stack_a, t_list *stack_b)
 {
-	while (stack_a != NULL || stack_b != NULL)
+	t_list	*first_a;
+	t_list	*first_b;
+	
+	if (stack_a)
+	{
+		ft_printf("%d %d", stack_a->nb, stack_a->rank);
+		first_a =stack_a;
+		stack_a = stack_a->next;
+	}
+	else
+		ft_printf("  ");
+	if (stack_b)
+	{
+		ft_printf("%d %d\n", stack_b->nb, stack_b->rank);
+		first_b = stack_b;
+		stack_b = stack_b->next;
+	}
+	else
+		ft_printf(" \n");
+	while ((stack_a != NULL && stack_a != first_a) || (stack_b != NULL && stack_b != first_b))
 	{
 		if (stack_a)
-			ft_printf("%d ", stack_a->nb);
+			ft_printf("%d %d", stack_a->nb, stack_a->rank);
 		else
 			ft_printf("  ");
 		if (stack_b)
-			ft_printf("%d\n", stack_b->nb);
+			ft_printf("%d %d\n", stack_b->nb, stack_b->rank);
 		else
 			ft_printf(" \n");
 		if (stack_a != NULL)
