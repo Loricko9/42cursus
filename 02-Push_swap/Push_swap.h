@@ -50,15 +50,18 @@ void	pb(t_list **stack_a, t_list **stack_b);
 void	pa(t_list **stack_a, t_list **stack_b);
 
 //Sort2.c
-void	rab(t_list *stack, int a);
-void	rr(t_list *stack_a, t_list *stack_b);
-void	rev_i(int *i);
-void	rrab(t_list *stack, int a);
-void	rrr(t_list *stack_a, t_list *stack_b);
+void	rab(t_list **stack, int a);
+void	rr(t_list **stack_a, t_list **stack_b);
+void	rrab(t_list **stack, int a);
+void	rrr(t_list **stack_a, t_list **stack_b);
+
+//Sort3.c
+void	pb2(t_list **stack_a, t_list **stack_b);
+void	pa2(t_list **stack_a, t_list **stack_b);
 
 //Swap.c
-void	swap(t_list **stack_a, t_list **stack_b);
+/*void	swap(t_list **stack_a, t_list **stack_b);
 int		min(t_list *stack);
-int		near(int min, int size);
+int		near(int min, int size);*/
 
 #endif
