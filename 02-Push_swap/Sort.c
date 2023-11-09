@@ -41,18 +41,16 @@ void	pb(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*next_a;
 	t_list	*prec_a;
-	
+
 	next_a = (*stack_a)->next;
 	prec_a = (*stack_a)->prec;
 	if ((next_a == prec_a) && (next_a != NULL && prec_a != NULL))
 	{
-		ft_printf("salut\n");
 		next_a->next = NULL;
 		next_a->prec = NULL;
 	}
 	else if (next_a != NULL && prec_a != NULL)
 	{
-		
 		next_a->prec = prec_a;
 		prec_a->next = next_a;
 	}
@@ -64,10 +62,7 @@ void	pb(t_list **stack_a, t_list **stack_b)
 	}
 	else
 		pb2(stack_a, stack_b);
-	
-	
 	*stack_a = next_a;
-
 	ft_printf("pb\n");
 }
 
@@ -75,8 +70,7 @@ void	pa(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*next_b;
 	t_list	*prec_b;
-	
-	ft_printf("salut\n");
+
 	next_b = (*stack_b)->next;
 	prec_b = (*stack_b)->prec;
 	if ((next_b == prec_b) && (next_b != NULL && prec_b != NULL))

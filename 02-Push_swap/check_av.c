@@ -28,7 +28,8 @@ int	check_line(char *str)
 			trig = 1;
 		else if (trig == 0 && (str[i] >= '0' && str[i] <= '9'))
 			trig = 1;
-		else if (trig == 1 && ((str[i] >= '\t' && str[i] <= '\r') || str[i] == 32))
+		else if (trig == 1 && ((str[i] >= '\t' && str[i] <= '\r')
+				|| str[i] == 32))
 			trig = 0;
 		else if (trig == 1 && (str[i] < '0' || str[i] > '9'))
 			return (1);
@@ -39,7 +40,7 @@ int	check_line(char *str)
 
 int	check_av(char **av)
 {
-	int j;
+	int	j;
 
 	j = 1;
 	while (av[j] != NULL)

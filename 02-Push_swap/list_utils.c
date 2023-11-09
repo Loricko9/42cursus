@@ -12,7 +12,7 @@
 
 #include "Push_swap.h"
 
-int		ft_lstsize(t_list *lst)
+int	ft_lstsize(t_list *lst)
 {
 	int		i;
 	t_list	*first;
@@ -38,7 +38,7 @@ t_list	*ft_lstnew(int nb)
 	if (!new)
 		return (NULL);
 	new->nb = nb;
-	new->rank = 0;
+	new->rank = -1;
 	new->next = NULL;
 	new->prec = NULL;
 	return (new);
@@ -47,21 +47,19 @@ t_list	*ft_lstnew(int nb)
 void	ft_lstadd_back(t_list **lst, t_list	*new)
 {
 	t_list			*prec;
-	static int		rank = 1;
 
 	if (new)
 	{
 		if (!*lst)
 		{
-			new->rank = 1;
 			*lst = new;
 			return ;
 		}
 		prec = *lst;
-		while(prec->rank != rank)
+		if (prec->next != NULL)
 			prec = prec->next;
-		rank++;
-		new->rank = rank;
+		while (prec->next != *lst && prec->next != NULL)
+			prec = prec->next;
 		new->next = *lst;
 		new->prec = prec;
 		prec->next = new;
