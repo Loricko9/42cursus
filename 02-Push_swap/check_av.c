@@ -80,17 +80,16 @@ int	check_double(t_list *stock)
 int	check_order(t_list *stack_a)
 {
 	t_list	*next;
-	int		i;
+	t_list	*first;
 
 	next = stack_a->next;
-	i = 1;
-	while (next != NULL)
+	first = stack_a;
+	while (next != first)
 	{
-		if (stack_a->nb > next->nb)
-			return (i);
+		if (stack_a->rank > next->rank)
+			return (1);
 		stack_a = stack_a->next;
 		next = next->next;
-		i++;
 	}
-	return (-1);
+	return (0);
 }

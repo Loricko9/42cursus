@@ -18,6 +18,8 @@ int	ft_lstsize(t_list *lst)
 	t_list	*first;
 
 	i = 1;
+	if (!lst)
+		return (0);
 	if (lst->next == NULL)
 		return (1);
 	first = lst;

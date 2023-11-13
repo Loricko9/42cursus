@@ -116,7 +116,7 @@ void	get_rank(t_list *stack_a)
 
 void	get_rank2(t_list **stack_a, t_list **temp, int *max)
 {
-	if ((*stack_a)->nb > *max && (*stack_a)->rank != -1)
+	if ((*stack_a)->nb > *max && (*stack_a)->rank == -1)
 	{
 		*max = (*stack_a)->nb;
 		*temp = *stack_a;

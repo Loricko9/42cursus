@@ -12,59 +12,81 @@
 
 #include "Push_swap.h"
 
-void	swap(t_list **stack_a, t_list **stack_b)
+void	swap(t_list **stack_a, t_list **stack_b, int size)
 {
-	while (check_order(*stack_a) != -1 && (*stack_a)->next != NULL)
-	{
-		if (check_order(*stack_a) == 1)
-			sab(*stack_a, 1);
-		while (min(*stack_a) >= 1)
-		{
-			
-			if (near(min(*stack_a), ft_lstsize(*stack_a)) == 1)
-				rab(*stack_a, 1);
-			else if (near(min(*stack_a), ft_lstsize(*stack_a)) == 0)
-				rrab(*stack_a, 1);
-		}
-		if (check_order(*stack_a) != -1)
-			pb(stack_a, stack_b);
-	}
-	while (*stack_b != NULL)
-		pa(stack_a, stack_b);
+	swap_ph1(stack_a, stack_b, size);
+	printlst(*stack_a, *stack_b);
+	little_swap(stack_a, stack_b, ft_lstsize(*stack_a));
+	//swap_ph3(stack_a, stack_b);
 }
 
-int	near(int min, int size)
+void	swap_ph1(t_list **stack_a, t_list **stack_b, int size)
 {
-	if (size % 2 == 0 && size / 2 > min)
-		return (1);
-	else if (size % 2 == 1 && size / 2 > min)
-		return (1);
-	else if (size % 2 == 0 && size / 2 <= min)
-		return (0);
-	else if (size % 2 == 1 && size / 2 <- min)
-		return (0);
-	return (0);
-}
+	int		tier;
+	int 	i;
+	int		j;
 
-int	min(t_list *stack)
-{
-	int	min;
-	int i;
-	int	pos;
-
-	min = stack->nb;
-	i = 1;
-	pos = 0; 
-	stack = stack->next;
-	while (stack != NULL)
+	i = 2;
+	tier = (size / 4);
+	j = 0;
+	while (tier != size)
 	{
-		if (min > stack->nb)
+		while (j != tier)
 		{
-			pos = i;
-			min = stack->nb;
+			if ((*stack_a)->rank <= tier)
+			{
+				pb(stack_a, stack_b);
+				j++;
+			}
+			else
+				rab(stack_a, 1);
 		}
-		stack = stack->next;
+		tier = (size / 4) * i;
 		i++;
 	}
-	return (pos);
+}
+
+void	sort_2v(t_list *stack)
+{
+	t_list	*next;
+
+	next = stack->next;
+	if (next->rank < stack->rank)
+		sab(stack, 1);
+}
+
+void	sort_3v(t_list **stack)
+{
+	t_list	*prec;
+	t_list	*next;
+
+	prec = (*stack)->prec;
+	next = (*stack)->next;
+	if (prec->rank > (*stack)->rank && next->rank < (*stack)->rank
+			&& next->rank < prec->rank)
+		sab(*stack, 1);
+	else if ((*stack)->rank > prec->rank && (*stack)->rank > next->rank
+			&& next->rank > prec->rank)
+	{
+		sab(*stack, 1);
+		rrab(stack, 1);
+	}
+	else if ((*stack)->rank > prec->rank && (*stack)->rank > next->rank
+			&& next->rank < prec->rank)
+		rab(stack, 1);
+	else
+		sort_3v2(stack, prec, next);
+}
+
+void	sort_3v2(t_list **stack, t_list *prec, t_list *next)
+{
+	if ((*stack)->rank < next->rank && (*stack)->rank < prec->rank
+			&& next->rank > prec->rank)
+	{
+		sab(*stack, 1);
+		rab(stack, 1);
+	}
+	else if (prec->rank < (*stack)->rank && next->rank > (*stack)->rank
+			&& next->rank > prec->rank)
+		rrab(stack, 1);
 }

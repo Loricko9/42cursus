@@ -12,6 +12,22 @@
 
 #include "Push_swap.h"
 
+void	error(t_list *stack_a)
+{
+	if (stack_a->next == NULL)
+	{
+		ft_free_lst(stack_a);
+		exit(1);
+	}
+	if (check_double(stack_a) == 1)
+		exit(ft_printf("Error\n"));
+	if (check_order(stack_a) == 0)
+	{
+		ft_free_lst(stack_a);
+		exit(1);
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_list	*stack_a;
@@ -24,25 +40,16 @@ int	main(int ac, char **av)
 	get_lst(av, &stack_a);
 	if (!stack_a)
 		return (ft_printf("Error\n"));
-	if (stack_a->next == NULL)
-	{
-		ft_free_lst(stack_a);
-		return (1);
-	}
-	if (check_double(stack_a) == 1)
-		return (ft_printf("Error\n"));
-	printlst(stack_a, stack_b);
 	get_rank(stack_a);
-	rab(&stack_a, 0);
 	printlst(stack_a, stack_b);
-	rab(&stack_a, 0);
+	error(stack_a);
+	if (ft_lstsize(stack_a) == 2)
+		sort_2v(stack_a);
+	else if (ft_lstsize(stack_a) <= 10)
+		little_swap(&stack_a, &stack_b, ft_lstsize(stack_a));
+	else
+		swap(&stack_a, &stack_b, ft_lstsize(stack_a));
 	printlst(stack_a, stack_b);
-	rrab(&stack_a, 0);
-	printlst(stack_a, stack_b);
-	rrab(&stack_a, 0);
-	printlst(stack_a, stack_b);
-	//swap(&stack_a, &stack_b);
-	//printlst(stack_a, stack_b);
 	ft_free_lst(stack_a);
 }
 
@@ -51,6 +58,7 @@ void	printlst(t_list *stack_a, t_list *stack_b)
 	t_list	*first_a;
 	t_list	*first_b;
 	
+	ft_printf("-----------------------------------------------\n");
 	if (stack_a)
 	{
 		ft_printf("%d --%d-- ", stack_a->nb, stack_a->rank);
@@ -69,17 +77,17 @@ void	printlst(t_list *stack_a, t_list *stack_b)
 		ft_printf(" \n");
 	while ((stack_a != NULL && stack_a != first_a) || (stack_b != NULL && stack_b != first_b))
 	{
-		if (stack_a)
+		if (stack_a && stack_a != first_a)
 			ft_printf("%d --%d-- ", stack_a->nb, stack_a->rank);
 		else
 			ft_printf("  ");
-		if (stack_b)
+		if (stack_b && stack_b != first_b)
 			ft_printf("%d --%d--\n", stack_b->nb, stack_b->rank);
 		else
 			ft_printf(" \n");
-		if (stack_a != NULL)
+		if (stack_a != NULL && stack_a != first_a)
 			stack_a = stack_a->next;
-		if (stack_b != NULL)
+		if (stack_b != NULL && stack_b != first_b)
 			stack_b = stack_b->next;
 	}
 }

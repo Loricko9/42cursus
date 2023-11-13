@@ -64,8 +64,14 @@ void		pb2(t_list **stack_a, t_list **stack_b);
 void		pa2(t_list **stack_a, t_list **stack_b);
 
 //Swap.c
-/*void		swap(t_list **stack_a, t_list **stack_b);
-int			min(t_list *stack);
-int			near(int min, int size);*/
+void		sort_2v(t_list *stack);
+void		sort_3v(t_list **stack);
+void		sort_3v2(t_list **stack, t_list *prec, t_list *next);
+void		swap_ph1(t_list **stack_a, t_list **stack_b, int size);
+void		swap(t_list **stack_a, t_list **stack_b, int size);
+
+//Swap2.c
+void		little_swap(t_list **stack_a, t_list **stack_b, int size);
+int			min(t_list *stack_a, int *rank);
 
 #endif
