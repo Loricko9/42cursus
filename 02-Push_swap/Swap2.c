@@ -12,6 +12,14 @@
 
 #include "Push_swap.h"
 
+int	get_div(int size)
+{
+	if (size <= 200)
+		return (4);
+	else
+		return (8);
+}
+
 int	min(t_list *stack_a, int *rank)
 {
 	int		i;
@@ -45,8 +53,8 @@ void	little_swap(t_list **stack_a, t_list **stack_b, int size)
 
 	new_size = size;
 	while (new_size != 3 && check_order(*stack_a) == 1)
-	{
-		if (min(*stack_a, &rank) <= new_size)
+	{ 
+		if (sort_prox(new_size, min(*stack_a, &rank)) == 1)
 		{
 			while ((*stack_a)->rank != rank)
 				rab(stack_a, 1);
@@ -59,9 +67,63 @@ void	little_swap(t_list **stack_a, t_list **stack_b, int size)
 		pb(stack_a, stack_b);
 		new_size = ft_lstsize(*stack_a);
 	}
-	printlst(*stack_a, *stack_b);
 	if (check_order(*stack_a) == 1)
 		sort_3v(stack_a);
 	while (ft_lstsize(*stack_a) != size)
 		pa(stack_a, stack_b);
+}
+
+int	find_rank(t_list *stack_b, int rank, int tier_min)
+{
+	int		i;
+	t_list	*first;
+
+	i = 0;
+	first = stack_b;
+	while (1)
+	{
+		if (stack_b->rank == rank)
+			return (i);
+		stack_b = stack_b->next;
+		i++;
+		if (stack_b->rank <= tier_min || sort_prox(ft_lstsize(stack_b), i) == 0)
+			break ;
+	}
+	i = 0;
+	stack_b = first;
+	while (1)
+	{
+		if (stack_b->rank == rank)
+			return (i);
+		stack_b = stack_b->prec;
+		i--;
+	}
+}
+
+void	swap_ph2(t_list **stack_a, t_list **stack_b, int tier)
+{
+	int	rank;
+	int act_tier;
+
+	rank = (*stack_a)->rank - 1;
+	act_tier = rank - tier;
+	while (rank != 0)
+	{
+		if (act_tier == rank)
+			act_tier = act_tier - tier;
+		if (find_rank(*stack_b, rank, act_tier) == 1)
+			sab(*stack_b, 0);
+		else if (find_rank(*stack_b, rank, act_tier) > 0)
+		{
+			while ((*stack_b)->rank != rank)
+				rab(stack_b, 0);
+		}
+		else
+		{
+			while ((*stack_b)->rank != rank)
+				rrab(stack_b, 0);
+		}
+		pa(stack_a, stack_b);
+		rank--;
+	}
 }

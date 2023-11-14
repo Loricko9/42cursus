@@ -1,4 +1,4 @@
-SRCS 	=	Push_swap.c aff.c ft_printf.c list_utils.c Swap.c \
+SRCS 	=	Push_swap.c aff.c ft_printf.c list_utils.c Swap.c Swap3.c\
 			Sort.c Sort2.c check_av.c Sort3.c get_lst.c Swap2.c
 
 OBJS	=	$(SRCS:.c=.o)

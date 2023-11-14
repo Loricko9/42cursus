@@ -14,22 +14,26 @@
 
 void	swap(t_list **stack_a, t_list **stack_b, int size)
 {
-	swap_ph1(stack_a, stack_b, size);
-	printlst(*stack_a, *stack_b);
+	int		tier;
+	int		div;
+	
+	div = get_div(size);
+	tier = (size / div);
+	swap_ph1(stack_a, stack_b, size, tier);
 	little_swap(stack_a, stack_b, ft_lstsize(*stack_a));
-	//swap_ph3(stack_a, stack_b);
+	//printlst(*stack_a, *stack_b);
+	swap_ph2(stack_a, stack_b, tier);
 }
 
-void	swap_ph1(t_list **stack_a, t_list **stack_b, int size)
-{
-	int		tier;
-	int 	i;
-	int		j;
 
-	i = 2;
-	tier = (size / 4);
+void	swap_ph1(t_list **stack_a, t_list **stack_b, int size, int tier)
+{
+	int		j;
+	int		div;
+
 	j = 0;
-	while (tier != size)
+	div = tier;
+	while (tier <= (size - div))
 	{
 		while (j != tier)
 		{
@@ -41,8 +45,7 @@ void	swap_ph1(t_list **stack_a, t_list **stack_b, int size)
 			else
 				rab(stack_a, 1);
 		}
-		tier = (size / 4) * i;
-		i++;
+		tier = tier + div;
 	}
 }
 

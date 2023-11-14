@@ -12,7 +12,7 @@
 
 #include "Push_swap.h"
 
-void	error(t_list *stack_a)
+void	ft_error(t_list *stack_a)
 {
 	if (stack_a->next == NULL)
 	{
@@ -41,15 +41,14 @@ int	main(int ac, char **av)
 	if (!stack_a)
 		return (ft_printf("Error\n"));
 	get_rank(stack_a);
-	printlst(stack_a, stack_b);
-	error(stack_a);
+	ft_error(stack_a);
 	if (ft_lstsize(stack_a) == 2)
 		sort_2v(stack_a);
-	else if (ft_lstsize(stack_a) <= 10)
+	else if (ft_lstsize(stack_a) <= 12)
 		little_swap(&stack_a, &stack_b, ft_lstsize(stack_a));
 	else
 		swap(&stack_a, &stack_b, ft_lstsize(stack_a));
-	printlst(stack_a, stack_b);
+	//printlst(stack_a, stack_b);
 	ft_free_lst(stack_a);
 }
 
