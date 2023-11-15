@@ -12,12 +12,27 @@
 
 #include "Push_swap.h"
 
-int	get_div(int size)
+int	swap_ph1_move(t_list **stack_a, t_list **stack_b, int tier1, int tier2)
 {
-	if (size <= 200)
-		return (4);
+	if ((*stack_a)->rank <= tier1)
+	{
+		pb(stack_a, stack_b);
+		if ((*stack_a)->rank > tier2)
+			rr(stack_a, stack_b);
+		else if ((*stack_b)->next != NULL)
+			rab(stack_b, 0);
+		return (1);
+	}
+	else if ((*stack_a)->rank <= tier2)
+	{
+		pb(stack_a, stack_b);
+		return (1);
+	}
 	else
-		return (8);
+	{
+		rab(stack_a, 1);
+		return (0);
+	}
 }
 
 int	min(t_list *stack_a, int *rank)
@@ -125,5 +140,7 @@ void	swap_ph2(t_list **stack_a, t_list **stack_b, int tier)
 		}
 		pa(stack_a, stack_b);
 		rank--;
+		//printlst(*stack_a, *stack_b);
+		//ft_printf("rank : %d\nact_tier : %d\n", rank, act_tier);
 	}
 }

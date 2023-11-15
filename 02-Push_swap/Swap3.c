@@ -12,6 +12,14 @@
 
 #include "Push_swap.h"
 
+int	get_div(int size)
+{
+	if (size <= 200)
+		return (4);
+	else
+		return (8);
+}
+
 int	max(t_list *stack_a, int *rank)
 {
 	int		i;

@@ -68,19 +68,20 @@ void		pa2(t_list **stack_a, t_list **stack_b);
 void		sort_2v(t_list *stack);
 void		sort_3v(t_list **stack);
 void		sort_3v2(t_list **stack, t_list *prec, t_list *next);
-void		swap_ph1(t_list **stack_a, t_list **stack_b, int size, int tier);
+void		swap_ph1(t_list **stack_a, t_list **stack_b, int size, int tier1);
 void		swap(t_list **stack_a, t_list **stack_b, int size);
 
 //Swap2.c
-int			get_div(int size);
 int			min(t_list *stack_a, int *rank);
 void		little_swap(t_list **stack_a, t_list **stack_b, int size);
 int			find_rank(t_list *stack_b, int rank, int tier_min);
 void		swap_ph2(t_list **stack_a, t_list **stack_b, int tier);
+int			swap_ph1_move(t_list **stack_a, t_list **stack_b, int tier1, int tier2);
 
 //Swap3.c
 int			max(t_list *stack_a, int *rank);
 void		swap_ph3(t_list **stack_a, t_list **stack_b, int size);
 int			sort_prox(int size, int rank);
+int			get_div(int size);
 
 #endif
