@@ -41,6 +41,8 @@ t_list	*ft_lstnew(int nb)
 		return (NULL);
 	new->nb = nb;
 	new->rank = -1;
+	new->mv_a = 0;
+	new->mv_b = 0;
 	new->next = NULL;
 	new->prec = NULL;
 	return (new);

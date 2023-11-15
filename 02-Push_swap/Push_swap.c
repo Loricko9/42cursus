@@ -6,11 +6,28 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:27:00 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/04 18:27:00 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:26:40 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Push_swap.h"
+
+void	ft_ajust(t_list **stack_a, int size)
+{
+	int	rank;
+
+	rank = 1;	
+	if (sort_prox(size, min_rank(*stack_a, &rank)) == 1)
+	{
+		while ((*stack_a)->rank != rank)
+			rab(stack_a, 1);
+	}
+	else
+	{
+		while ((*stack_a)->rank != rank)
+			rrab(stack_a, 1);
+	}
+}
 
 void	ft_error(t_list *stack_a)
 {
@@ -60,15 +77,15 @@ void	printlst(t_list *stack_a, t_list *stack_b)
 	ft_printf("-----------------------------------------------\n");
 	if (stack_a)
 	{
-		ft_printf("%d --%d-- ", stack_a->nb, stack_a->rank);
+		ft_printf("%d (%d)(%d)  ||", stack_a->rank, stack_a->mv_a, stack_a->mv_b);
 		first_a =stack_a;
 		stack_a = stack_a->next;
 	}
 	else
-		ft_printf("  ");
+		ft_printf("           ||");
 	if (stack_b)
 	{
-		ft_printf("%d --%d--\n", stack_b->nb, stack_b->rank);
+		ft_printf("   %d (%d)(%d)\n", stack_b->rank, stack_b->mv_a, stack_b->mv_b);
 		first_b = stack_b;
 		stack_b = stack_b->next;
 	}
@@ -77,11 +94,11 @@ void	printlst(t_list *stack_a, t_list *stack_b)
 	while ((stack_a != NULL && stack_a != first_a) || (stack_b != NULL && stack_b != first_b))
 	{
 		if (stack_a && stack_a != first_a)
-			ft_printf("%d --%d-- ", stack_a->nb, stack_a->rank);
+			ft_printf("%d (%d)(%d)  ||", stack_a->rank, stack_a->mv_a, stack_a->mv_b);
 		else
-			ft_printf("  ");
+			ft_printf("           ||");
 		if (stack_b && stack_b != first_b)
-			ft_printf("%d --%d--\n", stack_b->nb, stack_b->rank);
+			ft_printf("   %d (%d)(%d)\n", stack_b->rank, stack_b->mv_a, stack_b->mv_b);
 		else
 			ft_printf(" \n");
 		if (stack_a != NULL && stack_a != first_a)

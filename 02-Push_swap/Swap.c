@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   Swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:04:07 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/06 13:04:07 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:28:48 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,21 @@
 
 void	swap(t_list **stack_a, t_list **stack_b, int size)
 {
-	int		tier;
-	int		div;
+	int	tier;
+	int	div;
 	
 	div = get_div(size);
 	tier = (size / div);
 	//printlst(*stack_a, *stack_b);
 	swap_ph1(stack_a, stack_b, size, tier);
 	//printlst(*stack_a, *stack_b);
+	//ft_printf("sizeA : %d\nsizeB : %d\n", ft_lstsize(*stack_a), ft_lstsize(*stack_b));
 	little_swap(stack_a, stack_b, ft_lstsize(*stack_a));
 	//printlst(*stack_a, *stack_b);
-	swap_ph2(stack_a, stack_b, tier);
+	swap_ph2(stack_a, stack_b);
+	//printlst(*stack_a, *stack_b);
+	ft_ajust(stack_a, size);
+	//printlst(*stack_a, *stack_b);
 }
 
 
@@ -37,15 +41,13 @@ void	swap_ph1(t_list **stack_a, t_list **stack_b, int size, int tier1)
 	j = 0;
 	div = tier1;
 	tier2 = tier1 + tier1;
-	while (tier2 <= (size - div))
+	while (tier2 <= size && ft_lstsize(*stack_a) > 3)
 	{
-		while (j != tier2)
+		while (j != tier2 && ft_lstsize(*stack_a) > 3)
 			j = j + swap_ph1_move(stack_a, stack_b, tier1, tier2);
 		tier1 = tier1 + (div * 2);
 		tier2 = tier2 + (div * 2);
 	}
-	while (j != tier1)
-		j = j + swap_ph1_move(stack_a, stack_b, tier1, tier1);
 }
 
 void	sort_2v(t_list *stack)

@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 19:32:17 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/09 19:32:17 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:27:35 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	swap_ph1_move(t_list **stack_a, t_list **stack_b, int tier1, int tier2)
 	if ((*stack_a)->rank <= tier1)
 	{
 		pb(stack_a, stack_b);
-		if ((*stack_a)->rank > tier2)
+		if ((*stack_a)->rank > tier2 && (*stack_b)->next != NULL)
 			rr(stack_a, stack_b);
 		else if ((*stack_b)->next != NULL)
 			rab(stack_b, 0);
@@ -35,7 +35,7 @@ int	swap_ph1_move(t_list **stack_a, t_list **stack_b, int tier1, int tier2)
 	}
 }
 
-int	min(t_list *stack_a, int *rank)
+int	min_rank(t_list *stack_a, int *rank)
 {
 	int		i;
 	int		j;
@@ -43,7 +43,7 @@ int	min(t_list *stack_a, int *rank)
 	t_list	*first;
 
 	i = 1;
-	j = 1;
+	j = 2;
 	first = stack_a;
 	min = stack_a->rank;
 	stack_a = stack_a->next;
@@ -69,7 +69,7 @@ void	little_swap(t_list **stack_a, t_list **stack_b, int size)
 	new_size = size;
 	while (new_size != 3 && check_order(*stack_a) == 1)
 	{ 
-		if (sort_prox(new_size, min(*stack_a, &rank)) == 1)
+		if (sort_prox(new_size, min_rank(*stack_a, &rank)) == 1)
 		{
 			while ((*stack_a)->rank != rank)
 				rab(stack_a, 1);
@@ -88,59 +88,28 @@ void	little_swap(t_list **stack_a, t_list **stack_b, int size)
 		pa(stack_a, stack_b);
 }
 
-int	find_rank(t_list *stack_b, int rank, int tier_min)
+int	get_div(int size)
 {
-	int		i;
-	t_list	*first;
-
-	i = 0;
-	first = stack_b;
-	while (1)
-	{
-		if (stack_b->rank == rank)
-			return (i);
-		stack_b = stack_b->next;
-		i++;
-		if (stack_b->rank <= tier_min || sort_prox(ft_lstsize(stack_b), i) == 0)
-			break ;
-	}
-	i = 0;
-	stack_b = first;
-	while (1)
-	{
-		if (stack_b->rank == rank)
-			return (i);
-		stack_b = stack_b->prec;
-		i--;
-	}
+	if (size <= 200)
+		return (4);
+	else
+		return (8);
 }
 
-void	swap_ph2(t_list **stack_a, t_list **stack_b, int tier)
+int	sort_prox(int size, int rank)
 {
-	int	rank;
-	int act_tier;
-
-	rank = (*stack_a)->rank - 1;
-	act_tier = rank - tier;
-	while (rank != 0)
+	if (size % 2 == 0)
 	{
-		if (act_tier == rank)
-			act_tier = act_tier - tier;
-		if (find_rank(*stack_b, rank, act_tier) == 1)
-			sab(*stack_b, 0);
-		else if (find_rank(*stack_b, rank, act_tier) > 0)
-		{
-			while ((*stack_b)->rank != rank)
-				rab(stack_b, 0);
-		}
+		if (rank <= (size / 2))
+			return (1);
 		else
-		{
-			while ((*stack_b)->rank != rank)
-				rrab(stack_b, 0);
-		}
-		pa(stack_a, stack_b);
-		rank--;
-		//printlst(*stack_a, *stack_b);
-		//ft_printf("rank : %d\nact_tier : %d\n", rank, act_tier);
+			return (0);
+	}
+	else
+	{
+		if (rank <= (size / 2) + 1)
+			return (1);
+		else
+			return (0);
 	}
 }

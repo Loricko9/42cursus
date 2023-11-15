@@ -1,5 +1,5 @@
-SRCS 	=	Push_swap.c aff.c ft_printf.c list_utils.c Swap.c Swap3.c\
-			Sort.c Sort2.c check_av.c Sort3.c get_lst.c Swap2.c
+SRCS 	=	Push_swap.c aff.c ft_printf.c list_utils.c Swap.c Swap3.c Swap3_cost_extrem.c \
+			Sort.c Sort2.c check_av.c Sort3.c get_lst.c Swap2.c Swap3_cost.c
 
 OBJS	=	$(SRCS:.c=.o)
 NAME	=	push_swap

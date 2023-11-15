@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:27:16 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/04 18:27:16 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:52:18 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_list
 {
 	int				nb;
 	int				rank;
+	int				mv_a;
+	int				mv_b;
 	struct s_list	*next;
 	struct s_list	*prec;
 }	t_list;
@@ -27,6 +29,7 @@ typedef struct s_list
 //Push_swap.c
 void		printlst(t_list *stack_a, t_list *stack_b); //-----A RETIRER-----
 void		ft_error(t_list *stack_a);
+void		ft_ajust(t_list **stack_a, int size);
 
 //get_lst.c
 long long	ft_atoi(const char *nptr);
@@ -72,16 +75,29 @@ void		swap_ph1(t_list **stack_a, t_list **stack_b, int size, int tier1);
 void		swap(t_list **stack_a, t_list **stack_b, int size);
 
 //Swap2.c
-int			min(t_list *stack_a, int *rank);
+int			min_rank(t_list *stack_a, int *rank);
 void		little_swap(t_list **stack_a, t_list **stack_b, int size);
-int			find_rank(t_list *stack_b, int rank, int tier_min);
-void		swap_ph2(t_list **stack_a, t_list **stack_b, int tier);
 int			swap_ph1_move(t_list **stack_a, t_list **stack_b, int tier1, int tier2);
-
-//Swap3.c
-int			max(t_list *stack_a, int *rank);
-void		swap_ph3(t_list **stack_a, t_list **stack_b, int size);
 int			sort_prox(int size, int rank);
 int			get_div(int size);
+
+//Swap3.c
+void		get_lowest_cost2(int mv_a, int mv_b, int *total);
+void		get_lowest_cost(t_list *stack_b, int *mv_a, int *mv_b, int size);
+void		swap_ph2(t_list **stack_a, t_list **stack_b);
+void		do_swap(t_list **stack_a, t_list **stack_b, int mv_a, int mv_b);
+void		do_swap2(t_list **stack_a, t_list **stack_b, int *mv_a, int *mv_b);
+
+//Swap3_cost.c
+int			cost_mv_b(t_list *stack_b, int size, int niv, int rank);
+int			cost_mv_a(t_list *stack_a, int size, int rank);
+int			cost_mv_a2(t_list *temp, int rank);
+void		get_cost(t_list **stack_a, t_list **stack_b);
+void		get_lowest_cost3(int *mv_a, int *mv_b, int *total);
+
+//Swap3_cost_extrem.c
+int			min(t_list *stack);
+int			max(t_list *stack);
+int			cost_mv_a_extremum(t_list *stack_a, int *mv, int rank, int size);
 
 #endif
