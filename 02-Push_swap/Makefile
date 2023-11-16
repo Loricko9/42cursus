@@ -1,7 +1,13 @@
 SRCS 	=	Push_swap.c aff.c ft_printf.c list_utils.c Swap.c Swap3.c Swap3_cost_extrem.c \
 			Sort.c Sort2.c check_av.c Sort3.c get_lst.c Swap2.c Swap3_cost.c
 
-OBJS	=	$(SRCS:.c=.o)
+SRCS_BONUS	=	main_checker_bonus.c check_av.c list_utils.c get_lst.c lst_utils_bonus.c \
+				Sort_bonus.c Sort2_bonus.c Sort3_bonus.c do_cmd_bonus.c \
+				get_next_line.c get_next_line_utils.c ft_printf.c aff.c
+
+OBJS			=	$(SRCS:.c=.o)
+OBJS_BONUS		=	$(SRCS_BONUS:.c=.o)
+NAME_CHECKER	=	checker
 NAME	=	push_swap
 CC		=	cc
 CFLAGS	+=	-W -Wall -Wextra -Werror
@@ -15,10 +21,16 @@ $(NAME)	:	$(OBJS)
 	$(CC) -o $@ -I. $(OBJS)
 	@echo 'Compilation Success !!'
 
+bonus	:	$(OBJS_BONUS)
+	$(CC) -o $(NAME_CHECKER) -I. $(OBJS_BONUS)
+	@echo 'Checker created !!'
+
 clean	:
 	$(RM) $(OBJS)
+	$(RM) $(OBJS_BONUS)
 
 fclean	:	clean
 	$(RM) $(NAME)
+	$(RM) $(NAME_CHECKER)
 
 re		:	fclean all
