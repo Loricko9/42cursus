@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 21:34:20 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/15 21:34:20 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:29:44 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	cost_mv_a_extremum(t_list *stack_a, int *mv, int rank, int size)
 	if (min(stack_a) > rank)
 	{
 		*mv = min_rank(stack_a, &i) - 1;
-		//ft_printf("min_rank : %d\n", min_rank(stack_a, &i));
 		if (sort_prox(size, (*mv) + 1) == 0)
 		{
 			*mv = cost_mv_a2(stack_a, min(stack_a));

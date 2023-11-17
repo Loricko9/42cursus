@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:53:14 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/16 13:53:14 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:26:35 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,3 @@ void	pa_checker(t_list **stack_a, t_list **stack_b)
 		pa2_checker(stack_a, stack_b);
 	*stack_b = next_b;
 }
-

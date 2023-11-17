@@ -1,8 +1,8 @@
 SRCS 	=	Push_swap.c aff.c ft_printf.c list_utils.c Swap.c Swap3.c Swap3_cost_extrem.c \
 			Sort.c Sort2.c check_av.c Sort3.c get_lst.c Swap2.c Swap3_cost.c
 
-SRCS_BONUS	=	main_checker_bonus.c check_av.c list_utils.c get_lst.c lst_utils_bonus.c \
-				Sort_bonus.c Sort2_bonus.c Sort3_bonus.c do_cmd_bonus.c \
+SRCS_BONUS	=	Checker_bonus.c check_av.c get_lst.c do_cmd_bonus.c \
+				Sort_bonus.c Sort2_bonus.c Sort3_bonus.c list_utils.c\
 				get_next_line.c get_next_line_utils.c ft_printf.c aff.c
 
 OBJS			=	$(SRCS:.c=.o)

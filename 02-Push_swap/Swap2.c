@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 19:32:17 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/15 14:27:35 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:28:51 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	min_rank(t_list *stack_a, int *rank)
 			min = stack_a->rank;
 		}
 		j++;
-		stack_a  = stack_a->next;
+		stack_a = stack_a->next;
 	}
 	*rank = min;
 	return (i);
@@ -68,7 +68,7 @@ void	little_swap(t_list **stack_a, t_list **stack_b, int size)
 
 	new_size = size;
 	while (new_size != 3 && check_order(*stack_a) == 1)
-	{ 
+	{
 		if (sort_prox(new_size, min_rank(*stack_a, &rank)) == 1)
 		{
 			while ((*stack_a)->rank != rank)

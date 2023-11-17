@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 17:29:52 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/10/23 14:29:37 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:41:16 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char	*get_next_line(int fd)
 	int				size;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (free(stock), stock = NULL, NULL);
+		return (ft_free_stock(stock), stock = NULL, NULL);
 	line = NULL;
 	size = 1;
 	ft_read(&stock, fd, &size);

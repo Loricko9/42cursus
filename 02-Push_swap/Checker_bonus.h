@@ -17,18 +17,13 @@
 # include "Push_swap.h"
 
 //main_checker_bonus.c
-void	fill_list(int fd, t_lst **list);
-void	ft_error(t_list *stack_a);
+void	get_cmd(t_list **stack_a, t_list **stack_b);
 
 //do_cmd_bonus.c
 int		ft_cmp_cmd(char *cmp, char *str);
-void	do_cmd(t_lst *cmd, t_list **stack_a, t_list **stack_b);
-void	do_cmd2(t_lst *cmd, t_lst *first, t_list **stack_a, t_list **stack_b);
-
-//lst_utils_bonus.c
-int		ft_lstsize_checker(t_lst *lst);
-t_lst	*ft_lstnew_chercker(void *content);
-void	ft_lstadd_back_chercker(t_lst **lst, t_lst *new);
+void	do_cmd(char *str, t_list **stack_a, t_list **stack_b);
+void	do_cmd2(char *str, t_list **stack_a, t_list **stack_b);
+void	do_cmd3(char *str, t_list **stack_a, t_list **stack_b);
 
 //Sort_bonus.c
 void	sab_checker(t_list *stack);

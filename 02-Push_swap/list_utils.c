@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 19:01:29 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/04 19:01:29 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:03:46 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_list	*ft_lstlast(t_list *lst)
 	return (0);
 }
 
-void	ft_free_lst(t_list *lst)
+int	ft_free_lst(t_list *lst)
 {
 	t_list	*temp;
 	int		size;
@@ -96,4 +96,5 @@ void	ft_free_lst(t_list *lst)
 		lst = temp;
 		size--;
 	}
+	return (0);
 }

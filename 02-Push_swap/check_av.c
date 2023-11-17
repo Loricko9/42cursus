@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 17:57:36 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/05 17:57:36 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:23:41 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	check_order(t_list *stack_a)
 	t_list	*next;
 	t_list	*first;
 
+	if (ft_lstsize(stack_a) == 1)
+		return (0);
 	next = stack_a->next;
 	first = stack_a;
 	while (next != first)

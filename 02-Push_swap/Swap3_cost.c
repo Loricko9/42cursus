@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 17:59:14 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/15 17:59:14 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:28:21 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	cost_mv_a(t_list *stack_a, int size, int rank)
 	mv = 0;
 	prec = stack_a->prec;
 	first = stack_a;
-	//ft_printf("prec : %d\nact : %d\nrank : %d\n", prec->rank, stack_a->rank, rank);
 	if (cost_mv_a_extremum(stack_a, &mv, rank, size) == 1)
 		return (mv);
 	while (1)
@@ -64,7 +63,7 @@ int	cost_mv_a(t_list *stack_a, int size, int rank)
 
 int	cost_mv_a2(t_list *temp, int rank)
 {
-	int mv;
+	int	mv;
 
 	mv = 0;
 	while (rank != temp->rank)
@@ -84,7 +83,8 @@ void	get_cost(t_list **stack_a, t_list **stack_b)
 	rank = 1;
 	while (rank <= ft_lstsize(*stack_b))
 	{
-		temp->mv_b = cost_mv_b(*stack_b, ft_lstsize(*stack_b), rank, temp->rank);
+		temp->mv_b = cost_mv_b(*stack_b, ft_lstsize(*stack_b), rank,
+				temp->rank);
 		temp->mv_a = cost_mv_a(*stack_a, ft_lstsize(*stack_a), temp->rank);
 		rank++;
 		temp = temp->next;

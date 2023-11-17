@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:27:16 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/15 14:52:18 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:03:05 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_list
 }	t_list;
 
 //Push_swap.c
-void		printlst(t_list *stack_a, t_list *stack_b); //-----A RETIRER-----
 void		ft_error(t_list *stack_a);
 void		ft_ajust(t_list **stack_a, int size);
 
@@ -43,7 +42,7 @@ int			ft_lstsize(t_list *lst);
 t_list		*ft_lstnew(int nb);
 void		ft_lstadd_back(t_list **lst, t_list	*new);
 t_list		*ft_lstlast(t_list *lst);
-void		ft_free_lst(t_list *lst);
+int			ft_free_lst(t_list *lst);
 
 //check_av.c
 int			check_line(char *str);
@@ -77,7 +76,8 @@ void		swap(t_list **stack_a, t_list **stack_b, int size);
 //Swap2.c
 int			min_rank(t_list *stack_a, int *rank);
 void		little_swap(t_list **stack_a, t_list **stack_b, int size);
-int			swap_ph1_move(t_list **stack_a, t_list **stack_b, int tier1, int tier2);
+int			swap_ph1_move(t_list **stack_a, t_list **stack_b, int tier1,
+				int tier2);
 int			sort_prox(int size, int rank);
 int			get_div(int size);
 
