@@ -12,6 +12,20 @@
 
 #include "Pipex.h"
 
+int	ft_path_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (ft_strcmp("PATH=", env[i]) == 0)
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
 void	ft_free_var(char **cmd, char **env_path, char *path)
 {
 	ft_free_tab(cmd);
@@ -37,17 +51,19 @@ char	*ft_get_path(char **path, char *cmd)
 {
 	int		i;
 	char	*full_path;
+	char	*new_cmd;
 
 	i = 0;
+	new_cmd = ft_strjoin("/", cmd);
 	while (path[i] != NULL)
 	{
-		full_path = ft_strjoin(path[i], cmd);
+		full_path = ft_strjoin(path[i], new_cmd);
 		if (access(full_path, X_OK) == 0)
-			return (full_path);
+			return (free(new_cmd), full_path);
 		free(full_path);
 		i++;
 	}
-	return (NULL);
+	return (free(new_cmd), NULL);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)

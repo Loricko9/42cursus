@@ -15,9 +15,11 @@
 
 size_t	ft_strlen_split(const char *s)
 {
-	size_t		i;
+	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (i);
 	while (s[i] != '\0')
 		i++;
 	return (i);
@@ -32,6 +34,8 @@ static int	ft_countwords(char const *s, char c)
 	i = 0;
 	count = 0;
 	trig = 0;
+	if (!s)
+		return (0);
 	while (s[i] != '\0')
 	{
 		if (trig == 0 && s[i] != c)
@@ -46,7 +50,7 @@ static int	ft_countwords(char const *s, char c)
 	return (count);
 }
 
-static char	*ft_splitword(char const *s, size_t index, size_t i, char **tab)
+static char	*ft_splitword(char const *s, size_t index, size_t i)
 {
 	char	*str;
 	size_t	j;
@@ -82,7 +86,7 @@ char	**ft_split(char const *s, char c)
 			index = i;
 		else if ((s[i] == c || i == ft_strlen_split(s)) && index != -1)
 		{
-			tab[j] = ft_splitword(s, index, i, tab);
+			tab[j] = ft_splitword(s, index, i);
 			j++;
 			index = -1;
 		}

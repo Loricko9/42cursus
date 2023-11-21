@@ -1,5 +1,5 @@
 FILES 	=	aff.c ft_printf.c ft_split.c get_next_line.c get_next_line_utils.c \
-			Pipex.c Pipex_utils.c
+			Pipex.c Pipex_utils.c Pipex_utils2.c
 
 NAME	=	pipex
 CC		=	cc
