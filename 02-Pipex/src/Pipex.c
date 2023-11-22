@@ -36,8 +36,6 @@ int	ft_redirect_fd(char *file1, char *file2, int i)
 	
 	if (i == 0)
 	{
-		if (check_file2(file2) == 1)
-			return (1);
 		fd = open(file1, O_RDONLY);
 		if (fd < 0)
 			return (perror("pipex"), 1);
@@ -106,15 +104,23 @@ void	ft_create_pid(char *cmd, char **env)
 int	main(int ac, char **av, char **env)
 {
 	int	i;
+	int	a;
 
 	i = -1;
+	a = 0;
+	if (ac < 6 && ft_strcmp(av[1], "here_doc") == 0)
+		return (write(1, "pipex: minimum 6 arguments need with here_doc", 46));
 	if (ac < 5)
-		return (1);
-	(void)env;
-	if (ft_redirect_fd(av[1], av[ac - 1], 0) == 1)
-		return (1);
-	while (++i < (ac - 4))
-		ft_create_pid(av[i + 2], env);
+		return (write(1, "pipex: minimum 5 arguments need", 31));
+	if (check_file2(av[ac - 1]) == 1)
+			return (1);
+	if (ft_strcmp(av[1], "here_doc") == 0)
+		ft_here_doc(&a, ft_strjoin(av[2], "\n"));
+	else
+		if (ft_redirect_fd(av[1], av[ac - 1], 0) == 1)
+			return (1);
+	while (++i < ((ac - 4) - a))
+		ft_create_pid(av[i + 2 + a], env);
 	if (ft_redirect_fd(av[1], av[ac - 1], 1) == 1)
 		return (1);
 	ft_exec_cmd(ft_split(av[ac - 2], ' '), env);

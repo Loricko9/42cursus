@@ -1,5 +1,5 @@
-FILES 	=	aff.c ft_printf.c ft_split.c get_next_line.c get_next_line_utils.c \
-			Pipex.c Pipex_utils.c Pipex_utils2.c
+FILES 	=	ft_split.c get_next_line.c get_next_line_utils.c \
+			Pipex.c Pipex_utils.c Pipex_utils2.c Pipex_here_doc.c
 
 NAME	=	pipex
 CC		=	cc
@@ -15,14 +15,13 @@ SRCS 		=	$(addprefix $(SRCS_DIR), $(FILES))
 $(OBJ_DIR)%.o 	:	$(SRCS_DIR)%.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-all		:
-	@make $(NAME)
+all		:	$(NAME)
 
 make_OBJS_DIR	:
 	mkdir -p $(OBJ_DIR)
 
 $(NAME)	:	make_OBJS_DIR $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) -o $@
+	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) -o $@
 	@echo 'Compilation success !'
 
 clean	:

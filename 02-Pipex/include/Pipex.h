@@ -23,13 +23,16 @@
 # include <sys/stat.h>
 
 # include "get_next_line.h"
-# include "ft_printf.h"
 
 /*Pipex.c*/
 int		ft_exec_cmd(char **cmd, char **env);
 int		ft_redirect_fd(char *file1, char *file2, int i);
 void	ft_pipe_exec(int pid, int *fd, char *cmd, char **env);
 void	ft_create_pid(char *cmd, char **env);
+
+/*Pipex_here_doc.c*/
+void	ft_reading_here_doc(char *end, int *fd);
+void	ft_here_doc(int *a, char *end);
 
 /*Pipex_utils.c*/
 int		ft_path_env(char **env);
@@ -39,6 +42,8 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	ft_free_var(char **cmd, char **env_path, char *path);
 
 /*Pipex_utils2.c*/
+void	ft_putchar(char c, int fd);
+void	ft_putstr(char *str, int fd);
 int		ft_strcmp(char *src, char *dest);
 int		check_file2(char *file2);
 

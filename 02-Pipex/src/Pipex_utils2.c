@@ -12,6 +12,23 @@
 
 #include "Pipex.h"
 
+void	ft_putchar(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void	ft_putstr(char *str, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		ft_putchar(str[i], fd);
+		i++;
+	}
+}
+
 int check_file2(char *file2)
 {
 	if (access(file2, F_OK) == 0)
