@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:06:51 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/20 11:06:51 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:22:55 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,18 @@ void	ft_putstr(char *str, int fd)
 	}
 }
 
-int check_file2(char *file2)
+int	check_file(char *file1, char *file2)
 {
+	if (ft_strcmp(file1, "here_doc") == 1)
+	{
+		if (access(file1, F_OK) == 0)
+		{
+			if (access(file1, R_OK) == -1)
+				return (perror("pipex"), 1);
+		}
+		else
+			return (perror("pipex"), 1);
+	}
 	if (access(file2, F_OK) == 0)
 	{
 		if (access(file2, W_OK) == -1)

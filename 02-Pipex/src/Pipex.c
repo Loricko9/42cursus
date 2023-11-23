@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 17:27:18 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/17 17:27:18 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:09:19 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ int	ft_exec_cmd(char **cmd, char **env)
 	res = 0;
 	env_path = ft_split(env[ft_path_env(env)], ':');
 	if (!env_path)
-		return (perror("pipex"), free(env_path), ft_free_tab(cmd), 1);
+		return (perror("pipex"), ft_free_tab(env_path), ft_free_tab(cmd), 1);
 	path = ft_get_path(env_path, cmd[0]);
+	if (!path)
+		return (ft_putstr("pipex: command not found: ", 2), ft_putstr(cmd[0],
+				2), ft_putchar('\n', 2), ft_free_tab(env_path),
+			ft_free_tab(cmd), 1);
 	res = execve(path, cmd, env);
 	ft_free_var(cmd, env_path, path);
 	if (res == -1)
@@ -33,7 +37,7 @@ int	ft_exec_cmd(char **cmd, char **env)
 int	ft_redirect_fd(char *file1, char *file2, int i)
 {
 	int	fd;
-	
+
 	if (i == 0)
 	{
 		fd = open(file1, O_RDONLY);
@@ -109,11 +113,12 @@ int	main(int ac, char **av, char **env)
 	i = -1;
 	a = 0;
 	if (ac < 6 && ft_strcmp(av[1], "here_doc") == 0)
-		return (write(1, "pipex: minimum 6 arguments need with here_doc", 46));
+		return (write(1,
+				"pipex: minimum 6 arguments need with here_doc\n", 47));
 	if (ac < 5)
-		return (write(1, "pipex: minimum 5 arguments need", 31));
-	if (check_file2(av[ac - 1]) == 1)
-			return (1);
+		return (write(1, "pipex: minimum 5 arguments need\n", 32));
+	if (check_file(av[1], av[ac - 1]) == 1)
+		return (1);
 	if (ft_strcmp(av[1], "here_doc") == 0)
 		ft_here_doc(&a, ft_strjoin(av[2], "\n"));
 	else

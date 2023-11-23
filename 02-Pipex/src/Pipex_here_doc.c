@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:19:54 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/22 17:19:54 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:29:12 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,22 @@ void	ft_reading_here_doc(char *end, int *fd)
 	exit(0);
 }
 
+void	ft_here_doc2(int *fd)
+{
+	close(fd[1]);
+	if (dup2(fd[0], STDIN_FILENO) == -1)
+	{
+		perror("pipex");
+		exit(1);
+	}
+	close(fd[0]);
+}
+
 void	ft_here_doc(int	*a, char *end)
 {
 	int	fd[2];
 	int	pid;
-	
+
 	*a = 1;
 	if (pipe(fd) == -1)
 	{
@@ -54,13 +65,5 @@ void	ft_here_doc(int	*a, char *end)
 	if (pid == 0)
 		ft_reading_here_doc(end, fd);
 	else
-	{
-		close(fd[1]);
-		if (dup2(fd[0], STDIN_FILENO) == -1)
-		{
-			perror("pipex");
-			exit(1);
-		}
-		close(fd[0]);
-	}
+		ft_here_doc2(fd);
 }

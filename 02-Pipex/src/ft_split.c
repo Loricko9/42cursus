@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-saul <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 17:41:49 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/09/15 17:41:49 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:21:24 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	ft_countwords(char const *s, char c, int *trig_cote)
 static char	*ft_splitword(char const *s, int *index, int i)
 {
 	char	*str;
-	int	j;
+	int		j;
 
 	str = malloc((i - *index + 1) * sizeof(char));
 	j = 0;
@@ -99,11 +99,9 @@ char	**ft_split(char const *s, char c)
 		if (s[i] != c && index == -1)
 			index = i;
 		else if ((s[i] == c || i == ft_strlen_split(s)) && index != -1
-				&& trig_cote != 1)
+			&& trig_cote != 1)
 			tab[j++] = ft_splitword(s, &index, i);
 	}
 	tab[j] = NULL;
 	return (tab);
 }
-
-
