@@ -29,6 +29,7 @@ typedef struct s_list
 //Push_swap.c
 void		ft_error(t_list *stack_a);
 void		ft_ajust(t_list **stack_a, int size);
+void		printlst(t_list *stack_a, t_list *stack_b);
 
 //get_lst.c
 long long	ft_atoi(const char *nptr);

@@ -71,3 +71,42 @@ int	main(int ac, char **av)
 		swap(&stack_a, &stack_b, ft_lstsize(stack_a));
 	ft_free_lst(stack_a);
 }
+
+void	printlst(t_list *stack_a, t_list *stack_b)
+{
+	t_list	*first_a;
+	t_list	*first_b;
+	
+	ft_printf("-----------------------------------------------\n");
+	if (stack_a)
+	{
+		ft_printf("%d (%d)(%d)  ||", stack_a->rank, stack_a->mv_a, stack_a->mv_b);
+		first_a =stack_a;
+		stack_a = stack_a->next;
+	}
+	else
+		ft_printf("           ||");
+	if (stack_b)
+	{
+		ft_printf("   %d (%d)(%d)\n", stack_b->rank, stack_b->mv_a, stack_b->mv_b);
+		first_b = stack_b;
+		stack_b = stack_b->next;
+	}
+	else
+		ft_printf(" \n");
+	while ((stack_a != NULL && stack_a != first_a) || (stack_b != NULL && stack_b != first_b))
+	{
+		if (stack_a && stack_a != first_a)
+			ft_printf("%d (%d)(%d)  ||", stack_a->rank, stack_a->mv_a, stack_a->mv_b);
+		else
+			ft_printf("           ||");
+		if (stack_b && stack_b != first_b)
+			ft_printf("   %d (%d)(%d)\n", stack_b->rank, stack_b->mv_a, stack_b->mv_b);
+		else
+			ft_printf(" \n");
+		if (stack_a != NULL && stack_a != first_a)
+			stack_a = stack_a->next;
+		if (stack_b != NULL && stack_b != first_b)
+			stack_b = stack_b->next;
+	}
+}
