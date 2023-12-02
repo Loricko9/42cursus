@@ -1,4 +1,4 @@
-FILES 	=	main.c
+FILES 	=	main.c utils.c check.c
 
 NAME	=	philo
 CC		=	cc
@@ -16,22 +16,21 @@ $(OBJ_DIR)%.o 	:	$(SRCS_DIR)%.c
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@echo "$(COLOUR_YELLOW)Compiling ... $(COLOUR_GREEN)[✔]	$<$(NO_COLOUR)"
 
-
 all   : header message_all $(NAME)
 
 make_OBJS_DIR	:
 	@mkdir -p $(OBJ_DIR)
 
 $(NAME)	:	make_OBJS_DIR $(OBJS) message_end
-	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) -o $@
+	@$(CC) $(CFLAGS) -g $(INCLUDE) $(OBJS) -o $@
 
 clean	:	header message_clean
 	@$(RM) $(OBJ_DIR)
 
-fclean	:	header message_fclean clean_lib
+fclean	:	header message_fclean
 	@$(RM) $(OBJ_DIR) $(NAME)
 
-fclean_re	: header message_re clean_lib
+fclean_re	: header message_re
 	@$(RM) $(OBJ_DIR) 
 	@$(RM) $(NAME)
 
