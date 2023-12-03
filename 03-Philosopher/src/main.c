@@ -82,16 +82,29 @@ int	ft_create(t_data *data, t_philo *lst)
 	gettimeofday(&data->start, NULL);
 	while (size > 0)
 	{
-		printf("size : %d\n", size);
 		if (pthread_create(&lst->thread, NULL, func1, lst) != 0)
 			return (1);
-		if (pthread_detach(lst->thread) != 0)
-			return (1);
+		/*if (pthread_detach(lst->thread) != 0)
+			return (1);*/
 		lst = lst->next;
 		size--;
 	}
 	data->state = 1;
 	return (0);
+}
+
+void finish_th(t_philo *lst)
+{
+	t_philo	*first;
+
+	first = lst;
+	pthread_join(lst->thread, NULL);
+	lst = lst->next;
+	while (lst != first)
+	{
+		pthread_join(lst->thread, NULL);
+		lst = lst->next;
+	}
 }
 
 int	main(int ac, char **av)
@@ -107,11 +120,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_create(&data, lst) == 1)
 		return (1);
-	while (verif_victory(lst) == 0)
-	{
-		//printf ("verif : %d\n", verif_victory(lst));
-		usleep(10);
-	}
+	finish_th(lst);
 	//print_lst(lst);
 	printf("fin des proccess\n");
 	ft_lst_free(lst);
