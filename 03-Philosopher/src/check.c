@@ -41,7 +41,8 @@ int	check_char(char **av)
 			if (((av[j][i] < '0' || av[j][i] > '9') && av[j][i] != '+') &&
 					((av[j][i] < '\t' || av[j][i] > '\r') && av[j][i] != 32))
 				return (1);
-			else if (trig == 2 && (av[j][i] < '\t' || av[j][i] > '\r') && av[j][i] != 32)
+			else if (trig == 2 && (av[j][i] < '\t' || av[j][i] > '\r')
+					&& av[j][i] != 32)
 				return (1);
 			else if (trig == 1 && (av[j][i] < '0' || av[j][i] > '9'))
 				trig =2;
@@ -60,4 +61,27 @@ int	check_arg(char **av)
 	if (check_int(av) == 1)
 		return (printf("Error : nb to high\n"), 1);
 	return (0);
+}
+
+int	verif_victory(t_philo *lst)
+{
+	t_philo	*first;
+
+	first = lst;
+	pthread_mutex_lock(&lst->victory.mutex_victory);
+	if (lst->victory.nb_victory == -1)
+		return (pthread_mutex_unlock(&lst->victory.mutex_victory), 0);
+	if (lst->victory.nb_victory > 0)
+		return (pthread_mutex_unlock(&lst->victory.mutex_victory), 0);
+	pthread_mutex_unlock(&lst->victory.mutex_victory);
+	lst = lst->next;
+	while (lst != first)
+	{
+		pthread_mutex_lock(&lst->victory.mutex_victory);
+		if (lst->victory.nb_victory > 0)
+			return (pthread_mutex_unlock(&lst->victory.mutex_victory), 0);
+		pthread_mutex_unlock(&lst->victory.mutex_victory);
+		lst = lst->next;
+	}
+	return (1);
 }
