@@ -33,7 +33,8 @@ typedef struct s_fork
 
 typedef struct s_death
 {
-	pthread_mutex_t	mutex_death;
+	struct timeval	last_act;
+	float			death;
 }	t_death;
 
 typedef struct s_data
@@ -73,5 +74,10 @@ int		check_int(char **av);
 int		check_char(char **av);
 int		check_arg(char **av);
 int		verif_victory(t_philo *lst);
+
+/*act_philo.c*/
+float	time_diff(struct timeval *start, struct timeval *end);
+void	act_death(t_philo *lst);
+void	act_death2(t_philo *lst);
 
 #endif

@@ -1,4 +1,4 @@
-FILES 	=	main.c utils.c lst_utils.c check.c
+FILES 	=	main.c utils.c lst_utils.c check.c act_philo.c
 
 NAME	=	philo
 CC		=	cc
@@ -22,7 +22,7 @@ make_OBJS_DIR	:
 	@mkdir -p $(OBJ_DIR)
 
 $(NAME)	:	make_OBJS_DIR $(OBJS) message_end
-	@$(CC) $(CFLAGS) -g $(INCLUDE) $(OBJS) -o $@
+	@$(CC) $(CFLAGS) -g -pthread $(INCLUDE) $(OBJS) -o $@
 
 clean	:	header message_clean
 	@$(RM) $(OBJ_DIR)

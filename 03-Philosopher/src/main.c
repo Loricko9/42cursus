@@ -12,11 +12,6 @@
 
 #include "philo.h"
 
-float time_diff(struct timeval *start, struct timeval *end)
-{
-	return (end->tv_sec - start->tv_sec) * 1e3 + 1e-3 * (end->tv_usec - start->tv_usec);
-}
-
 void	*func1(void *src)
 {
 	t_philo			*lst;
@@ -24,13 +19,15 @@ void	*func1(void *src)
 
 	lst = src;
 	while (lst->data->state != 1)
-		usleep(1);
+		usleep(0.1);
 	gettimeofday(&end, NULL);
 	printf("nb philo : %d active (since : %f)\n", lst->nb_philo, time_diff(&lst->data->start, &end));
 	//print_lst(lst);
-	pthread_mutex_lock(&lst->victory.mutex_victory);
+	while (lst->data->state != 0)
+		act_death(lst);
+	/*pthread_mutex_lock(&lst->victory.mutex_victory);
 	lst->victory.nb_victory = 0;
-	pthread_mutex_unlock(&lst->victory.mutex_victory);
+	pthread_mutex_unlock(&lst->victory.mutex_victory);*/
 	return (src);
 }
 
@@ -79,7 +76,6 @@ int	ft_create(t_data *data, t_philo *lst)
 	int	size;
 
 	size = ft_lstsize(lst);
-	gettimeofday(&data->start, NULL);
 	while (size > 0)
 	{
 		if (pthread_create(&lst->thread, NULL, func1, lst) != 0)
@@ -89,6 +85,7 @@ int	ft_create(t_data *data, t_philo *lst)
 		lst = lst->next;
 		size--;
 	}
+	gettimeofday(&data->start, NULL);
 	data->state = 1;
 	return (0);
 }
@@ -122,7 +119,7 @@ int	main(int ac, char **av)
 		return (1);
 	finish_th(lst);
 	//print_lst(lst);
-	printf("fin des proccess\n");
+	printf("fin de la simulation\n");
 	ft_lst_free(lst);
 }
 
