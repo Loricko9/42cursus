@@ -15,20 +15,27 @@
 void	*func1(void *src)
 {
 	t_philo			*lst;
-	struct timeval	end;
 
 	lst = src;
 	while (lst->data->state != 1)
 		usleep(0.1);
-	gettimeofday(&end, NULL);
-	printf("nb philo : %d active (since : %f)\n", lst->nb_philo, time_diff(&lst->data->start, &end));
+	wait_philo(lst, lst->data);
 	//print_lst(lst);
 	while (lst->data->state != 0)
+	{
 		act_death(lst);
+		if (lst->data->state == 0)
+			return (NULL);
+		take_fork(lst, lst->data);
+		if (lst->data->state == 0)
+			return (NULL);
+		if (verif_victory(lst) == 1)
+			return (NULL);
+	}
 	/*pthread_mutex_lock(&lst->victory.mutex_victory);
 	lst->victory.nb_victory = 0;
 	pthread_mutex_unlock(&lst->victory.mutex_victory);*/
-	return (src);
+	return (NULL);
 }
 
 int	create_lst(t_philo **lst, int nbr_philo, int nb_victory, t_data *data)
@@ -76,6 +83,7 @@ int	ft_create(t_data *data, t_philo *lst)
 	int	size;
 
 	size = ft_lstsize(lst);
+	data->size = size;
 	while (size > 0)
 	{
 		if (pthread_create(&lst->thread, NULL, func1, lst) != 0)
@@ -85,7 +93,7 @@ int	ft_create(t_data *data, t_philo *lst)
 		lst = lst->next;
 		size--;
 	}
-	gettimeofday(&data->start, NULL);
+	lst->data->start = get_time();
 	data->state = 1;
 	return (0);
 }
@@ -120,9 +128,11 @@ int	main(int ac, char **av)
 	finish_th(lst);
 	//print_lst(lst);
 	printf("fin de la simulation\n");
+	if (verif_victory(lst) == 1)
+		printf("Victory !!!\n");
 	ft_lst_free(lst);
 }
-
+/*
 void	print_lst(t_philo *lst)
 {
 	t_philo	*first;
@@ -141,4 +151,4 @@ void	print_lst(t_philo *lst)
 		pthread_mutex_unlock(&lst->victory.mutex_victory);
 		lst = lst->next;
 	}
-}
+}*/

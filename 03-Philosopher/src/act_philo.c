@@ -12,41 +12,107 @@
 
 #include "philo.h"
 
-float time_diff(struct timeval *start, struct timeval *end)
-{
-	return (end->tv_sec - start->tv_sec) * 1e3 + 1e-3
-		* (end->tv_usec - start->tv_usec);
-}
-
-void	act_death2(t_philo *lst)
+long get_time(void)
 {
 	struct timeval	end;
 	
-	lst->death.death -= 0.01;
-	usleep(10);
-	if (lst->death.death <= 0)
-	{
-		lst->data->state = 0;
-		gettimeofday(&end, NULL);
-		printf("%f | philo %d dead\n", time_diff(&lst->data->start, &end), lst->nb_philo);
-	}
+	gettimeofday(&end, NULL);
+	return ((end.tv_sec * 1000) + (end.tv_usec / 1000));
 }
 
 void	act_death(t_philo *lst)
 {
-	struct timeval	end;
-
-	gettimeofday(&end, NULL);
-	if (lst->death.last_act.tv_sec == 0 && lst->death.last_act.tv_usec == 0)
-		lst->death.death -= time_diff(&lst->data->start, &end);
-	else
-		lst->death.death -= time_diff(&lst->death.last_act, &end);
-	lst->death.last_act = end;
 	/*if (lst->nb_philo == 1)
 		printf("time %f\n", lst->death.death);*/
+	long	time;
+	time = get_time();
+	if (lst->death.last_act == -1)
+		lst->death.death = lst->death.death - (time - lst->data->start);
+	else
+		lst->death.death = lst->death.death - (time - lst->death.last_act);
+	/*if (lst->nb_philo == 1 && lst->death.last_act != -1)
+		printf("----diff : %ld----\n----remain : %ld----\n", (time - lst->death.last_act), lst->death.death);*/
+	lst->death.last_act = time;
 	if (lst->death.death <= 0)
 	{
 		lst->data->state = 0;
-		printf("%f | philo %d dead\n", time_diff(&lst->data->start, &lst->death.last_act), lst->nb_philo);
+		printf("%ld | philo %d dead\n", get_time() - lst->data->start, lst->nb_philo);
 	}
+}
+
+void	wait_philo(t_philo *lst, t_data *data)
+{
+	//long time;
+
+	//time = data->t_eat;	
+	if (data->size % 2 == 0)
+	{
+		if (lst->nb_philo % 2 == 1)
+			return ;
+		else
+			usleep(data->t_eat * 1000);
+	}
+	else
+	{
+		if (lst->nb_philo == data->size)
+			usleep(data->t_eat * 1000 * 2);
+		else if (lst->nb_philo % 2 == 1)
+			return ;
+		else
+			usleep(data->t_eat * 1000);
+	}
+}
+
+void	take_fork(t_philo *lst, t_data *data)
+{
+	t_philo	*next;
+	long	time_eat;
+	long	last_act;
+	long	time;
+
+	next = lst->next;
+	time_eat = data->t_eat;
+	pthread_mutex_lock(&lst->mutex_fork);
+	pthread_mutex_lock(&next->mutex_fork);	
+	printf("%ld | philo %d take fork\n", get_time() - data->start, lst->nb_philo);
+	printf("%ld | philo %d take fork\n", get_time() - data->start, lst->nb_philo);
+	last_act = get_time();
+	while (time_eat > 0 && data->state != 0)
+	{
+		act_death(lst);
+		//printf("time : %ld\n", time_eat);
+		time = get_time();
+		time_eat = time_eat - (time - last_act);
+		last_act = time;
+	}
+	pthread_mutex_unlock(&lst->mutex_fork);
+	pthread_mutex_unlock(&next->mutex_fork);
+	lst->death.death = data->t_die;
+	if (data->state == 0)
+		return ;
+	act_vitcory(lst);
+	sleep_philo(lst, data);
+}
+
+void	sleep_philo(t_philo *lst, t_data *data)
+{
+	long	time_sleep;
+	long	last_act;
+	long	time;
+
+	time_sleep = data->t_sleep;
+	last_act = get_time();
+	//printf("time after : %ld\n", data->start);
+	//printf("get_time : %ld\n", get_time());
+	printf("%ld | philo %d sleep\n", last_act - data->start, lst->nb_philo);
+	while (time_sleep > 0 && data->state != 0)
+	{
+		act_death(lst);
+		time = get_time();
+		time_sleep = time_sleep - (time - last_act);
+		last_act = time;
+	}
+	if (data->state == 0)
+		return ;
+	printf("%ld | philo %d think\n", last_act - data->start, lst->nb_philo);
 }

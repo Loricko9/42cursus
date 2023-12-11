@@ -33,24 +33,25 @@ typedef struct s_fork
 
 typedef struct s_death
 {
-	struct timeval	last_act;
-	float			death;
+	long	last_act;
+	long	death;
 }	t_death;
 
 typedef struct s_data
 {
-	struct		timeval start;
-	int			t_die;
-	int			t_sleep;
-	int			t_eat;
-	int			state;
+	long	start;
+	int		size;
+	int		t_die;
+	int		t_sleep;
+	int		t_eat;
+	int		state;
 }	t_data;
 
 typedef struct s_philo
 {
 	int				nb_philo;
 	pthread_t		thread;
-	t_fork			fork;
+	pthread_mutex_t	mutex_fork;
 	t_death			death;
 	t_victory		victory;
 	t_data			*data;
@@ -76,8 +77,13 @@ int		check_arg(char **av);
 int		verif_victory(t_philo *lst);
 
 /*act_philo.c*/
-float	time_diff(struct timeval *start, struct timeval *end);
+long	get_time(void);
 void	act_death(t_philo *lst);
-void	act_death2(t_philo *lst);
+void	wait_philo(t_philo *lst, t_data *data);
+void	take_fork(t_philo *lst, t_data *data);
+void	sleep_philo(t_philo *lst, t_data *data);
+
+/*act_phio2.c*/
+void	act_vitcory(t_philo *lst);
 
 #endif
