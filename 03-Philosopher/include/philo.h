@@ -19,23 +19,11 @@
 #include <unistd.h>
 #include <sys/time.h>
 
-typedef struct s_victory
-{
-	pthread_mutex_t	mutex_victory;
-	int				nb_victory;
-}	t_victory;
-
 typedef struct s_fork
 {
 	pthread_mutex_t	mutex_fork;
 	int				fork;
 }	t_fork;
-
-typedef struct s_death
-{
-	long	last_act;
-	long	death;
-}	t_death;
 
 typedef struct s_data
 {
@@ -52,8 +40,9 @@ typedef struct s_philo
 	int				nb_philo;
 	pthread_t		thread;
 	pthread_mutex_t	mutex_fork;
-	t_death			death;
-	t_victory		victory;
+	long			last_eat;
+	int				victory;
+	int				live;
 	t_data			*data;
 	struct s_philo	*next;
 }	t_philo;
@@ -74,16 +63,13 @@ int		ft_lstsize(t_philo *lst);
 int		check_int(char **av);
 int		check_char(char **av);
 int		check_arg(char **av);
-int		verif_victory(t_philo *lst);
+int	check_philo(t_philo *lst, t_data *data);
+int		check_victory(t_philo *lst);
 
 /*act_philo.c*/
 long	get_time(void);
-void	act_death(t_philo *lst);
+void	ft_sleep(int t_ms, t_data *data);
 void	wait_philo(t_philo *lst, t_data *data);
 void	take_fork(t_philo *lst, t_data *data);
-void	sleep_philo(t_philo *lst, t_data *data);
-
-/*act_phio2.c*/
-void	act_vitcory(t_philo *lst);
 
 #endif

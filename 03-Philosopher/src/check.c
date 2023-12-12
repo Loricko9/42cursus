@@ -63,25 +63,43 @@ int	check_arg(char **av)
 	return (0);
 }
 
-int	verif_victory(t_philo *lst)
+int	check_victory(t_philo *lst)
 {
 	t_philo	*first;
 
 	first = lst;
-	pthread_mutex_lock(&lst->victory.mutex_victory);
-	if (lst->victory.nb_victory == -1)
-		return (pthread_mutex_unlock(&lst->victory.mutex_victory), 0);
-	if (lst->victory.nb_victory > 0)
-		return (pthread_mutex_unlock(&lst->victory.mutex_victory), 0);
-	pthread_mutex_unlock(&lst->victory.mutex_victory);
+	if (lst->victory > 0 || lst->victory == -1)
+		return (0);
 	lst = lst->next;
 	while (lst != first)
 	{
-		pthread_mutex_lock(&lst->victory.mutex_victory);
-		if (lst->victory.nb_victory > 0)
-			return (pthread_mutex_unlock(&lst->victory.mutex_victory), 0);
-		pthread_mutex_unlock(&lst->victory.mutex_victory);
+		if (lst->victory > 0)
+			return (0);
 		lst = lst->next;
 	}
 	return (1);
 }
+
+int	check_philo(t_philo *lst, t_data *data)
+{
+	int		i;
+	t_philo	*first;
+
+	first = lst;
+	while (data->state != 0)
+	{
+		i = 0;
+		while (i < ft_lstsize(first))
+		{
+			if (get_time() - lst->last_eat >= data->t_die && lst->live == 1)
+				return (printf("%ld | %d DEAD !!!!!!!!\n", get_time() - data->start, lst->nb_philo), data->state = 0, 0);
+			i++;
+		}
+		if (check_victory(lst) == 1)
+			data->state = 0;
+	}
+	if (check_victory(lst) == 1)
+		printf("Victory !!!!\n");
+	return (1);
+}
+

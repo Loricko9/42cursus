@@ -1,4 +1,4 @@
-FILES 	=	main.c utils.c lst_utils.c check.c act_philo.c act_philo2.c
+FILES 	=	main.c utils.c lst_utils.c check.c act_philo.c
 
 NAME	=	philo
 CC		=	cc

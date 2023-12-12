@@ -21,10 +21,8 @@ t_philo	*ft_lstnew(int n_philo, int n_victory, t_data *ptr_data)
 		return (NULL);
 	list->nb_philo = n_philo;
 	pthread_mutex_init(&list->mutex_fork, NULL);
-	list->victory.nb_victory = n_victory;
-	pthread_mutex_init(&list->victory.mutex_victory, NULL);
-	list->death.death = ptr_data->t_die;
-	list->death.last_act = -1;
+	list->victory = n_victory;
+	list->live = 0;
 	list->data = ptr_data;
 	list->next = NULL;
 	return (list);

@@ -14,27 +14,23 @@
 
 void	*func1(void *src)
 {
-	t_philo			*lst;
+	t_philo	*lst;
+	t_data	*data;
 
 	lst = src;
-	while (lst->data->state != 1)
-		usleep(0.1);
+	data = lst->data;
+	/*while (lst->data->state != 1)
+		usleep(1);*/
 	wait_philo(lst, lst->data);
-	//print_lst(lst);
+	lst->last_eat = get_time();
+	lst->live = 1;
 	while (lst->data->state != 0)
 	{
-		act_death(lst);
-		if (lst->data->state == 0)
-			return (NULL);
 		take_fork(lst, lst->data);
-		if (lst->data->state == 0)
-			return (NULL);
-		if (verif_victory(lst) == 1)
-			return (NULL);
+		printf("%ld | %d sleep\n", get_time() - data->start, lst->nb_philo);
+		ft_sleep(data->t_sleep, data);
+		printf("%ld | %d thinking\n", get_time() - data->start, lst->nb_philo);
 	}
-	/*pthread_mutex_lock(&lst->victory.mutex_victory);
-	lst->victory.nb_victory = 0;
-	pthread_mutex_unlock(&lst->victory.mutex_victory);*/
 	return (NULL);
 }
 
@@ -84,6 +80,8 @@ int	ft_create(t_data *data, t_philo *lst)
 
 	size = ft_lstsize(lst);
 	data->size = size;
+	data->state = 1;
+	lst->data->start = get_time();
 	while (size > 0)
 	{
 		if (pthread_create(&lst->thread, NULL, func1, lst) != 0)
@@ -92,9 +90,8 @@ int	ft_create(t_data *data, t_philo *lst)
 			return (1);*/
 		lst = lst->next;
 		size--;
+		usleep(20);
 	}
-	lst->data->start = get_time();
-	data->state = 1;
 	return (0);
 }
 
@@ -125,21 +122,19 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_create(&data, lst) == 1)
 		return (1);
+	check_philo(lst, &data);
 	finish_th(lst);
 	//print_lst(lst);
 	printf("fin de la simulation\n");
-	if (verif_victory(lst) == 1)
-		printf("Victory !!!\n");
 	ft_lst_free(lst);
 }
-/*
-void	print_lst(t_philo *lst)
+
+/*void	print_lst(t_philo *lst)
 {
 	t_philo	*first;
 
 	first = lst;
-	pthread_mutex_lock(&lst->victory.mutex_victory);
-	printf("nb : %d\nfork : %d\neat : %d\n", lst->nb_philo, lst->fork.fork, lst->victory.nb_victory);
+	printf("nb : %d\nfork : %d\neat : %d\n", lst->nb_philo, lst->mutex_fork, lst->victory.nb_victory);
 	printf("---------------------------\n");
 	pthread_mutex_unlock(&lst->victory.mutex_victory);
 	lst = lst->next;
