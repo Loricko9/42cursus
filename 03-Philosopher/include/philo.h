@@ -25,12 +25,6 @@ typedef struct s_eat
 	long			last_eat;
 }	t_eat;
 
-typedef struct s_fork
-{
-	pthread_mutex_t	mutex_fork;
-	int				fork;
-}	t_fork;
-
 typedef struct s_data
 {
 	pthread_mutex_t	writing;

@@ -69,7 +69,9 @@ void	take_fork(t_philo *lst, t_data *data)
 	ft_sleep(data->t_eat, data, get_time());
 	pthread_mutex_unlock(&lst->mutex_fork);
 	pthread_mutex_unlock(&next->mutex_fork);
+	pthread_mutex_lock(&lst->eat.mutex_eat);
 	lst->eat.last_eat = get_time();
+	pthread_mutex_unlock(&lst->eat.mutex_eat);
 	if (data->state == 0)
 		return ;
 	if (lst->victory > 0)

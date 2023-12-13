@@ -87,8 +87,6 @@ int	ft_create(t_data *data, t_philo *lst)
 		//lst->last_eat = get_time();
 		if (pthread_create(&lst->thread, NULL, func1, lst) != 0)
 			return (1);
-		/*if (pthread_detach(lst->thread) != 0)
-			return (1);*/
 		lst = lst->next;
 		size--;
 	}
@@ -127,8 +125,8 @@ int	main(int ac, char **av)
 		return (1);
 	check_philo(lst, &data);
 	finish_th(lst);
-	//print_lst(lst);
 	ft_lst_free(lst);
+	pthread_mutex_destroy(&data.writing);
 }
 
 /*void	print_lst(t_philo *lst)
