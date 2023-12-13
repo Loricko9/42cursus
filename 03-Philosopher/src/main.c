@@ -19,18 +19,21 @@ void	*func1(void *src)
 
 	lst = src;
 	data = lst->data;
-	/*while (lst->data->state != 1)
-		usleep(1);*/
+	while (lst->data->state != 1)
+		usleep(1);
 	wait_philo(lst, lst->data);
 	lst->last_eat = get_time();
 	lst->live = 1;
-	while (lst->data->state != 0)
+	printf("%ld | %d start\n", get_time() - data->start, lst->nb_philo);
+	ft_sleep(1500, data, get_time());
+	printf("%ld | %d end\n", get_time() - data->start, lst->nb_philo);
+	/*while (lst->data->state != 0)
 	{
 		take_fork(lst, lst->data);
 		printf("%ld | %d sleep\n", get_time() - data->start, lst->nb_philo);
 		ft_sleep(data->t_sleep, data);
 		printf("%ld | %d thinking\n", get_time() - data->start, lst->nb_philo);
-	}
+	}*/
 	return (NULL);
 }
 
@@ -80,18 +83,19 @@ int	ft_create(t_data *data, t_philo *lst)
 
 	size = ft_lstsize(lst);
 	data->size = size;
-	data->state = 1;
-	lst->data->start = get_time();
+	
 	while (size > 0)
 	{
+		//lst->last_eat = get_time();
 		if (pthread_create(&lst->thread, NULL, func1, lst) != 0)
 			return (1);
 		/*if (pthread_detach(lst->thread) != 0)
 			return (1);*/
 		lst = lst->next;
 		size--;
-		usleep(20);
 	}
+	lst->data->start = get_time();
+	data->state = 1;
 	return (0);
 }
 
@@ -122,7 +126,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_create(&data, lst) == 1)
 		return (1);
-	check_philo(lst, &data);
+	//check_philo(lst, &data);
 	finish_th(lst);
 	//print_lst(lst);
 	printf("fin de la simulation\n");

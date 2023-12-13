@@ -68,7 +68,7 @@ int		check_victory(t_philo *lst);
 
 /*act_philo.c*/
 long	get_time(void);
-void	ft_sleep(int t_ms, t_data *data);
+void	ft_sleep(int t_ms, t_data *data, long start);
 void	wait_philo(t_philo *lst, t_data *data);
 void	take_fork(t_philo *lst, t_data *data);
 
