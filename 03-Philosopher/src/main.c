@@ -22,18 +22,17 @@ void	*func1(void *src)
 	while (lst->data->state != 1)
 		usleep(1);
 	wait_philo(lst, lst->data);
-	lst->last_eat = get_time();
+	pthread_mutex_lock(&lst->eat.mutex_eat);
+	lst->eat.last_eat = get_time();
+	pthread_mutex_unlock(&lst->eat.mutex_eat);
 	lst->live = 1;
-	printf("%ld | %d start\n", get_time() - data->start, lst->nb_philo);
-	ft_sleep(1500, data, get_time());
-	printf("%ld | %d end\n", get_time() - data->start, lst->nb_philo);
-	/*while (lst->data->state != 0)
+	while (lst->data->state != 0)
 	{
 		take_fork(lst, lst->data);
-		printf("%ld | %d sleep\n", get_time() - data->start, lst->nb_philo);
-		ft_sleep(data->t_sleep, data);
-		printf("%ld | %d thinking\n", get_time() - data->start, lst->nb_philo);
-	}*/
+		print_mutx(lst->nb_philo, get_time() - data->start, data, "sleep");
+		ft_sleep(data->t_sleep, data, get_time());
+		print_mutx(lst->nb_philo, get_time() - data->start, data, "thinking");
+	}
 	return (NULL);
 }
 
@@ -83,7 +82,6 @@ int	ft_create(t_data *data, t_philo *lst)
 
 	size = ft_lstsize(lst);
 	data->size = size;
-	
 	while (size > 0)
 	{
 		//lst->last_eat = get_time();
@@ -124,12 +122,12 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_fill_data(&data, av, &lst) == 1)
 		return (1);
+	pthread_mutex_init(&data.writing, NULL);
 	if (ft_create(&data, lst) == 1)
 		return (1);
-	//check_philo(lst, &data);
+	check_philo(lst, &data);
 	finish_th(lst);
 	//print_lst(lst);
-	printf("fin de la simulation\n");
 	ft_lst_free(lst);
 }
 

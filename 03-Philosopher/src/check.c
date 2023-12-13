@@ -91,15 +91,19 @@ int	check_philo(t_philo *lst, t_data *data)
 		i = 0;
 		while (i < ft_lstsize(first))
 		{
-			if (get_time() - lst->last_eat >= data->t_die && lst->live == 1)
-				return (printf("%ld | %d DEAD !!!!!!!!\n", get_time() - data->start, lst->nb_philo), data->state = 0, 0);
+			pthread_mutex_lock(&lst->eat.mutex_eat);
+			if (get_time() - lst->eat.last_eat >= data->t_die && lst->live == 1)
+			{
+				print_mutx(lst->nb_philo, get_time() - data->start, data, "dead");
+				return (data->state = 0, 0);
+			}
+			pthread_mutex_unlock(&lst->eat.mutex_eat);
 			i++;
 		}
 		if (check_victory(lst) == 1)
 			data->state = 0;
+		usleep(10);
 	}
-	if (check_victory(lst) == 1)
-		printf("Victory !!!!\n");
 	return (1);
 }
 

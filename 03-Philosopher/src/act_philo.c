@@ -12,6 +12,16 @@
 
 #include "philo.h"
 
+void	print_mutx(int philo, long tps, t_data *data, char *str)
+{
+	if (data->state == 1)
+	{
+		pthread_mutex_lock(&data->writing);
+		printf("%ld %d %s\n", tps, philo, str);
+		pthread_mutex_unlock(&data->writing);
+	}
+}
+
 long get_time(void)
 {
 	struct timeval	end;
@@ -52,14 +62,14 @@ void	take_fork(t_philo *lst, t_data *data)
 
 	next = lst->next;
 	pthread_mutex_lock(&lst->mutex_fork);
-	printf("%ld | %d take fork\n", get_time() - data->start, lst->nb_philo);
+	print_mutx(lst->nb_philo, get_time() - data->start, data, "take fork");
 	pthread_mutex_lock(&next->mutex_fork);
-	printf("%ld | %d take fork\n", get_time() - data->start, lst->nb_philo);
-	printf("%ld | %d eating\n", get_time() - data->start, lst->nb_philo);
+	print_mutx(lst->nb_philo, get_time() - data->start, data, "take fork");
+	print_mutx(lst->nb_philo, get_time() - data->start, data, "eating");
 	ft_sleep(data->t_eat, data, get_time());
 	pthread_mutex_unlock(&lst->mutex_fork);
 	pthread_mutex_unlock(&next->mutex_fork);
-	lst->last_eat = get_time();
+	lst->eat.last_eat = get_time();
 	if (data->state == 0)
 		return ;
 	if (lst->victory > 0)

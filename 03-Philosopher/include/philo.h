@@ -19,6 +19,12 @@
 #include <unistd.h>
 #include <sys/time.h>
 
+typedef struct s_eat
+{
+	pthread_mutex_t	mutex_eat;
+	long			last_eat;
+}	t_eat;
+
 typedef struct s_fork
 {
 	pthread_mutex_t	mutex_fork;
@@ -27,6 +33,7 @@ typedef struct s_fork
 
 typedef struct s_data
 {
+	pthread_mutex_t	writing;
 	long	start;
 	int		size;
 	int		t_die;
@@ -40,7 +47,7 @@ typedef struct s_philo
 	int				nb_philo;
 	pthread_t		thread;
 	pthread_mutex_t	mutex_fork;
-	long			last_eat;
+	t_eat			eat;
 	int				victory;
 	int				live;
 	t_data			*data;
@@ -68,6 +75,7 @@ int		check_victory(t_philo *lst);
 
 /*act_philo.c*/
 long	get_time(void);
+void	print_mutx(int philo, long tps, t_data *data, char *str);
 void	ft_sleep(int t_ms, t_data *data, long start);
 void	wait_philo(t_philo *lst, t_data *data);
 void	take_fork(t_philo *lst, t_data *data);
