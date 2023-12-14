@@ -103,8 +103,10 @@ int	main(int ac, char **av)
 
 	if (ac < 5 || ac > 6)
 		return (printf("Error : missing arg\n"));
-	if (check_arg(av) == 1)
-		return (1);
+	if (check_char(av) == 1)
+		return (printf("Error : invalid char\n"), 1);
+	if (check_int(av) == 1)
+		return (printf("Error : wrong nb\n"), 1);
 	if (ft_fill_data(&data, av, &lst) == 1)
 		return (1);
 	if (ft_create(&data, lst) == 1)

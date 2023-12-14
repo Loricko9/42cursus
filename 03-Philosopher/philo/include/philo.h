@@ -67,11 +67,11 @@ void	finish_th(t_philo *lst);
 int		ft_create(t_data *data, t_philo *lst);
 
 /*utils.c*/
+void	print_mutx(int philo, long tps, t_data *data, char *str);
 long	ft_atoi(const char *nptr);
 int		ft_fill_data(t_data *data, char **av, t_philo **lst);
 int		create_lst(t_philo **lst, int nbr_philo, int nb_victory, t_data *data);
 int		check_state(t_data *data);
-int		check_arg(char **av);
 
 /*lst_utils.c*/
 t_philo	*ft_lstnew(int n_philo, int n_victory, t_data *ptr_data);
@@ -88,10 +88,10 @@ int		check_char(char **av);
 int		check_victory(t_philo *lst);
 
 /*act_philo.c*/
-long	get_time(void);
-void	print_mutx(int philo, long tps, t_data *data, char *str);
+void	take_fork2(t_philo *lst, t_philo *next, t_data *data);
 void	ft_sleep(int t_ms, t_data *data, long start);
 void	wait_philo(t_philo *lst, t_data *data);
 void	take_fork(t_philo *lst, t_data *data);
+long	get_time(void);
 
 #endif

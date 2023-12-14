@@ -12,17 +12,6 @@
 
 #include "philo.h"
 
-void	print_mutx(int philo, long tps, t_data *data, char *str)
-{
-	if (check_state(data) == 1)
-	{
-		pthread_mutex_lock(&data->writing);
-		printf("%ld\t%d %s\n", tps, philo, str);
-		pthread_mutex_unlock(&data->writing);
-	}
-		
-}
-
 long	get_time(void)
 {
 	struct timeval	end;
@@ -72,6 +61,22 @@ void	take_fork(t_philo *lst, t_data *data)
 	t_philo	*next;
 
 	next = lst->next;
+	take_fork2(lst, next, data);
+	pthread_mutex_lock(&lst->eat.mutex_eat);
+	lst->eat.last_eat = get_time();
+	pthread_mutex_unlock(&lst->eat.mutex_eat);
+	print_mutx(lst->nb_philo, get_time() - data->start, data, "eating");
+	ft_sleep(data->t_eat, data, get_time());
+	pthread_mutex_unlock(&next->mutex_fork);
+	pthread_mutex_unlock(&lst->mutex_fork);
+	pthread_mutex_lock(&lst->victory.mutex_vict);
+	if (lst->victory.victory > 0)
+		lst->victory.victory = lst->victory.victory - 1;
+	pthread_mutex_unlock(&lst->victory.mutex_vict);
+}
+
+void	take_fork2(t_philo *lst, t_philo *next, t_data *data)
+{
 	if (lst->nb_philo % 2 == 1)
 	{
 		pthread_mutex_lock(&lst->mutex_fork);
@@ -86,15 +91,4 @@ void	take_fork(t_philo *lst, t_data *data)
 		pthread_mutex_lock(&lst->mutex_fork);
 		print_mutx(lst->nb_philo, get_time() - data->start, data, "take fork");
 	}
-	pthread_mutex_lock(&lst->eat.mutex_eat);
-	lst->eat.last_eat = get_time();
-	pthread_mutex_unlock(&lst->eat.mutex_eat);
-	print_mutx(lst->nb_philo, get_time() - data->start, data, "eating");
-	ft_sleep(data->t_eat, data, get_time());
-	pthread_mutex_unlock(&next->mutex_fork);
-	pthread_mutex_unlock(&lst->mutex_fork);
-	pthread_mutex_lock(&lst->victory.mutex_vict);
-	if (lst->victory.victory > 0)
-		lst->victory.victory = lst->victory.victory - 1;
-	pthread_mutex_unlock(&lst->victory.mutex_vict);
 }

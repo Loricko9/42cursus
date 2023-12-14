@@ -89,11 +89,12 @@ int	ft_fill_data(t_data *data, char **av, t_philo **lst)
 	return (0);
 }
 
-int	check_arg(char **av)
+void	print_mutx(int philo, long tps, t_data *data, char *str)
 {
-	if (check_char(av) == 1)
-		return (printf("Error : invalid char\n"), 1);
-	if (check_int(av) == 1)
-		return (printf("Error : wrong nb\n"), 1);
-	return (0);
+	if (check_state(data) == 1)
+	{
+		pthread_mutex_lock(&data->writing);
+		printf("%ld\t%d %s\n", tps, philo, str);
+		pthread_mutex_unlock(&data->writing);
+	}
 }
