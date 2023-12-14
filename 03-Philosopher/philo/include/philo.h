@@ -39,6 +39,7 @@ typedef struct s_eat
 
 typedef struct s_data
 {
+	pthread_mutex_t	writing;
 	long			start;
 	int				size;
 	int				t_die;

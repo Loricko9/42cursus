@@ -84,6 +84,7 @@ int	ft_fill_data(t_data *data, char **av, t_philo **lst)
 	if (create_lst(lst, ft_atoi(av[1]), nb_victory, data) == 1)
 		return (1);
 	pthread_mutex_init(&data->state.mutex_state, NULL);
+	pthread_mutex_init(&data->writing, NULL);
 	data->state.state = 0;
 	return (0);
 }

@@ -22,6 +22,7 @@ t_philo	*ft_lstnew(int n_philo, int n_victory, t_data *ptr_data)
 	list->nb_philo = n_philo;
 	pthread_mutex_init(&list->mutex_fork, NULL);
 	pthread_mutex_init(&list->eat.mutex_eat, NULL);
+	list->eat.last_eat = 0;
 	pthread_mutex_init(&list->victory.mutex_vict, NULL);
 	list->victory.victory = n_victory;
 	list->live = 0;
