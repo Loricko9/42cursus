@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:13:37 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/28 17:13:37 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:11:45 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_int(char **av)
 	j = 0;
 	while (av[++j] != NULL)
 	{
-		if (ft_atoi(av[j]) > 2147483647)
+		if (ft_atoi(av[j]) > 2147483647 || ft_atoi(av[j]) <= 0)
 			return (1);
 	}
 	return (0);
@@ -45,21 +45,12 @@ int	check_char(char **av)
 					&& av[j][i] != 32)
 				return (1);
 			else if (trig == 1 && (av[j][i] < '0' || av[j][i] > '9'))
-				trig =2;
+				trig = 2;
 			else if (trig == 0 && ((av[j][i] >= '0' && av[j][i] <= '9')
 					|| av[j][i] == '+'))
 				trig = 1;
 		}
 	}
-	return (0);
-}
-
-int	check_arg(char **av)
-{
-	if (check_char(av) == 1)
-		return (printf("Error : invalid char\n"), 1);
-	if (check_int(av) == 1)
-		return (printf("Error : nb to high\n"), 1);
 	return (0);
 }
 
@@ -84,30 +75,38 @@ int	check_victory(t_philo *lst)
 	return (1);
 }
 
-void	check_philo(t_philo *lst, t_data *data)
+void	check_death(t_philo *lst, t_data *data)
 {
 	int		i;
 	t_philo	*first;
 
 	first = lst;
+	i = 0;
+	while (i < ft_lstsize(first))
+	{
+		pthread_mutex_lock(&lst->eat.mutex_eat);
+		if (get_time() - lst->eat.last_eat >= data->t_die && lst->live == 1)
+		{
+			pthread_mutex_lock(&data->state.mutex_state);
+			data->state.state = 0;
+			pthread_mutex_unlock(&data->state.mutex_state);
+			pthread_mutex_unlock(&lst->eat.mutex_eat);
+			usleep(1000);
+			printf("%ld\t%d dead\n", get_time() - data->start - 1,
+				lst->nb_philo);
+			return ;
+		}
+		pthread_mutex_unlock(&lst->eat.mutex_eat);
+		i++;
+	}
+	return ;
+}
+
+void	check_philo(t_philo *lst, t_data *data)
+{
 	while (1)
 	{
-		i = 0;
-		while (i < ft_lstsize(first))
-		{
-			pthread_mutex_lock(&lst->eat.mutex_eat);
-			if (get_time() - lst->eat.last_eat >= data->t_die && lst->live == 1)
-			{
-				print_mutx(lst->nb_philo, get_time() - data->start, data, "dead");
-				pthread_mutex_unlock(&lst->eat.mutex_eat);
-				pthread_mutex_lock(&data->state.mutex_state);
-				data->state.state = 0;
-				pthread_mutex_unlock(&data->state.mutex_state);
-				return ;
-			}
-			pthread_mutex_unlock(&lst->eat.mutex_eat);
-			i++;
-		}
+		check_death(lst, data);
 		if (check_victory(lst) == 1)
 		{
 			pthread_mutex_lock(&data->state.mutex_state);
@@ -119,4 +118,3 @@ void	check_philo(t_philo *lst, t_data *data)
 		usleep(10);
 	}
 }
-

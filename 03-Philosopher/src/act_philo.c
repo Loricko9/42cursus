@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:41:36 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/12/04 17:41:36 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:12:24 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,13 @@
 void	print_mutx(int philo, long tps, t_data *data, char *str)
 {
 	if (check_state(data) == 1)
-	{
-		pthread_mutex_lock(&data->writing);
-		printf("%ld %d %s\n", tps, philo, str);
-		pthread_mutex_unlock(&data->writing);
-	}
+		printf("%ld\t%d %s\n", tps, philo, str);
 }
 
-long get_time(void)
+long	get_time(void)
 {
 	struct timeval	end;
-	
+
 	gettimeofday(&end, NULL);
 	return ((end.tv_sec * 1000) + (end.tv_usec / 1000));
 }
@@ -71,6 +67,8 @@ void	take_fork(t_philo *lst, t_data *data)
 	t_philo	*next;
 
 	next = lst->next;
+	if (check_state(data) == 0)
+		return ;
 	pthread_mutex_lock(&lst->mutex_fork);
 	print_mutx(lst->nb_philo, get_time() - data->start, data, "take fork");
 	pthread_mutex_lock(&next->mutex_fork);

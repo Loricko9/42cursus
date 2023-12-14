@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 14:15:43 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/12/03 14:15:43 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:13:18 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_philo	*ft_lstlast(t_philo *lst)
 
 int	ft_lstsize(t_philo *lst)
 {
-	int	i;
+	int		i;
 	t_philo	*first;
 
 	i = 1;
@@ -93,8 +93,5 @@ void	ft_free(t_philo *lst, t_data *data)
 		size--;
 	}
 	if (data)
-	{
 		pthread_mutex_destroy(&data->state.mutex_state);
-		pthread_mutex_destroy(&data->writing);
-	}
 }

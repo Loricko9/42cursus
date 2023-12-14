@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:30:16 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/28 13:30:16 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:12:11 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 int	check_state(t_data *data)
 {
 	int	res;
-	
+
 	pthread_mutex_lock(&data->state.mutex_state);
-	if (data->state.state == 1)
-		res = 1;
-	else
-		res = 0;
+	res = data->state.state;
 	pthread_mutex_unlock(&data->state.mutex_state);
 	return (res);
 }
@@ -50,11 +47,11 @@ long	ft_atoi(const char *nptr)
 	return (nb * sign);
 }
 
-int create_lst(t_philo **lst, int nbr_philo, int nb_victory, t_data *data)
+int	create_lst(t_philo **lst, int nbr_philo, int nb_victory, t_data *data)
 {
-	int i;
-	t_philo *last;
-	t_philo *new;
+	int		i;
+	t_philo	*last;
+	t_philo	*new;
 
 	i = 1;
 	while (i <= nbr_philo)
@@ -70,9 +67,9 @@ int create_lst(t_philo **lst, int nbr_philo, int nb_victory, t_data *data)
 	return (0);
 }
 
-int ft_fill_data(t_data *data, char **av, t_philo **lst)
+int	ft_fill_data(t_data *data, char **av, t_philo **lst)
 {
-	int nb_victory;
+	int	nb_victory;
 
 	if (ft_atoi(av[1]) < 0)
 		return (1);
@@ -86,8 +83,16 @@ int ft_fill_data(t_data *data, char **av, t_philo **lst)
 	*lst = NULL;
 	if (create_lst(lst, ft_atoi(av[1]), nb_victory, data) == 1)
 		return (1);
-	pthread_mutex_init(&data->writing, NULL);
 	pthread_mutex_init(&data->state.mutex_state, NULL);
 	data->state.state = 0;
+	return (0);
+}
+
+int	check_arg(char **av)
+{
+	if (check_char(av) == 1)
+		return (printf("Error : invalid char\n"), 1);
+	if (check_int(av) == 1)
+		return (printf("Error : wrong nb\n"), 1);
 	return (0);
 }
