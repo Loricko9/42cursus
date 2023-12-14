@@ -2,7 +2,7 @@ FILES 	=	main.c utils.c lst_utils.c check.c act_philo.c
 
 NAME	=	philo
 CC		=	cc
-CFLAGS	+=	-W -Wall -Wextra -Werror
+CFLAGS	+=	-W -Wall -Wextra -Werror -g -pthread
 RM		=	rm -rf
 INCLUDE	=	-I include/
 MLX_PATH	=	minilibx-linux/
@@ -22,7 +22,7 @@ make_OBJS_DIR	:
 	@mkdir -p $(OBJ_DIR)
 
 $(NAME)	:	make_OBJS_DIR $(OBJS) message_end
-	@$(CC) $(CFLAGS) -g -pthread $(INCLUDE) $(OBJS) -o $@
+	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) -o $@
 
 clean	:	header message_clean
 	@$(RM) $(OBJ_DIR)

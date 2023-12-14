@@ -19,6 +19,18 @@
 #include <unistd.h>
 #include <sys/time.h>
 
+typedef struct s_victory
+{
+	pthread_mutex_t	mutex_vict;
+	int				victory;
+}	t_victory;
+
+typedef struct s_state
+{
+	pthread_mutex_t	mutex_state;
+	int				state;
+}	t_state;
+
 typedef struct s_eat
 {
 	pthread_mutex_t	mutex_eat;
@@ -28,12 +40,12 @@ typedef struct s_eat
 typedef struct s_data
 {
 	pthread_mutex_t	writing;
-	long	start;
-	int		size;
-	int		t_die;
-	int		t_sleep;
-	int		t_eat;
-	int		state;
+	long			start;
+	int				size;
+	int				t_die;
+	int				t_sleep;
+	int				t_eat;
+	t_state			state;
 }	t_data;
 
 typedef struct s_philo
@@ -42,29 +54,37 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	mutex_fork;
 	t_eat			eat;
-	int				victory;
+	t_victory		victory;
 	int				live;
 	t_data			*data;
 	struct s_philo	*next;
 }	t_philo;
 
-void	print_lst(t_philo *lst);
+
+/*main.c*/
+void	*func1(void *src);
+void	finish_th(t_philo *lst);
+int		ft_create(t_data *data, t_philo *lst);
+/*void	print_lst(t_philo *lst);*/
 
 /*utils.c*/
+int		ft_fill_data(t_data *data, char **av, t_philo **lst);
+int		create_lst(t_philo **lst, int nbr_philo, int nb_victory, t_data *data);
+int		check_state(t_data *data);
 long	ft_atoi(const char *nptr);
 
 /*lst_utils.c*/
 t_philo	*ft_lstnew(int n_philo, int n_victory, t_data *ptr_data);
 t_philo	*ft_lstlast(t_philo *lst);
 void	ft_lstadd_back(t_philo **lst, t_philo *new);
-void	ft_lst_free(t_philo *lst);
+void	ft_free(t_philo *lst, t_data *data);
 int		ft_lstsize(t_philo *lst);
 
 /*check.c*/
 int		check_int(char **av);
 int		check_char(char **av);
 int		check_arg(char **av);
-int	check_philo(t_philo *lst, t_data *data);
+void	check_philo(t_philo *lst, t_data *data);
 int		check_victory(t_philo *lst);
 
 /*act_philo.c*/

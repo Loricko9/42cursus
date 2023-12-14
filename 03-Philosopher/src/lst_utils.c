@@ -22,7 +22,8 @@ t_philo	*ft_lstnew(int n_philo, int n_victory, t_data *ptr_data)
 	list->nb_philo = n_philo;
 	pthread_mutex_init(&list->mutex_fork, NULL);
 	pthread_mutex_init(&list->eat.mutex_eat, NULL);
-	list->victory = n_victory;
+	pthread_mutex_init(&list->victory.mutex_vict, NULL);
+	list->victory.victory = n_victory;
 	list->live = 0;
 	list->data = ptr_data;
 	list->next = NULL;
@@ -74,7 +75,7 @@ int	ft_lstsize(t_philo *lst)
 	return (i);
 }
 
-void	ft_lst_free(t_philo *lst)
+void	ft_free(t_philo *lst, t_data *data)
 {
 	int		size;
 	t_philo	*temp;
@@ -85,9 +86,15 @@ void	ft_lst_free(t_philo *lst)
 		temp = lst->next;
 		pthread_mutex_destroy(&lst->eat.mutex_eat);
 		pthread_mutex_destroy(&lst->mutex_fork);
+		pthread_mutex_destroy(&lst->victory.mutex_vict);
 		free(lst);
 		lst = NULL;
 		lst = temp;
 		size--;
+	}
+	if (data)
+	{
+		pthread_mutex_destroy(&data->state.mutex_state);
+		pthread_mutex_destroy(&data->writing);
 	}
 }

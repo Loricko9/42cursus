@@ -14,7 +14,7 @@
 
 void	print_mutx(int philo, long tps, t_data *data, char *str)
 {
-	if (data->state == 1)
+	if (check_state(data) == 1)
 	{
 		pthread_mutex_lock(&data->writing);
 		printf("%ld %d %s\n", tps, philo, str);
@@ -32,12 +32,22 @@ long get_time(void)
 
 void	ft_sleep(int t_ms, t_data *data, long start)
 {
-	while (get_time() - start < t_ms && data->state == 1)
+	while (get_time() - start < t_ms)
+	{
+		if (check_state(data) == 0)
+			break ;
 		usleep(20);
+	}
 }
 
 void	wait_philo(t_philo *lst, t_data *data)
 {
+	while (1)
+	{
+		if (check_state(data) == 1)
+			break ;
+		usleep(1);
+	}
 	if (data->size % 2 == 0)
 	{
 		if (lst->nb_philo % 2 == 1)
@@ -65,15 +75,15 @@ void	take_fork(t_philo *lst, t_data *data)
 	print_mutx(lst->nb_philo, get_time() - data->start, data, "take fork");
 	pthread_mutex_lock(&next->mutex_fork);
 	print_mutx(lst->nb_philo, get_time() - data->start, data, "take fork");
-	print_mutx(lst->nb_philo, get_time() - data->start, data, "eating");
-	ft_sleep(data->t_eat, data, get_time());
-	pthread_mutex_unlock(&lst->mutex_fork);
-	pthread_mutex_unlock(&next->mutex_fork);
 	pthread_mutex_lock(&lst->eat.mutex_eat);
 	lst->eat.last_eat = get_time();
 	pthread_mutex_unlock(&lst->eat.mutex_eat);
-	if (data->state == 0)
-		return ;
-	if (lst->victory > 0)
-		lst->victory = lst->victory - 1;
+	print_mutx(lst->nb_philo, get_time() - data->start, data, "eating");
+	ft_sleep(data->t_eat, data, get_time());
+	pthread_mutex_unlock(&next->mutex_fork);
+	pthread_mutex_unlock(&lst->mutex_fork);
+	pthread_mutex_lock(&lst->victory.mutex_vict);
+	if (lst->victory.victory > 0)
+		lst->victory.victory = lst->victory.victory - 1;
+	pthread_mutex_unlock(&lst->victory.mutex_vict);
 }

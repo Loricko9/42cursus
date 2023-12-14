@@ -12,6 +12,19 @@
 
 #include "philo.h"
 
+int	check_state(t_data *data)
+{
+	int	res;
+	
+	pthread_mutex_lock(&data->state.mutex_state);
+	if (data->state.state == 1)
+		res = 1;
+	else
+		res = 0;
+	pthread_mutex_unlock(&data->state.mutex_state);
+	return (res);
+}
+
 long	ft_atoi(const char *nptr)
 {
 	int		i;
@@ -35,4 +48,46 @@ long	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (nb * sign);
+}
+
+int create_lst(t_philo **lst, int nbr_philo, int nb_victory, t_data *data)
+{
+	int i;
+	t_philo *last;
+	t_philo *new;
+
+	i = 1;
+	while (i <= nbr_philo)
+	{
+		new = ft_lstnew(i, nb_victory, data);
+		if (!new)
+			return (ft_free(*lst, NULL), 1);
+		ft_lstadd_back(lst, new);
+		i++;
+	}
+	last = ft_lstlast(*lst);
+	last->next = *lst;
+	return (0);
+}
+
+int ft_fill_data(t_data *data, char **av, t_philo **lst)
+{
+	int nb_victory;
+
+	if (ft_atoi(av[1]) < 0)
+		return (1);
+	data->t_die = ft_atoi(av[2]);
+	data->t_eat = ft_atoi(av[3]);
+	data->t_sleep = ft_atoi(av[4]);
+	if (av[5] != NULL)
+		nb_victory = ft_atoi(av[5]);
+	else
+		nb_victory = -1;
+	*lst = NULL;
+	if (create_lst(lst, ft_atoi(av[1]), nb_victory, data) == 1)
+		return (1);
+	pthread_mutex_init(&data->writing, NULL);
+	pthread_mutex_init(&data->state.mutex_state, NULL);
+	data->state.state = 0;
+	return (0);
 }
