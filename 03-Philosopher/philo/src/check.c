@@ -93,8 +93,8 @@ void	check_death(t_philo *lst, t_data *data)
 			pthread_mutex_unlock(&lst->eat.mutex_eat);
 			usleep(1000);
 			pthread_mutex_lock(&data->writing);
-			printf("%ld\t%d dead\n", get_time() - data->start - 1,
-				lst->nb_philo);
+			printf("%ld\t%d \033[31mdead\033[0m\n", get_time() - data->start
+				- 1, lst->nb_philo);
 			pthread_mutex_unlock(&data->writing);
 			return ;
 		}

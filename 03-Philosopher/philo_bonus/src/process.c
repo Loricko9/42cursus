@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:26:10 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/12/16 19:26:10 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:11:47 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	first_pid_end(pid_t *pid_tab, int nb_proc)
 	while (1)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
-		//printf("pid : %d\n", (int)pid);
 		if (pid == 0)
 			usleep(20);
 		else if (pid > 0)
@@ -31,14 +30,14 @@ int	first_pid_end(pid_t *pid_tab, int nb_proc)
 				continue ;
 		}
 		else
-			break;
+			break ;
 	}
 	return (0);
 }
 
 void	kill_proc(pid_t *pid, pid_t pid_dead, int nb_proc)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < nb_proc)
@@ -72,4 +71,12 @@ long	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (nb * sign);
+}
+
+void	free_sem(t_data *data)
+{
+	sem_close(data->fork);
+	sem_close(data->write);
+	sem_unlink("/fork");
+	sem_unlink("/write");
 }

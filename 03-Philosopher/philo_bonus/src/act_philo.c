@@ -6,11 +6,18 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:41:36 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/12/14 19:12:24 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:57:46 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+void	print_phil(long time, int philo, char *str, t_data *data)
+{
+	sem_wait(data->write);
+	printf("%ld\t%d %s\n", time, philo, str);
+	sem_post(data->write);
+}
 
 long	get_time(void)
 {
@@ -53,12 +60,20 @@ void	wait_philo(t_data *data)
 void	take_fork(t_data *data)
 {
 	sem_wait(data->fork);
-	printf("%ld\t%d take fork\n", get_time() - data->start, data->process);
+	if (data->state != 1)
+		return ;
+	print_phil(get_time() - data->start, data->process, "take fork", data);
 	sem_wait(data->fork);
-	printf("%ld\t%d take fork\n", get_time() - data->start, data->process);
-	printf("%ld\t%d eat\n", get_time() - data->start, data->process);
+	if (data->state != 1)
+		return ;
+	print_phil(get_time() - data->start, data->process, "take fork", data);
+	if (data->state != 1)
+		return ;
+	print_phil(get_time() - data->start, data->process, "eat", data);
 	data->last_eat = get_time();
 	ft_sleep(data->t_eat, data, get_time());
+	if (data->state != 1)
+		return ;
 	sem_post(data->fork);
 	sem_post(data->fork);
 	if (data->victory > 0)

@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:44:49 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/12/15 15:44:49 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:11:54 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 typedef struct s_data
 {
 	sem_t	*fork;
+	sem_t	*write;
 	pid_t	*pid;
 	long	start;
 	long	last_eat;
@@ -39,6 +40,7 @@ typedef struct s_data
 }	t_data;
 
 /*act_philo.c*/
+void	print_phil(long time, int philo, char *str, t_data *data);
 long	get_time(void);
 void	ft_sleep(int t_ms, t_data *data, long start);
 void	wait_philo(t_data *data);
@@ -53,6 +55,6 @@ int		check_char(char **av);
 int		first_pid_end(pid_t *pid_tab, int nb_proc);
 void	kill_proc(pid_t *pid, pid_t pid_dead, int nb_proc);
 long	ft_atoi(const char *nptr);
+void	free_sem(t_data *data);
 
 #endif
-

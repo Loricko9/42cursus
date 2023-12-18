@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:40:26 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/12/16 18:40:26 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:11:21 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	routine(t_data *data)
 
 	free(data->pid);
 	wait_philo(data);
+	data->last_eat = get_time();
 	if (pthread_create(&thread, NULL, check_philo, data) != 0)
 		exit(1);
 	if (pthread_detach(thread) != 0)
@@ -27,12 +28,13 @@ void	routine(t_data *data)
 		take_fork(data);
 		if (data->state != 1)
 			break ;
-		printf("%ld\t%d sleep\n", get_time() - data->start, data->process);
+		print_phil(get_time() - data->start, data->process, "sleep", data);
 		ft_sleep(data->t_sleep, data, get_time());
 		if (data->state != 1)
 			break ;
-		printf("%ld\t%d thincking\n", get_time() - data->start, data->process);
+		print_phil(get_time() - data->start, data->process, "thinking", data);
 	}
+	free_sem(data);
 	if (data->state == 0)
 		exit(0);
 	else
@@ -58,14 +60,16 @@ int	ft_fill_data(t_data *data, char **av)
 	if (!data->pid)
 		return (1);
 	sem_unlink("/fork");
+	sem_unlink("/write");
 	data->fork = sem_open("/fork", O_CREAT, 0644, data->size);
+	data->write = sem_open("/write", O_CREAT, 0644, 1);
 	if (data->fork == SEM_FAILED)
 		return (free(data->pid), 1);
 	data->state = 1;
 	return (0);
 }
 
-int ft_create(t_data *data)
+int	ft_create(t_data *data)
 {
 	int	i;
 
@@ -75,7 +79,6 @@ int ft_create(t_data *data)
 	{
 		data->pid[i] = fork();
 		data->process = i + 1;
-		data->last_eat = get_time();
 		if (data->pid[i] == 0)
 			routine(data);
 		if (data->pid[i] == -1)
@@ -101,6 +104,8 @@ int	main(int ac, char **av)
 		return (1);
 	first_pid_end(data.pid, data.size);
 	sem_close(data.fork);
+	sem_close(data.write);
 	sem_unlink("/fork");
+	sem_unlink("/write");
 	free(data.pid);
 }
