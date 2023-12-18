@@ -21,12 +21,15 @@
 # include <semaphore.h>
 # include <pthread.h>
 # include <signal.h>
+# include <fcntl.h>
 
 typedef struct s_data
 {
+	sem_t	*fork;
 	pid_t	*pid;
 	long	start;
-	long	last_act_death;
+	long	last_eat;
+	int		victory;
 	int		process;
 	int		size;
 	int		t_die;
@@ -38,20 +41,18 @@ typedef struct s_data
 /*act_philo.c*/
 long	get_time(void);
 void	ft_sleep(int t_ms, t_data *data, long start);
-void	wait_philo(t_philo *lst, t_data *data);
-void	take_fork(t_philo *lst, t_data *data);
-void	take_fork2(t_philo *lst, t_philo *next, t_data *data);
+void	wait_philo(t_data *data);
+void	take_fork(t_data *data);
 
 /*check.c*/
-void	*check_death(void *src);
-void	check_philo(t_philo *lst, t_data *data);
+void	*check_philo(void *src);
 int		check_int(char **av);
 int		check_char(char **av);
-int		check_victory(t_philo *lst);
 
 /*process.c*/
-pid_t	first_pid_end();
+int		first_pid_end(pid_t *pid_tab, int nb_proc);
 void	kill_proc(pid_t *pid, pid_t pid_dead, int nb_proc);
+long	ft_atoi(const char *nptr);
 
 #endif
 

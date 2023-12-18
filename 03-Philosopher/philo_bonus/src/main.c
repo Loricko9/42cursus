@@ -12,19 +12,31 @@
 
 #include "philo_bonus.h"
 
-void	routine(int process, t_data *data)
+void	routine(t_data *data)
 {
 	pthread_t	thread;
 
 	free(data->pid);
-	if (pthread_create(&thread, NULL, check_death, data) != 0)
+	wait_philo(data);
+	if (pthread_create(&thread, NULL, check_philo, data) != 0)
 		exit(1);
 	if (pthread_detach(thread) != 0)
 		exit(1);
-	while (state == 1)
+	while (data->state == 1)
 	{
-		
+		take_fork(data);
+		if (data->state != 1)
+			break ;
+		printf("%ld\t%d sleep\n", get_time() - data->start, data->process);
+		ft_sleep(data->t_sleep, data, get_time());
+		if (data->state != 1)
+			break ;
+		printf("%ld\t%d thincking\n", get_time() - data->start, data->process);
 	}
+	if (data->state == 0)
+		exit(0);
+	else
+		exit(1);
 }
 
 int	ft_fill_data(t_data *data, char **av)
@@ -41,10 +53,15 @@ int	ft_fill_data(t_data *data, char **av)
 		nb_victory = ft_atoi(av[5]);
 	else
 		nb_victory = -1;
+	data->victory = nb_victory;
 	data->pid = malloc(sizeof(pid_t) * data->size);
 	if (!data->pid)
 		return (1);
-	data->state = 0;
+	sem_unlink("/fork");
+	data->fork = sem_open("/fork", O_CREAT, 0644, data->size);
+	if (data->fork == SEM_FAILED)
+		return (free(data->pid), 1);
+	data->state = 1;
 	return (0);
 }
 
@@ -57,9 +74,10 @@ int ft_create(t_data *data)
 	while (i < data->size)
 	{
 		data->pid[i] = fork();
-		data->last_act_death = get_time();
+		data->process = i + 1;
+		data->last_eat = get_time();
 		if (data->pid[i] == 0)
-			routine(i, &data);
+			routine(data);
 		if (data->pid[i] == -1)
 			return (kill_proc(data->pid, 0, i), 1);
 		i++;
@@ -78,9 +96,11 @@ int	main(int ac, char **av)
 	if (check_int(av) == 1)
 		return (printf("Error : wrong nb\n"), 1);
 	if (ft_fill_data(&data, av) == 1)
-		return (1);
+		return (printf("Error : malloc or create semaphore\n"), 1);
 	if (ft_create(&data) == 1)
 		return (1);
-	kill_proc(data.pid, first_pid_end());
+	first_pid_end(data.pid, data.size);
+	sem_close(data.fork);
+	sem_unlink("/fork");
 	free(data.pid);
 }

@@ -54,17 +54,22 @@ int	check_char(char **av)
 	return (0);
 }
 
-void	*check_death(void *src)
+void	*check_philo(void *src)
 {
 	t_data	*data;
 
 	data = (t_data *)src;
 	while (1)
 	{
-		if (get_time() - data->last_act_death >= 5000)
+		if (data->victory == 0)
 		{
-			printf("death : %d at %ld\n", data->process + 1, get_time() - data->start);
 			data->state = 0;
+			exit(0);
+		}
+		if (get_time() - data->last_eat >= data->t_die)
+		{
+			printf("%ld\t%d dead\n", get_time() - data->start, data->process);
+			data->state = -1;
 			exit(1);
 		}
 		usleep(20);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 long	get_time(void)
 {
@@ -24,71 +24,43 @@ void	ft_sleep(int t_ms, t_data *data, long start)
 {
 	while (get_time() - start < t_ms)
 	{
-		if (check_state(data) == 0)
+		if (data->state == 0)
 			break ;
 		usleep(20);
 	}
 }
 
-void	wait_philo(t_philo *lst, t_data *data)
+void	wait_philo(t_data *data)
 {
-	while (1)
-	{
-		if (check_state(data) == 1)
-			break ;
-		usleep(1);
-	}
 	if (data->size % 2 == 0)
 	{
-		if (lst->nb_philo % 2 == 1)
+		if (data->process % 2 == 1)
 			return ;
 		else
 			ft_sleep(data->t_eat, data, get_time());
 	}
 	else
 	{
-		if (lst->nb_philo == data->size)
+		if (data->process == data->size)
 			ft_sleep(data->t_eat * 2, data, get_time());
-		else if (lst->nb_philo % 2 == 1)
+		else if (data->process % 2 == 1)
 			return ;
 		else
 			ft_sleep(data->t_eat, data, get_time());
 	}
 }
 
-void	take_fork(t_philo *lst, t_data *data)
+void	take_fork(t_data *data)
 {
-	t_philo	*next;
-
-	next = lst->next;
-	take_fork2(lst, next, data);
-	pthread_mutex_lock(&lst->eat.mutex_eat);
-	lst->eat.last_eat = get_time();
-	pthread_mutex_unlock(&lst->eat.mutex_eat);
-	print_mutx(lst->nb_philo, get_time() - data->start, data, "eating");
+	sem_wait(data->fork);
+	printf("%ld\t%d take fork\n", get_time() - data->start, data->process);
+	sem_wait(data->fork);
+	printf("%ld\t%d take fork\n", get_time() - data->start, data->process);
+	printf("%ld\t%d eat\n", get_time() - data->start, data->process);
+	data->last_eat = get_time();
 	ft_sleep(data->t_eat, data, get_time());
-	pthread_mutex_unlock(&next->mutex_fork);
-	pthread_mutex_unlock(&lst->mutex_fork);
-	pthread_mutex_lock(&lst->victory.mutex_vict);
-	if (lst->victory.victory > 0)
-		lst->victory.victory = lst->victory.victory - 1;
-	pthread_mutex_unlock(&lst->victory.mutex_vict);
-}
-
-void	take_fork2(t_philo *lst, t_philo *next, t_data *data)
-{
-	if (lst->nb_philo % 2 == 1)
-	{
-		pthread_mutex_lock(&lst->mutex_fork);
-		print_mutx(lst->nb_philo, get_time() - data->start, data, "take fork");
-		pthread_mutex_lock(&next->mutex_fork);
-		print_mutx(lst->nb_philo, get_time() - data->start, data, "take fork");
-	}
-	else
-	{
-		pthread_mutex_lock(&next->mutex_fork);
-		print_mutx(lst->nb_philo, get_time() - data->start, data, "take fork");
-		pthread_mutex_lock(&lst->mutex_fork);
-		print_mutx(lst->nb_philo, get_time() - data->start, data, "take fork");
-	}
+	sem_post(data->fork);
+	sem_post(data->fork);
+	if (data->victory > 0)
+		data->victory = data->victory - 1;
 }
