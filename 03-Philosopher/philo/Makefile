@@ -2,7 +2,7 @@ FILES 	=	main.c utils.c lst_utils.c check.c act_philo.c
 
 NAME	=	philo
 CC		=	cc
-CFLAGS	+=	-W -Wall -Wextra -Werror -g -pthread
+CFLAGS	+=	-W -Wall -Wextra -Werror -pthread
 RM		=	rm -rf
 INCLUDE	=	-I include/
 MLX_PATH	=	minilibx-linux/

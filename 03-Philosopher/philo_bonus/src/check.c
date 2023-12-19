@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:13:37 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/12/18 20:08:56 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:15:50 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	*check_philo(void *src)
 			printf("%ld\t%d \033[31mdead\033[0m\n", get_time() - data->start,
 				data->process);
 			data->state = -1;
+			sem_post(data->finish);
 			return (NULL);
 		}
 		usleep(20);

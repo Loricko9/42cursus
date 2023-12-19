@@ -6,11 +6,22 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:40:26 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/12/18 20:11:21 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:17:25 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+void	routine_1phil(t_data *data)
+{
+	free(data->pid);
+	print_phil(get_time() - data->start, data->process, "take fork", data);
+	ft_sleep(data->t_die, data, get_time());
+	printf("%ld\t%d \033[31mdead\033[0m\n", get_time() - data->start,
+		data->process);
+	free_sem(data);
+	exit(1);
+}
 
 void	routine(t_data *data)
 {
@@ -21,8 +32,7 @@ void	routine(t_data *data)
 	data->last_eat = get_time();
 	if (pthread_create(&thread, NULL, check_philo, data) != 0)
 		exit(1);
-	if (pthread_detach(thread) != 0)
-		exit(1);
+	pthread_detach(thread);
 	while (data->state == 1)
 	{
 		take_fork(data);
@@ -61,10 +71,10 @@ int	ft_fill_data(t_data *data, char **av)
 		return (1);
 	sem_unlink("/fork");
 	sem_unlink("/write");
+	sem_unlink("/finish");
 	data->fork = sem_open("/fork", O_CREAT, 0644, data->size);
 	data->write = sem_open("/write", O_CREAT, 0644, 1);
-	if (data->fork == SEM_FAILED)
-		return (free(data->pid), 1);
+	data->finish = sem_open("/finish", O_CREAT, 0644, 1);
 	data->state = 1;
 	return (0);
 }
@@ -75,13 +85,23 @@ int	ft_create(t_data *data)
 
 	i = 0;
 	data->start = get_time();
+	if (data->size == 1)
+	{
+		data->pid[i] = fork();
+		data->process = i + 1;
+		if (data->pid[i] == 0)
+			routine_1phil(data);
+		else if (data->pid[i] == -1)
+			return (kill_proc(data->pid, 0, i), 1);
+		return (0);
+	}
 	while (i < data->size)
 	{
 		data->pid[i] = fork();
 		data->process = i + 1;
 		if (data->pid[i] == 0)
 			routine(data);
-		if (data->pid[i] == -1)
+		else if (data->pid[i] == -1)
 			return (kill_proc(data->pid, 0, i), 1);
 		i++;
 	}
@@ -100,12 +120,10 @@ int	main(int ac, char **av)
 		return (printf("Error : wrong nb\n"), 1);
 	if (ft_fill_data(&data, av) == 1)
 		return (printf("Error : malloc or create semaphore\n"), 1);
+	sem_wait(data.finish);
 	if (ft_create(&data) == 1)
 		return (1);
-	first_pid_end(data.pid, data.size);
-	sem_close(data.fork);
-	sem_close(data.write);
-	sem_unlink("/fork");
-	sem_unlink("/write");
+	first_pid_end(data.pid, data.size, &data);
+	free_sem(&data);
 	free(data.pid);
 }

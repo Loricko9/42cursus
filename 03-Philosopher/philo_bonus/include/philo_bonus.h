@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:44:49 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/12/18 20:11:54 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/19 15:54:50 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_data
 {
 	sem_t	*fork;
 	sem_t	*write;
+	sem_t	*finish;
+	int		finish_state;
 	pid_t	*pid;
 	long	start;
 	long	last_eat;
@@ -38,6 +40,12 @@ typedef struct s_data
 	int		t_eat;
 	int		state;
 }	t_data;
+
+/*main.c*/
+void	routine_1phil(t_data *data);
+void	routine(t_data *data);
+int		ft_fill_data(t_data *data, char **av);
+int		ft_create(t_data *data);
 
 /*act_philo.c*/
 void	print_phil(long time, int philo, char *str, t_data *data);
@@ -52,7 +60,7 @@ int		check_int(char **av);
 int		check_char(char **av);
 
 /*process.c*/
-int		first_pid_end(pid_t *pid_tab, int nb_proc);
+int		first_pid_end(pid_t *pid_tab, int nb_proc, t_data *data);
 void	kill_proc(pid_t *pid, pid_t pid_dead, int nb_proc);
 long	ft_atoi(const char *nptr);
 void	free_sem(t_data *data);

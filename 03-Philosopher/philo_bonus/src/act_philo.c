@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:41:36 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/12/18 19:57:46 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:34:05 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	print_phil(long time, int philo, char *str, t_data *data)
 {
-	sem_wait(data->write);
-	printf("%ld\t%d %s\n", time, philo, str);
-	sem_post(data->write);
+	if (data->state == 1)
+	{
+		sem_wait(data->write);
+		printf("%ld\t%d %s\n", time, philo, str);
+		sem_post(data->write);
+	}
 }
 
 long	get_time(void)

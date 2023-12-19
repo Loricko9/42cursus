@@ -50,6 +50,8 @@ void	*routine(void *src)
 		if (check_state(data) == 0)
 			break ;
 		print_mutx(lst->nb_philo, get_time() - data->start, data, "thinking");
+		if (data->size % 2 == 1)
+			ft_sleep(data->t_eat, data, get_time());
 	}
 	return (NULL);
 }

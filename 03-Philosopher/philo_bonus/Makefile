@@ -2,7 +2,7 @@ FILES 		=	main.c check.c act_philo.c process.c
 
 NAME		=	philo_bonus
 CC			=	cc
-CFLAGS		+=	-W -Wall -Wextra -Werror -g -pthread
+CFLAGS		+=	-W -Wall -Wextra -Werror -pthread
 RM			=	rm -rf
 INCLUDE		=	-I include/
 MLX_PATH	=	minilibx-linux/

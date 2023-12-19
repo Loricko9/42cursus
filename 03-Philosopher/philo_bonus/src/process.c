@@ -6,32 +6,45 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:26:10 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/12/18 20:11:47 by lle-saul         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:33:54 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-int	first_pid_end(pid_t *pid_tab, int nb_proc)
+void	*check_finish(void *src)
 {
-	pid_t	pid;
-	int		status;
+	t_data	*data;
 
-	while (1)
+	data = (t_data *)src;
+	sem_wait(data->finish);
+	data->finish_state = 1;
+	return (NULL);
+}
+
+int	first_pid_end(pid_t *pid_tab, int nb_proc, t_data *data)
+{
+	pid_t		pid;
+	int			nb;
+	int			status;
+	pthread_t	thread;
+
+	data->finish_state = 0;
+	nb = 0;
+	if (pthread_create(&thread, NULL, check_finish, data) != 0)
+		return (kill_proc(pid_tab, -1, nb_proc), 1);
+	while (data->finish_state == 0 && nb < nb_proc)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
 		if (pid == 0)
 			usleep(20);
 		else if (pid > 0)
-		{
-			if (WEXITSTATUS(status) == 1)
-				return (kill_proc(pid_tab, pid, nb_proc), 1);
-			else
-				continue ;
-		}
-		else
-			break ;
+			nb++;
 	}
+	if (data->finish_state == 1)
+		kill_proc(pid_tab, -1, nb_proc);
+	sem_post(data->finish);
+	pthread_join(thread, NULL);
 	return (0);
 }
 
@@ -77,6 +90,8 @@ void	free_sem(t_data *data)
 {
 	sem_close(data->fork);
 	sem_close(data->write);
+	sem_close(data->finish);
 	sem_unlink("/fork");
 	sem_unlink("/write");
+	sem_unlink("/finish");
 }
