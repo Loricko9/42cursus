@@ -1,6 +1,6 @@
 # So_long
 
-[![en](https://img.shields.io/badge/Language-en-red)](https://github.com/Loricko9/42cursus/tree/main/02-So_long/README.fr.md)
+[![en](https://img.shields.io/badge/Language-en-red)](README.md)
 
 <div style="text-align: center;"><img src="https://i.imgur.com/oxsa34o.jpg " alt="drawing" width="2000"/></div>
 <div style="color: darkgreen; font-weight: bold; text-align: center; font-size: 35px;"><p> 120/100 ✅</p></div>
