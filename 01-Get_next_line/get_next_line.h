@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/22 16:52:00 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/10/22 16:52:00 by lle-saul         ###   ########.fr       */
+/*   Created: 2023/10/12 17:30:08 by lle-saul          #+#    #+#             */
+/*   Updated: 2023/10/23 11:41:51 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_list
 
 char	*get_next_line(int fd);
 char	*ft_line(t_list *stock);
-void	ft_read(t_list **stock, int fd);
+void	ft_read(t_list **stock, int fd, int *size);
 void	ft_add(t_list **stock, char *buff, int size);
 void	ft_clear_stock(t_list **stock);
 void	ft_free_stock(t_list *stock);

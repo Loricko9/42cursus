@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/22 16:52:25 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/10/22 16:52:25 by lle-saul         ###   ########.fr       */
+/*   Created: 2023/10/12 17:29:52 by lle-saul          #+#    #+#             */
+/*   Updated: 2023/10/23 14:29:37 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,25 +97,23 @@ void	ft_add(t_list **stock, char *buff, int size)
 	last->next = new_node;
 }
 
-void	ft_read(t_list **stock, int fd)
+void	ft_read(t_list **stock, int fd, int *size)
 {
 	char	*buff;
-	int		size;
 
-	size = 1;
-	while (size != 0 && ft_find(*stock) == 0)
+	while (*size != 0 && ft_find(*stock) == 0)
 	{
 		buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buff)
 			return ;
-		size = read(fd, buff, BUFFER_SIZE);
-		if ((size == 0 && !*stock) || size < 0)
+		*size = read(fd, buff, BUFFER_SIZE);
+		if ((*size == 0 && !*stock) || *size < 0)
 		{
 			free(buff);
 			return ;
 		}
-		buff[size] = '\0';
-		ft_add(stock, buff, size);
+		buff[*size] = '\0';
+		ft_add(stock, buff, *size);
 		free(buff);
 	}
 }
@@ -124,12 +122,14 @@ char	*get_next_line(int fd)
 {
 	static t_list	*stock;
 	char			*line;
+	int				size;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (NULL);
+		return (ft_free_stock(stock), stock = NULL, NULL);
 	line = NULL;
-	ft_read(&stock, fd);
-	if (!stock)
+	size = 1;
+	ft_read(&stock, fd, &size);
+	if (!stock || size < 0)
 		return (NULL);
 	line = ft_line(stock);
 	if (!line)
