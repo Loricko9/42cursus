@@ -66,14 +66,14 @@ char	*ft_get_path(char **path, char *cmd)
 	return (free(new_cmd), NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
 	char	*tab;
 	size_t	size;
 
-	size = ft_strlen_split(s1) + ft_strlen_split(s2) + 1;
+	size = ft_strlen(s1) + ft_strlen(s2) + 1;
 	i = 0;
 	tab = malloc(size * sizeof(char));
 	if (!tab)

@@ -12,66 +12,66 @@
 
 #include "minishell.h"
 
-int	ft_exec_prog(char **env, char *line)
+void	ft_pipe(char **env, char *line, int nb_pipe)
 {
-	char	**cmd;
-	char	*pwd;
-	char	*path;
-	int		res;
+	int		fd_in;
+	int		fd_out;
+	int		i;
 
-	res = 0;
-	cmd = ft_split(line, ' ');
-	if (!cmd)
-		return(perror("minishell"), 1);
-	pwd = getcwd(NULL, 1000);
-	if (!pwd)
-		return(perror("minishell"), ft_free_tab(cmd), 1);
-	path = ft_strjoin(pwd, cmd[0] + 1);
-	if (!path)
-		return(perror("minishell"), ft_free_tab(cmd), free(pwd), 1);
-	res = execve(path, cmd, env);
-	if (res == -1)
-		perror("minishell");
-	free(pwd);
-	free(path);
-	ft_free_tab(cmd);
-	exit(1);
-}
-
-void	ft_prog(char **env, char *line)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == 0)
-		ft_exec_prog(env, line);
+	fd_in = -1;
+	fd_out = -1;
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '<' && fd_in == -1)
+			get_input(&fd_in, line + i + 1);
+		else if (line[i] == '>' && fd_out == -1)
+			get_output(&fd_in, line + i + 1);
+		else if (line[i] == '|')
+			nb_pipe++;
+		if (fd_in == -2 || fd_out == -2)
+			return ;
+		i++;
+	}
+	if (nb_pipe > 1)
+		;
 	else
-		wait(NULL);
+		;
 }
 
 void	ft_case(char **env, char *line)
 {
-	if (ft_strcmp_shell(line, "./") == 1)
-		ft_prog(env, line);
+	if (ft_find_char(line, '|') == 1 || ft_find_char(line, '<') == 1 || ft_find_char(line, '>') == 1)
+		ft_pipe(env, line, 1);
+	else if (ft_strcmp_shell(line, "./") == 1)
+		fork_exec(env, line, ft_exec_prog);
 	else if (ft_strcmp_shell(line, "env") == 1)
 		print_tab(env);
+	else
+		fork_exec(env, line, ft_exec_cmd);
 }
 
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
+	char	**my_env;
 	
 	(void)av;
 	(void)ac;
-	init_signal();
+	my_env = dup_tab(env);
+	if (!my_env)
+		return (printf("Error : malloc\n"));
+	//init_signal();
 	while (1)
 	{
 		line = readline("minishell>");
 		if (line == NULL || ft_strcmp_shell(line, "exit") == 1)
 			break ;
-		ft_case(env, line);
+		if (ft_check_quote(line) == 1)
+			ft_case(my_env, line);
 		add_history(line);
 		free(line);
 	}
 	free(line);
+	ft_free_tab(my_env);
 }

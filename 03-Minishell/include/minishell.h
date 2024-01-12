@@ -33,13 +33,25 @@ int		Pipex(int ac, char **av, char **env);
 void	init_signal(void);
 void	exec_signal(int signum);
 int		ft_strcmp_shell(const char *s1, const char *s2);
-char	*ft_substr(char *str, int start);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
-/*find.c*/
-int		find_pipe(char *line);
+
+/*utils2.c*/
+int		ft_tablen(char **tab);
+char	**dup_tab(char **tab);
+int		ft_check_quote(char *line);
 
 /*print.c*/
 void	print_tab(char **tab);
+
+/*exec.c*/
+void	fork_exec(char **env, char *line, int (*function)(char **, char **));
+int		ft_exec_prog(char **cmd, char **env);
+
+/*get_fd.c*/
+void	get_input(int *fd_in, char *line);
+void	get_output(int *fd_out, char *line);
+
 
 #endif
 

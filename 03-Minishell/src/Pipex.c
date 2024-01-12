@@ -19,18 +19,18 @@ int	ft_exec_cmd(char **cmd, char **env)
 	int		res;
 
 	res = 0;
-	env_path = ft_split(env[ft_path_env(env)], ':');
+	env_path = ft_split(env[ft_path_env(env)], ":");
 	if (!env_path)
-		return (perror("pipex"), ft_free_tab(env_path), ft_free_tab(cmd), 1);
+		return (perror("minishell"), ft_free_tab(env_path), ft_free_tab(cmd), 1);
 	path = ft_get_path(env_path, cmd[0]);
 	if (!path)
-		return (ft_putstr("pipex: command not found: ", 2), ft_putstr(cmd[0],
+		return (ft_putstr("minishell: command not found: ", 2), ft_putstr(cmd[0],
 				2), ft_putchar('\n', 2), ft_free_tab(env_path),
 			ft_free_tab(cmd), 1);
 	res = execve(path, cmd, env);
 	ft_free_var(cmd, env_path, path);
 	if (res == -1)
-		return (perror("pipex"), 1);
+		return (perror("minishell"), 1);
 	return (0);
 }
 
@@ -69,7 +69,7 @@ void	ft_pipe_exec(int pid, int *fd, char *cmd, char **env)
 			perror("pipex");
 			exit(1);
 		}
-		if (ft_exec_cmd(ft_split(cmd, ' '), env) == 1)
+		if (ft_exec_cmd(ft_split(cmd, " "), env) == 1)
 			exit(1);
 	}
 	else
@@ -128,6 +128,6 @@ int	Pipex(int ac, char **av, char **env)
 		ft_create_pid(av[i + 2 + a], env);
 	if (ft_redirect_fd(av[1], av[ac - 1], 1) == 1)
 		return (1);
-	ft_exec_cmd(ft_split(av[ac - 2], ' '), env);
+	ft_exec_cmd(ft_split(av[ac - 2], "|"), env);
 	return (1);
 }

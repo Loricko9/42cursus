@@ -1,10 +1,10 @@
-FILES 	=	main.c utils.c find.c print.c \
+FILES 	=	main.c utils.c utils2.c print.c exec.c get_fd.c \
 			ft_split.c get_next_line_utils.c get_next_line.c Pipex_here_doc.c \
 			Pipex_utils.c Pipex_utils2.c Pipex.c
 
 NAME	=	minishell
 CC		=	cc
-CFLAGS	+=	-W -Wall -Wextra -Werror
+CFLAGS	+=	-W -Wall -Wextra -Werror -g
 RM		=	rm -rf
 INCLUDE	=	-I include/
 

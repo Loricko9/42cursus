@@ -46,23 +46,26 @@ int	ft_strcmp_shell(const char *s1, const char *s2)
 	return (0);
 }
 
-char	*ft_substr(char *str, int start)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int		i;
-	int		j;
-	char	*new;
+	char	*str;
+	size_t	i;
+	size_t	j;
 
-	i = start;
-	j = 0;
-	new = malloc(sizeof(char) * (ft_strlen(str) - start) + 1);
-	if (!new)
+	str = malloc((len + 1) * sizeof(char));
+	if (!str)
 		return (NULL);
-	while (str[i] != '\0')
+	i = 0;
+	j = 0;
+	while (j < len && s[i] != '\0')
 	{
-		new[j] = str[i];
-		j++;
+		if (i >= start)
+		{
+			str[j] = s[i];
+			j++;
+		}
 		i++;
 	}
-	new[j] = '\0';
-	return (new);
+	str[j] = '\0';
+	return (str);
 }

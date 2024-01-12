@@ -39,7 +39,7 @@ void	ft_here_doc(int *a, char *end);
 int		ft_path_env(char **env);
 char	*ft_get_path(char **path, char *cmd);
 void	ft_free_tab(char **tab);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 void	ft_free_var(char **cmd, char **env_path, char *path);
 
 /*Pipex_utils2.c*/
@@ -49,7 +49,7 @@ int		ft_strcmp(char *src, char *dest);
 int		check_file(char *file1, char *file2);
 
 /*ft_split.c*/
-char	**ft_split(char const *s, char c);
-size_t	ft_strlen_split(const char *s);
+char	**ft_split(char *s, char *c);
+int		ft_find_char(const char *s1, const char c);
 
 #endif
