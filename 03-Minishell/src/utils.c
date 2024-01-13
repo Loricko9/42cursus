@@ -69,3 +69,23 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	str[j] = '\0';
 	return (str);
 }
+
+int	ft_find_char_quote(const char *s1, const char c)
+{
+	int		i;
+	char	trig;
+
+	i = 0;
+	trig = 0;
+	while (s1[i] != '\0')
+	{
+		if (trig == 0 && (s1[i] == '"' || s1[i] == '\''))
+			trig = s1[i];
+		else if (trig > 0 && s1[i] == trig)
+			trig = 0;
+		if (s1[i] == c && trig == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}

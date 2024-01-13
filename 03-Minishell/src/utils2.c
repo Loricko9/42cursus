@@ -87,3 +87,24 @@ int	ft_check_quote(char *line)
 	return (printf("minishell : undeterminated quote\n"), 0);
 }
 
+char	*ft_extract_str(char *str, int start, int end)
+{
+	char	*new;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	new = malloc(sizeof(char) * ((ft_strlen(str) - ((end - start) + 1)) + 1));
+	if (!new)
+		return (NULL);
+	while (str[i] != '\0')
+	{
+		if (i < start || i > end)
+			new[j++] = str[i];
+		i++;
+	}
+	new[j++] = '\0';
+	free(str);
+	return (new);
+}

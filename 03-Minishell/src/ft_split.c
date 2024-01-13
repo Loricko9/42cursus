@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Pipex.h"
+#include "get_next_line.h"
 #include <stdlib.h>
 
 int	ft_find_char(const char *s1, const char c)

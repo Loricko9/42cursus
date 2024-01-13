@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 15:04:22 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/11 15:04:22 by lle-saul         ###   ########.fr       */
+/*   Created: 2024/01/13 18:25:24 by lle-saul          #+#    #+#             */
+/*   Updated: 2024/01/13 18:25:24 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_tab(char **tab)
+void	ft_master_pipe(char **cmd, char **env)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i] != NULL)
+
+	while (cmd[i] != NULL)
 	{
-		printf("%s\n", tab[i]);
 		i++;
 	}
 }
 
-void	ft_putchar(char c, int fd)
+void	ft_pipe(char **cmd, char **env)
 {
-	write(fd, &c, 1);
-}
+	pid_t	pid;
 
-void	ft_putstr(char *str, int fd)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		ft_putchar(str[i], fd);
-		i++;
-	}
+	pid = fork();
+	if (pid == -1)
+		perror("minishell");
+	if (pid == 0);
+		ft_master_pipe(cmd, env);
+	else
+		waitpid(pid, NULL, 0);
+	ft_free_tab(cmd);
 }
