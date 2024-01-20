@@ -94,7 +94,6 @@ void	ft_pipe(char **env, char **cmd)
 {
 	pid_t	pid;
 
-	print_tab(cmd);
 	pid = fork();
 	if (pid == -1)
 		perror("minishell");

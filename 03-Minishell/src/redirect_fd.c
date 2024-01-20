@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 static void	error_fd(char *path, char **fd)
 {
 	ft_putstr("minishell: ", 1);
@@ -70,12 +71,10 @@ void	ft_redirect_fd(char *fd_redir, int fd_to, char **fd, int nb_fd)
 
 void	ft_redirect_fd_pipe(int fd_redir, int fd_to, char **fd)
 {
-	printf("fd_redir : %d fd_to : %d\n", fd_redir, fd_to);
 	if (dup2(fd_redir, fd_to) == -1)
 	{
 		perror("minishell");
 		ft_free_fd(fd);
 		exit(1);
 	}
-	fprintf(stderr, "fin redir pipe\n");
 }

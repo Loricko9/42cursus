@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "minishell.h"
 #include <stdlib.h>
 
 int	ft_find_char(const char *s1, const char c)
@@ -29,10 +29,18 @@ int	ft_find_char(const char *s1, const char c)
 
 static void	ft_cote(int *val, char c)
 {
-	if (*val == 1 && c == '"')
+	static char	quote = 0;
+
+	if (quote == 0 && (c == '"' || c == '\''))
+		c = quote;
+	if (*val == 1 && c == quote)
+	{
 		*val = 0;
-	else if (*val == 0 && c == '"')
+		quote = 0;
+	}
+	else if (*val == 0 && c == quote)
 		*val = 1;
+		
 }
 
 static int	ft_countwords(char const *s, char *c, int *trig_cote)
@@ -66,22 +74,25 @@ static int	ft_countwords(char const *s, char *c, int *trig_cote)
 static char	*ft_splitword(char const *s, int *index, int i)
 {
 	char	*str;
+	char	quote;
 	int		j;
 
+	quote = 0;
 	if (s[i - 1] == '"' || s[i - 1] == '\'')
 	{
 		++*index;
 		i--;
+		quote = s[i];
 	}
 	str = malloc((i - *index + 1) * sizeof(char));
 	j = 0;
 	while (*index < i)
 	{
-		str[j] = s[*index];
+		if (s[*index] != quote || quote == 0)
+			str[j++] = s[*index];
 		++*index;
-		j++;
 	}
-	str[j] = '\0';
+	str[j++] = '\0';
 	*index = -1;
 	return (str);
 }
