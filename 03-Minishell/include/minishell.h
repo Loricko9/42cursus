@@ -26,6 +26,9 @@
 # include <readline/history.h>
 # include "get_next_line.h"
 
+int		*get_redirec(char *str);
+void	ft_case(char **env, char *line, void (*ft)(char **, char *, int (*fonction)(char **, char **), int *fd));
+
 /*utils.c*/
 void	init_signal(void);
 void	exec_signal(int signum);
@@ -49,6 +52,7 @@ void	ft_putstr(char *str, int fd);
 
 /*exec.c*/
 void	fork_exec(char **env, char *line, int (*function)(char **, char **), int *fd);
+char	*ft_clean_line(char *str);
 int		ft_exec_prog(char **cmd, char **env);
 int		ft_exec_cmd(char **cmd, char **env);
 
@@ -60,7 +64,8 @@ char	*ft_get_path(char **path, char *cmd);
 char	*ft_strjoin(char *s1, char *s2);
 
 /*exec_pipe.c*/
-void	ft_pipe(char **cmd, char **env);
+void	redirect_fd_pipe(int *fd_pipe, int *fd, int i);
+void	ft_pipe(char **env, char **cmd);
 
 /*get_fd.c*/
 int		get_len_quote(char *str);

@@ -105,18 +105,18 @@ int	*get_redirec(char *str)
 	return (fd);
 }
 
-void	ft_case(char **env, char *line)
+void ft_case(char **env, char *line, void (*ft)(char **, char *, int (*fonction)(char **, char **), int *fd))
 {
 	if (ft_find_char_quote(line, '|') == 1)
 		ft_pipe(env, ft_split(line, "|"));
 	else
 	{
 		if (ft_strcmp_shell(line, "./") == 1)
-			fork_exec(env, line, ft_exec_prog, get_redirec(line));
+			ft(env, line, ft_exec_prog, get_redirec(line));
 		else if (ft_strcmp_shell(line, "env") == 1)
 			print_tab(env);
 		else
-			fork_exec(env, line, ft_exec_cmd, get_redirec(line));
+			ft(env, line, ft_exec_cmd, get_redirec(line));
 	}
 }
 
@@ -137,10 +137,11 @@ int	main(int ac, char **av, char **env)
 		if (line == NULL || ft_strcmp_shell(line, "exit") == 1)
 			break ;
 		if (ft_check_quote(line) == 1)
-			ft_case(my_env, line);
+			ft_case(my_env, line, fork_exec);
 		add_history(line);
 		free(line);
 	}
 	free(line);
 	ft_free_tab(my_env);
 }
+	

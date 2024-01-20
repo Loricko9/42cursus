@@ -23,6 +23,7 @@ static void	error_fd(char *path, int *fd)
 
 void	ft_redirect_fd(int fd_redir, int fd_to, int *fd)
 {
+	printf("fd_redir : %d fd_to : %d\n", fd_redir, fd_to);
 	if (dup2(fd_redir, fd_to) == -1)
 	{
 		perror("minishell");
@@ -30,6 +31,7 @@ void	ft_redirect_fd(int fd_redir, int fd_to, int *fd)
 			free(fd);
 		exit(1);
 	}
+	fprintf(stderr, "fin\n");
 }
 
 int	get_len_quote(char *str)
@@ -92,7 +94,7 @@ void	get_output(int *fd_out, char *line)
 			unlink(path);
 	}
 	if (*fd_out != -2)
-		*fd_out = open(path, O_WRONLY | O_CREAT, 00777);
+		*fd_out = open(path, O_RDWR | O_CREAT, 00777);
 	if (*fd_out < 0)
 		error_fd(path, fd_out);
 	free(path); 
