@@ -26,8 +26,8 @@
 # include <readline/history.h>
 # include "get_next_line.h"
 
-int		*get_redirec(char *str);
-void	ft_case(char **env, char *line, void (*ft)(char **, char *, int (*fonction)(char **, char **), int *fd));
+char	**get_redirec(char *str);
+void	ft_case(char **env, char *line, void (*ft)(char **, char *, int (*fonction)(char **, char **), char **fd));
 
 /*utils.c*/
 void	init_signal(void);
@@ -43,7 +43,7 @@ int		ft_check_quote(char *line);
 char	*ft_extract_str(char *str, int start, int end);
 
 /*utils3.c*/
-int	ft_strcmp(char *src, char *dest);
+int		ft_strcmp(char *src, char *dest);
 
 /*print.c*/
 void	print_tab(char **tab);
@@ -51,7 +51,7 @@ void	ft_putchar(char c, int fd);
 void	ft_putstr(char *str, int fd);
 
 /*exec.c*/
-void	fork_exec(char **env, char *line, int (*function)(char **, char **), int *fd);
+void	fork_exec(char **env, char *line, int (*function)(char **, char **), char **fd);
 char	*ft_clean_line(char *str);
 int		ft_exec_prog(char **cmd, char **env);
 int		ft_exec_cmd(char **cmd, char **env);
@@ -64,14 +64,21 @@ char	*ft_get_path(char **path, char *cmd);
 char	*ft_strjoin(char *s1, char *s2);
 
 /*exec_pipe.c*/
-void	redirect_fd_pipe(int *fd_pipe, int *fd, int i);
+void	redirect_fd_pipe(int *fd_pipe, char **fd, int i);
 void	ft_pipe(char **env, char **cmd);
 
 /*get_fd.c*/
 int		get_len_quote(char *str);
-void	get_input(int *fd_in, char *line);
-void	get_output(int *fd_out, char *line);
-void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);
+void	get_input(char **fd_in, char *line);
+void	get_output(char **fd_out, char *line);
+
+
+/*redirect_fd.c*/
+void	ft_free_fd(char **fd);
+int		ft_open_fd(char *fd_redir, char **fd, int nb_fd);
+void	ft_redirect_fd(char *fd_redir, int fd_to, char **fd, int nb_fd);
+void	ft_redirect_fd_pipe(int fd_redir, int fd_to, char **fd);
+
 
 /*pipe.c*/
 char	**ft_extract_cmd(char **cmd);

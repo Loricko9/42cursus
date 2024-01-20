@@ -12,28 +12,6 @@
 
 #include "minishell.h"
 
-static void	error_fd(char *path, int *fd)
-{
-	*fd = -2;
-	ft_putstr("minishell: ", 1);
-	ft_putstr(path, 1);
-	ft_putstr(":", 1);
-	perror("");
-}
-
-void	ft_redirect_fd(int fd_redir, int fd_to, int *fd)
-{
-	printf("fd_redir : %d fd_to : %d\n", fd_redir, fd_to);
-	if (dup2(fd_redir, fd_to) == -1)
-	{
-		perror("minishell");
-		if (fd)
-			free(fd);
-		exit(1);
-	}
-	fprintf(stderr, "fin\n");
-}
-
 int	get_len_quote(char *str)
 {
 	char	trig;
@@ -52,7 +30,7 @@ int	get_len_quote(char *str)
 	return (len);
 }
 
-void	get_input(int *fd_in, char *line)
+void	get_input(char **fd_in, char *line)
 {
 	char	*path;
 	int		i;
@@ -64,15 +42,12 @@ void	get_input(int *fd_in, char *line)
 		i++;
 	len = get_len_quote(line + i);
 	path = ft_substr(line, i, len);
-	if (*fd_in > -1)
-		close(*fd_in);
-	*fd_in = open(path, O_RDONLY);
-	if (*fd_in < 0)
-		error_fd(path, fd_in);
-	free(path);
+	if (*fd_in != NULL)
+		free(fd_in);
+	*fd_in = path;
 }
 
-void	get_output(int *fd_out, char *line)
+void	get_output(char **fd_out, char *line)
 {
 	char	*path;
 	int		i;
@@ -84,18 +59,7 @@ void	get_output(int *fd_out, char *line)
 		i++;
 	len = get_len_quote(line + i);
 	path = ft_substr(line, i, len);
-	if (*fd_out > -1)
-		close(*fd_out);
-	if (access(path, F_OK) == 0)
-	{
-		if (access(path, W_OK) == -1)
-			*fd_out = -2;
-		else
-			unlink(path);
-	}
-	if (*fd_out != -2)
-		*fd_out = open(path, O_RDWR | O_CREAT, 00777);
-	if (*fd_out < 0)
-		error_fd(path, fd_out);
-	free(path); 
+	if (*fd_out != NULL)
+		free(fd_out);
+	*fd_out = path;
 }
