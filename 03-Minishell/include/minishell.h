@@ -27,12 +27,12 @@
 # include "get_next_line.h"
 
 char	**get_redirec(char *str);
-void	ft_case(char **env, char *line, void (*ft)(char **, char *, int (*fonction)(char **, char **), char **fd));
+void	ft_case(char **env, char **line, void (*ft)(char **, char *, int (*fonction)(char **, char **), char **fd));
 
 /*utils.c*/
 void	init_signal(void);
 void	exec_signal(int signum);
-int		ft_strcmp_shell(const char *s1, const char *s2);
+int		ft_strcmp_shell(const char *s1, const char *s2, int n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_find_char_quote(const char *s1, const char c);
 
@@ -86,6 +86,12 @@ char	**ft_extract_cmd(char **cmd);
 /*ft_split.c*/
 char	**ft_split(char *s, char *c);
 int		ft_find_char(const char *s1, const char c);
+
+/*check_var_env.c*/
+char	*check_var(char *line, char **env);
+char	*new_line(char *line, char **env, int *i);
+char	*get_var(char *line);
+char	*create_new_line(char *var, char *line, char *env, int *index);
 
 #endif
 

@@ -1,5 +1,5 @@
 FILES 	=	main.c utils.c utils2.c utils3.c print.c exec.c exec_pipe.c exec_utils.c get_fd.c redirect_fd.c\
-			ft_split.c get_next_line_utils.c get_next_line.c 
+			ft_split.c get_next_line_utils.c get_next_line.c check_var_env.c
 
 NAME	=	minishell
 CC		=	cc

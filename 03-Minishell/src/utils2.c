@@ -74,10 +74,12 @@ int	ft_check_quote(char *line)
 {
 	int i;
 	int	trig;
+	int	len;
 
 	i = 0;
 	trig = 0;
-	while (line[i] != '\0')
+	len = ft_strlen(line);
+	while (i < len)
 	{
 		ft_check_quote2(&trig, &i, line);
 		i++;

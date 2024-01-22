@@ -116,7 +116,8 @@ char	**ft_split(char *s, char *c)
 		ft_cote(&trig_cote, s[i]);
 		if (ft_find_char(c, s[i]) == 0 && index == -1)
 			index = i;
-		else if (((ft_find_char(c, s[i]) == 1 && trig_cote != 1) || i == ft_strlen(s)) && index != -1)
+		else if (((ft_find_char(c, s[i]) == 1 && trig_cote != 1)
+				|| i == ft_strlen(s)) && index != -1)
 			tab[j++] = ft_splitword(s, &index, i);
 	}
 	tab[j] = NULL;

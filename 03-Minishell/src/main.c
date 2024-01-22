@@ -103,18 +103,21 @@ char	**get_redirec(char *str)
 	return (fd);
 }
 
-void	ft_case(char **env, char *line, void (*ft)(char **, char *, int (*fonction)(char **, char **), char **fd))
+void	ft_case(char **env, char **line, void (*ft)(char **, char *, int (*fonction)(char **, char **), char **fd))
 {
-	if (ft_find_char_quote(line, '|') == 1)
-		ft_pipe(env, ft_split(line, "|"));
+	*line = check_var(*line, env);
+	if (!*line)
+		perror("minishell");
+	else if (ft_find_char_quote(*line, '|') == 1)
+		ft_pipe(env, ft_split(*line, "|"));
 	else
 	{
-		if (ft_strcmp_shell(line, "./") == 1)
-			ft(env, line, ft_exec_prog, get_redirec(line));
-		else if (ft_strcmp_shell(line, "env") == 1)
+		if (ft_strcmp_shell(*line, "./", 1) == 1)
+			ft(env, *line, ft_exec_prog, get_redirec(*line));
+		else if (ft_strcmp_shell(*line, "env", 0) == 1)
 			print_tab(env);
 		else
-			ft(env, line, ft_exec_cmd, get_redirec(line));
+			ft(env, *line, ft_exec_cmd, get_redirec(*line));
 	}
 }
 
@@ -132,11 +135,11 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		line = readline("minishell>");
-		if (line == NULL || ft_strcmp_shell(line, "exit") == 1)
+		add_history(line);
+		if (line == NULL || ft_strcmp_shell(line, "exit", 0) == 1)
 			break ;
 		if (ft_check_quote(line) == 1)
-			ft_case(my_env, line, fork_exec);
-		add_history(line);
+			ft_case(my_env, &line, fork_exec);
 		free(line);
 	}
 	free(line);

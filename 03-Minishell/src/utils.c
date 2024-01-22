@@ -27,7 +27,7 @@ void	exec_signal(int signum)
 	printf("\nminishell>");
 }
 
-int	ft_strcmp_shell(const char *s1, const char *s2)
+int	ft_strcmp_shell(const char *s1, const char *s2, int n)
 {
 	size_t	i;
 	size_t	j;
@@ -41,7 +41,11 @@ int	ft_strcmp_shell(const char *s1, const char *s2)
 		i++;
 		j++;
 	}
-	if (s2[i] == '\0')
+	if (s2[i] == '\0' && (s1[j] == '\0' || s1[j] == ' ') && n == 0)
+		return (1);
+	if (s2[i] == '\0' && n == 1)
+		return (1);
+	if (s2[i] == '\0' && s1[j] == '=' && n == 2)
 		return (1);
 	return (0);
 }
