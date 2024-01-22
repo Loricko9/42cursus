@@ -22,7 +22,7 @@ int	ft_tablen(char **tab)
 	return (i);
 }
 
-char	**dup_tab(char **tab)
+char	**dup_tab(char **tab, int ac, char **av)
 {
 	char	**tab_copy;
 	int		i;
@@ -30,6 +30,8 @@ char	**dup_tab(char **tab)
 
 	j = 0;
 	tab_copy = malloc(sizeof(char *) * (ft_tablen(tab) + 1));
+	(void)ac;
+	(void)av;
 	if (!tab_copy)
 		return (NULL);
 	while (tab[j] != NULL)

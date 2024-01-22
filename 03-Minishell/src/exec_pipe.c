@@ -12,39 +12,37 @@
 
 #include "minishell.h"
 
-void	ft_exec_pipe(char **env, char *line, int (*function)(char **, char **), char **fd)
+void	ft_exec_pipe(char **env, char *line, int (*function)(char **, char **), int *fd)
 {
-	ft_free_fd(fd);
+	(void)fd;
 	line = ft_clean_line(line);
 	if (function(ft_split(line, " "), env) == 1)
 		exit(1);
 }
 
-void	redirect_fd_pipe(int *fd_pipe, char **fd, int i)
+void	redirect_fd_pipe(int *fd_pipe, int *fd, int i)
 {
-	if (i == 2 && fd[0])
-		ft_redirect_fd(fd[0], STDIN_FILENO, fd, 0);
-	else if (i == 3 && fd[1])
-		ft_redirect_fd(fd[1], STDOUT_FILENO, fd, 1);
+	if (i == 2 && fd[0] > -1)
+		ft_redirect_fd(fd[0], STDIN_FILENO, NULL);
+	else if (i == 3 && fd[1] > -1)
+		ft_redirect_fd(fd[1], STDOUT_FILENO, NULL);
 	else if (i == 1)
 	{
-		if (fd[1])
-			ft_redirect_fd(fd[1], STDOUT_FILENO, fd, 1);	
+		if (fd[1] > -1)
+			ft_redirect_fd(fd[1], STDOUT_FILENO, NULL);	
 		else
-			ft_redirect_fd_pipe(fd_pipe[1], STDOUT_FILENO, fd);
+			ft_redirect_fd(fd_pipe[1], STDOUT_FILENO, NULL);
 	}
 	else if (i == 0)
 	{
-		if (fd[0])
-			ft_redirect_fd(fd[0], STDIN_FILENO, fd, 1);
+		if (fd[0] > -1)
+			ft_redirect_fd(fd[0], STDIN_FILENO, NULL);
 		else
-			ft_redirect_fd_pipe(fd_pipe[0], STDIN_FILENO, fd);
+			ft_redirect_fd(fd_pipe[0], STDIN_FILENO, NULL);
 	}
-	if (i == 3 || i == 1)
-		ft_free_fd(fd);
 }
 
-void	fork_pipe(char **cmd, char **env, int i, char ***fd)
+void	fork_pipe(char **cmd, char **env, int i, int **fd)
 {
 	pid_t	pid;
 	int		fd_pipe[2];
@@ -64,10 +62,9 @@ void	fork_pipe(char **cmd, char **env, int i, char ***fd)
 	{
 		close(fd_pipe[0]);
 		redirect_fd_pipe(fd_pipe, *fd, 1);
-		ft_case(env, &cmd[i], ft_exec_pipe);
+		ft_case(env, cmd[i], ft_exec_pipe, NULL);
 	}
 	close(fd_pipe[1]);
-	ft_free_fd(*fd);
 	*fd = get_redirec(cmd[i + 1]);
 	redirect_fd_pipe(fd_pipe, *fd, 0);
 	waitpid(pid, NULL, 0);
@@ -75,19 +72,29 @@ void	fork_pipe(char **cmd, char **env, int i, char ***fd)
 
 void	ft_master_pipe(char **cmd, char **env)
 {
-	int		i;
-	char	**fd;
+	int	i;
+	int	*fd;
 
 	i = 0;
 	fd = get_redirec(cmd[i]);
+	if (fd[0] == -2 || fd[1] == -2)
+	{
+		free(fd);
+		exit(1);
+	}
 	redirect_fd_pipe(NULL, fd, 2);
 	while (cmd[i + 1] != NULL)
 	{
 		fork_pipe(cmd, env, i, &fd);
+		if (fd[0] == -2 || fd[1] == -2)
+		{
+			free(fd);
+			exit(1);
+		}
 		i++;
 	}
 	redirect_fd_pipe(NULL, fd, 3);
-	ft_case(env, &cmd[i], ft_exec_pipe);
+	ft_case(env, cmd[i], ft_exec_pipe, NULL);
 }
 
 void	ft_pipe(char **env, char **cmd)
