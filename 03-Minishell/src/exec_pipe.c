@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 18:25:24 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/13 18:25:24 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/01/23 12:48:21 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	ft_pipe(char **env, char **cmd)
 {
 	pid_t	pid;
 
+	print_tab(cmd);
 	pid = fork();
 	if (pid == -1)
 		perror("minishell");

@@ -81,6 +81,7 @@ void	ft_pipe_exec(int pid, int *fd, char *cmd, char **env)
 			exit(1);
 		}
 		close(fd[0]);
+		waitpid(pid, NULL, 0);
 	}
 }
 
