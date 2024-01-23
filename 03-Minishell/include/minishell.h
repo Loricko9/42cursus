@@ -27,7 +27,7 @@
 # include "get_next_line.h"
 
 int		*get_redirec(char *str);
-void	ft_case(char **env, char *line, void (*ft)(char **, char *, int (*fonction)(char **, char **), int *fd), int *fd);
+void	ft_case(char **env, char *line);
 
 /*utils.c*/
 void	init_signal(void);
@@ -39,10 +39,12 @@ int		ft_find_char_quote(const char *s1, const char c);
 /*utils2.c*/
 int		ft_tablen(char **tab);
 char	**dup_tab(char **tab, int ac, char **av);
-int		ft_check_quote(char *line);
+int		ft_check_line(char *line);
 char	*ft_extract_str(char *str, int start, int end);
 
 /*utils3.c*/
+void	ft_free_tab(char **tab);
+void	ft_check_redir(int *trig, int i, char *line);
 int		ft_strcmp(char *src, char *dest);
 
 /*print.c*/
@@ -51,15 +53,15 @@ void	ft_putchar(char c, int fd);
 void	ft_putstr(char *str, int fd);
 
 /*exec.c*/
-void	fork_exec(char **env, char *line, int (*function)(char **, char **), int *fd);
+void	fork_exec(char **env, char *line, int *fd);
 char	*ft_clean_line(char *str);
 int		ft_exec_prog(char **cmd, char **env);
 int		ft_exec_cmd(char **cmd, char **env);
 
 /*exec_utils.c*/
+char	*ft_clean_line2(char *str, int i);
 int		ft_path_env(char **env);
 void	ft_free_var(char **cmd, char **env_path, char *path);
-void	ft_free_tab(char **tab);
 char	*ft_get_path(char **path, char *cmd);
 char	*ft_strjoin(char *s1, char *s2);
 
@@ -73,8 +75,13 @@ void	get_input(int *fd_in, char *line);
 void	get_output(int *fd_out, char *line);
 void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);
 
+/*get_fd_heredoc.c*/
+char	*ft_malloc_path_fd(char *str, int len);
+char	*extract_path_fd(char *str);
+
 /*ft_split.c*/
-char	**ft_split(char *s, char *c);
+void	ft_cote(int *val, char c);
+char	**ft_split(char *s, char *c, int bol_quote);
 int		ft_find_char(const char *s1, const char c);
 
 /*check_var_env.c*/
@@ -84,8 +91,10 @@ char	*get_var(char *line);
 char	*create_new_line(char *var, char *line, char *env, int *index);
 
 /*build_in.c*/
-void ft_pwd(char **tab);
-void ft_echo(char *line);
+void	ft_pwd(char **tab);
+void	ft_echo(char *line);
+void	ft_export(char **tab, char *line);
+void	print_export(char **tab);
 
 #endif
 

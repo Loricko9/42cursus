@@ -50,7 +50,7 @@ char	**dup_tab(char **tab, int ac, char **av)
 	return (tab_copy);
 }
 
-void	ft_check_quote2(int *trig, int *i, char *line)
+void	ft_check_quote(int *trig, int *i, char *line)
 {
 	if (line[*i] == '"')
 	{
@@ -72,7 +72,7 @@ void	ft_check_quote2(int *trig, int *i, char *line)
 	}
 }
 
-int	ft_check_quote(char *line)
+int	ft_check_line(char *line)
 {
 	int i;
 	int	trig;
@@ -83,7 +83,10 @@ int	ft_check_quote(char *line)
 	len = ft_strlen(line);
 	while (i < len)
 	{
-		ft_check_quote2(&trig, &i, line);
+		ft_check_quote(&trig, &i, line);
+		ft_check_redir(&trig, i, line);
+		if (trig == 2)
+			return (printf("minishell : syntaxe error\n"), 0);
 		i++;
 	}
 	if (trig == 0)

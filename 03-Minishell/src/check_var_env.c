@@ -67,7 +67,6 @@ char	*new_line(char *line, char **env, int *i)
 	int		j;
 
 	var = get_var(line + *i + 1);
-	printf("var : %s\n", var);
 	if (!var)
 		return (NULL);
 	j = 0;
@@ -88,6 +87,8 @@ char	*check_var(char *line, char **env)
 	int	i;
 	int	quote;
 
+	if (!line)
+		return (NULL);
 	i = 0;
 	quote = 0;
 	while (line[i] != '\0')

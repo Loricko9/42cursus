@@ -12,14 +12,6 @@
 
 #include "minishell.h"
 
-void	ft_exec_pipe(char **env, char *line, int (*function)(char **, char **), int *fd)
-{
-	(void)fd;
-	line = ft_clean_line(line);
-	if (function(ft_split(line, " "), env) == 1)
-		exit(1);
-}
-
 void	redirect_fd_pipe(int *fd_pipe, int *fd, int i)
 {
 	if (i == 2 && fd[0] > -1)
@@ -62,7 +54,7 @@ void	fork_pipe(char **cmd, char **env, int i, int **fd)
 	{
 		close(fd_pipe[0]);
 		redirect_fd_pipe(fd_pipe, *fd, 1);
-		ft_case(env, cmd[i], ft_exec_pipe, NULL);
+		ft_case(env, cmd[i]);
 	}
 	close(fd_pipe[1]);
 	*fd = get_redirec(cmd[i + 1]);
@@ -94,14 +86,13 @@ void	ft_master_pipe(char **cmd, char **env)
 		i++;
 	}
 	redirect_fd_pipe(NULL, fd, 3);
-	ft_case(env, cmd[i], ft_exec_pipe, NULL);
+	ft_case(env, cmd[i]);
 }
 
 void	ft_pipe(char **env, char **cmd)
 {
 	pid_t	pid;
 
-	print_tab(cmd);
 	pid = fork();
 	if (pid == -1)
 		perror("minishell");

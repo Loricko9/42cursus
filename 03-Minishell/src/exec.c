@@ -12,20 +12,6 @@
 
 #include "minishell.h"
 
-char	*ft_clean_line2(char *str, int i)
-{
-	int	index;
-
-	index = i - 1;
-	while (str[i] == ' ' && str[i] != '\0')
-		i++;
-	i = i + get_len_quote(str + i);
-	if (str[i] == '\0')
-		i--;
-	return (ft_extract_str(str, index, i));
-}
-
-
 char	*ft_clean_line(char *str)
 {
 	char	trig;
@@ -50,30 +36,30 @@ char	*ft_clean_line(char *str)
 	return (str);
 }
 
-void	fork_exec(char **env, char *line, int (*function)(char **, char **), int *fd)
+void	fork_exec(char **env, char *line, int *fd)
 {
 	pid_t	pid;
 
-	pid = fork();
-	if (pid == -1)
-		perror("minishell");
-	if (pid == 0)
+	if (fd[0] != -2 && fd[1] != -2)
 	{
-		if (fd[0] == -2 || fd[1] == -2)
-		{
+		pid = fork();
+		if (pid == -1)
+			perror("minishell");
+		if (pid == 0)
+		{	
+			if (fd[0] > -1)
+				ft_redirect_fd(fd[0], STDIN_FILENO, fd);
+			if (fd[1] > -1)
+				ft_redirect_fd(fd[1], STDOUT_FILENO, fd);
 			free(fd);
-			exit(1);
+			ft_case(env, line);
 		}
-		line = ft_clean_line(line);
-		if (fd[0] > -1)
-			ft_redirect_fd(fd[0], STDIN_FILENO, fd);
-		if (fd[1] > -1)
-			ft_redirect_fd(fd[1], STDOUT_FILENO, fd);
-		free(fd);
-		if (function(ft_split(line, " "), env) == 1)
-			exit(1);
+		waitpid(pid, NULL, 0);
 	}
-	waitpid(pid, NULL, 0);
+	if (fd[0] > -1)
+		close(fd[0]);
+	if (fd[1] > -1)
+		close(fd[1]);
 	free(fd);
 }
 
@@ -108,7 +94,7 @@ int	ft_exec_cmd(char **cmd, char **env)
 	int		res;
 
 	res = 0;
-	env_path = ft_split(env[ft_path_env(env)], ":");
+	env_path = ft_split(env[ft_path_env(env)], ":", 0);
 	if (!env_path)
 		return (perror("minishell"), ft_free_tab(env_path), ft_free_tab(cmd), 1);
 	path = ft_get_path(env_path, cmd[0]);

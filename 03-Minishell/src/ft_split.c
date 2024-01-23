@@ -27,20 +27,12 @@ int	ft_find_char(const char *s1, const char c)
 	return (0);
 }
 
-static void	ft_cote(int *val, char c)
+void	ft_cote(int *val, char c)
 {
-	static char	quote = 0;
-
-	if (quote == 0 && (c == '"' || c == '\''))
-		c = quote;
-	if (*val == 1 && c == quote)
-	{
+	if (*val == c && *val > 0)
 		*val = 0;
-		quote = 0;
-	}
-	else if (*val == 0 && c == quote)
-		*val = 1;
-		
+	else if (*val == 0 && (c == '"' || c == '\''))
+		*val = c;
 }
 
 static int	ft_countwords(char const *s, char *c, int *trig_cote)
@@ -71,14 +63,14 @@ static int	ft_countwords(char const *s, char *c, int *trig_cote)
 	return (count);
 }
 
-static char	*ft_splitword(char const *s, int *index, int i)
+static char	*ft_splitword(char const *s, int *index, int i, int bol_quote)
 {
 	char	*str;
 	char	quote;
 	int		j;
 
 	quote = 0;
-	if (s[i - 1] == '"' || s[i - 1] == '\'')
+	if ((s[i - 1] == '"' || s[i - 1] == '\'') && bol_quote == 0)
 	{
 		++*index;
 		i--;
@@ -97,7 +89,7 @@ static char	*ft_splitword(char const *s, int *index, int i)
 	return (str);
 }
 
-char	**ft_split(char *s, char *c)
+char	**ft_split(char *s, char *c, int bol_quote)
 {
 	char	**tab;
 	int		i;
@@ -116,9 +108,9 @@ char	**ft_split(char *s, char *c)
 		ft_cote(&trig_cote, s[i]);
 		if (ft_find_char(c, s[i]) == 0 && index == -1)
 			index = i;
-		else if (((ft_find_char(c, s[i]) == 1 && trig_cote != 1)
+		else if (((ft_find_char(c, s[i]) == 1 && trig_cote == 0)
 				|| i == ft_strlen(s)) && index != -1)
-			tab[j++] = ft_splitword(s, &index, i);
+			tab[j++] = ft_splitword(s, &index, i, bol_quote);
 	}
 	tab[j] = NULL;
 	return (tab);

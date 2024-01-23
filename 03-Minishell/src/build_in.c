@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+//fonction pwd du shell
 void	ft_pwd(char **tab)
 {
 	int i;
@@ -29,6 +30,7 @@ void	ft_pwd(char **tab)
 	}
 }
 
+//fonction echo du shell
 void	ft_echo(char *line)
 {
 	char	**temp;
@@ -37,7 +39,7 @@ void	ft_echo(char *line)
 
 	i = 1;
 	flag = 0;
-	temp = ft_split(line, " ");
+	temp = ft_split(line, " ", 0);
 	if (ft_strcmp_shell(temp[1], "-n", 0) == 1)
 	{
 		i++;
@@ -51,4 +53,37 @@ void	ft_echo(char *line)
 	}
 	if (flag == 0)
 		ft_putchar('\n', 1);
+	exit(1);
 }
+
+/*void	ft_cd(char **tab, char *line)
+{
+	
+}
+
+void	ft_export(char **tab, char *line)
+{
+	char **temp;
+
+	temp = ft_split(line, " ", 0);
+	if (temp[1] == NULL)
+		print_export(tab);
+	else
+	{
+
+	}
+}
+
+void	print_export(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		printf("declare -x %s\n", tab[i]);
+		i++;
+	}
+}
+
+*/

@@ -12,6 +12,43 @@
 
 #include "minishell.h"
 
+void	ft_free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+void	ft_check_redir(int *trig, int i, char *line)
+{
+	char	c;
+	
+	if (line[i] == '>' || line[i] == '<')
+	{
+		c = line[i];
+		if (line[++i] == c)
+			i++;
+		if (line[i] == c)
+		{
+			*trig = 2;
+			return ;
+		}
+		while (line[i] != '>' && line[i] != '<')
+		{
+			if (line[i] != ' ')
+				return ;
+			i++;
+		}
+		*trig = 2;
+	}
+}
+
 int	ft_strcmp(char *src, char *dest)
 {
 	int	i;

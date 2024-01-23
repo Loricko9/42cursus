@@ -54,14 +54,11 @@ void	get_input(int *fd_in, char *line)
 {
 	char	*path;
 	int		i;
-	int		len;
 
 	i = 0;
-	len = 0;
 	while (line[i] == ' ')
 		i++;
-	len = get_len_quote(line + i);
-	path = ft_substr(line, i, len);
+	path = extract_path_fd(line + i);
 	if (*fd_in > -1)
 		close(*fd_in);
 	*fd_in = open(path, O_RDONLY);
@@ -74,14 +71,11 @@ void	get_output(int *fd_out, char *line)
 {
 	char	*path;
 	int		i;
-	int		len;
 
 	i = 0;
-	len = 0;
 	while (line[i] == ' ')
 		i++;
-	len = get_len_quote(line + i);
-	path = ft_substr(line, i, len);
+	path = extract_path_fd(line + i);
 	if (*fd_out > -1)
 		close(*fd_out);
 	if (access(path, F_OK) == 0)
