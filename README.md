@@ -15,7 +15,7 @@ Every project coded content a `Makefile` who compile with `clang`, so you need t
 ````sh
 make
 ````
-boooooooooooooooooooooooooo The `Makefile` create a `obj/` directory which contains every compiled file from the `src/` directory.
+The `Makefile` create a `obj/` directory which contains every compiled file from the `src/` directory.
 You can erase `obj/` directory without erase the executable with :
 ````sh
 make clean
