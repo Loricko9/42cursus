@@ -53,7 +53,78 @@ char	*extract_path_fd(char *str)
 	return (ft_malloc_path_fd(str, len));
 }
 
-/*void	get_input_heredoc(int *fd_in, char *line)
+void	ft_reading_here_doc(char *end, int *fd_pipe, int *fd_tab)
 {
-	
-}*/
+	char	*line;
+
+	close(fd_pipe[0]);
+	while (1)
+	{
+		line = readline("> ");
+		if (line == NULL || ft_strcmp(line, end) == 0)
+			break ;
+		ft_putstr_n(line, fd_pipe[1]);
+		free(line);
+	}
+	close(fd_pipe[1]);
+	free(fd_tab);
+	free(line);
+	free(end);
+	exit(0);
+}
+
+void	ft_here_doc(char *end, int *fd_tab, int *fd_in)
+{
+	int	fd_pipe[2];
+	int	pid;
+
+	if (pipe(fd_pipe) == -1)
+	{
+		perror("minishell");
+		*fd_in = -2;
+		return ;
+	}
+	pid = fork();
+	if (pid == -1)
+	{
+		close(fd_pipe[0]);
+		close(fd_pipe[1]);
+		perror("minishell");
+		*fd_in = -2;
+		return ;
+	}
+	if (pid == 0)
+		ft_reading_here_doc(end, fd_pipe, fd_tab);
+	waitpid(pid, NULL, 0);
+	close(fd_pipe[1]);
+	*fd_in = fd_pipe[0];
+}
+
+void	get_input_heredoc(int *fd_in, char *line, int *fd, int *j)
+{
+	char	*temp;
+	char	*limiter;
+	int		i;
+
+	i = 0;
+	++*j;
+	while (line[i] == ' ')
+		i++;
+	temp = extract_path_fd(line + i);
+	if (!temp)
+	{
+		*fd_in = -2;
+		return ;
+	}
+	limiter = ft_strjoin(temp, "\n");
+	free(temp);
+	if (!limiter)
+	{
+		*fd_in = -2;
+		return ;
+	}
+	ft_here_doc(limiter, fd, fd_in);
+	free(limiter);
+}
+
+

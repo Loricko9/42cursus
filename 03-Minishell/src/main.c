@@ -12,6 +12,17 @@
 
 #include "minishell.h"
 
+void	ft_redirect_fd(int fd_redir, int fd_to, int *fd)
+{
+	if (dup2(fd_redir, fd_to) == -1)
+	{
+		perror("minishell");
+		if (fd)
+			free(fd);
+		exit(1);
+	}
+}
+
 /*fd[0] = fd_in | fd[1] = fd_out*/
 int	*get_redirec(char *str)
 {
@@ -29,10 +40,12 @@ int	*get_redirec(char *str)
 	while (str[++i] != '\0')
 	{
 		ft_cote(&trig, str[i]);
-		//if (str[i] == '<' && str[i + 1] == '<' && trig == 0)
-		//	get_input_heredoc(&fd[0], str + i + 2)
-		if (str[i] == '<' && trig == 0)
+		if (str[i] == '<' && str[i + 1] == '<' && trig == 0)
+			get_input_heredoc(&fd[0], str + i + 2, fd, &i);
+		else if (str[i] == '<' && trig == 0)
 			get_input(&fd[0], str + i + 1);
+		/*else if (str[i] == '>' && str[i + 1] == '>' && trig == 0)
+			get_output_append(&fd[1], str + i + 2, &i);*/
 		else if (str[i] == '>' && trig == 0)
 			get_output(&fd[1], str + i + 1);
 		if (fd[0] == -2 || fd[1] == -2)
@@ -74,8 +87,6 @@ void	ft_case(char **env, char *line)
 		ft_pwd(env);
 	else if (ft_strcmp_shell(line, "echo", 0) == 1)
 		ft_echo(line);
-	//else if (ft_strcmp_shell(line, "export", 0) == 1)
-	//	ft_export(env, line);
 	else
 		if (ft_exec_cmd(ft_split(line, " ", 0), env) == 1)
 			exit(1);

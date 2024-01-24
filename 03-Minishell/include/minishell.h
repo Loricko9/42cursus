@@ -28,6 +28,7 @@
 
 int		*get_redirec(char *str);
 void	ft_case(char **env, char *line);
+void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);;
 
 /*utils.c*/
 void	init_signal(void);
@@ -51,6 +52,7 @@ int		ft_strcmp(char *src, char *dest);
 void	print_tab(char **tab);
 void	ft_putchar(char c, int fd);
 void	ft_putstr(char *str, int fd);
+void	ft_putstr_n(char *str, int fd);
 
 /*exec.c*/
 void	fork_exec(char **env, char *line, int *fd);
@@ -73,11 +75,12 @@ void	ft_pipe(char **env, char **cmd);
 int		get_len_quote(char *str);
 void	get_input(int *fd_in, char *line);
 void	get_output(int *fd_out, char *line);
-void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);
+void	get_output_append(int *fd_out, char *line, int *j);
 
 /*get_fd_heredoc.c*/
 char	*ft_malloc_path_fd(char *str, int len);
 char	*extract_path_fd(char *str);
+void	get_input_heredoc(int *fd_in, char *line, int *fd, int *j);
 
 /*ft_split.c*/
 void	ft_cote(int *val, char c);
@@ -93,8 +96,17 @@ char	*create_new_line(char *var, char *line, char *env, int *index);
 /*build_in.c*/
 void	ft_pwd(char **tab);
 void	ft_echo(char *line);
-void	ft_export(char **tab, char *line);
+void	ft_export(char ***tab, char *line);
 void	print_export(char **tab);
+
+/*build_in_utils.c*/
+char	**rm_index(char **tab, int i);
+char	**mod_index(char **tab, int i, char *str);
+char	**add_index(char **tab, char *str);
+int		is_exported(char **tab, char *str);
+
+/*build_in_utils_bis.c*/
+char	*get_var_name(char *line);
 
 #endif
 

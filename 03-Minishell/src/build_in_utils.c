@@ -28,9 +28,66 @@ char	**rm_index(char **tab, int i)
 		if (k != i)
 			new[j++] = tab[k++];
 		else
-			free(tab[k++]);
+			k++;
 	}
-	free(tab);
-	new[j++] = NULL;
+	new[j] = NULL;
 	return (new);
+}
+
+char	**mod_index(char **tab, int i, char *str)
+{
+	int		j;
+	char	**new;
+
+	j = 0;
+	new = malloc(sizeof(char *) * (ft_tablen(tab) + 1));
+	while (j < ft_tablen(tab))
+	{
+		if (j != i)
+			new[j] = tab[j];
+		else
+		{
+			new[j] = str;
+		}
+		j++;
+	}
+	new[j] = NULL;
+	return (new);
+}
+
+char	**add_index(char **tab, char *str)
+{
+	int		j;
+	char	**new;
+
+	j = 0;
+	new = malloc(sizeof(char *) * (ft_tablen(tab) + 2));
+	while (j != ft_tablen(tab))
+	{
+		new[j] = tab[j];
+		j++;
+	}
+	new[j++] = str;
+	new[j] = NULL;
+	return (new);
+}
+
+int is_exported(char **tab, char *str)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		temp = get_var_name(tab[i]);
+		if (ft_strcmp_shell(temp, str, 0) == 1)
+		{
+			free(temp);
+			return (i);
+		}
+		free(temp);
+		i++;
+	}
+	return(-1);
 }

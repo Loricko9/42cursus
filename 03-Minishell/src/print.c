@@ -40,3 +40,16 @@ void	ft_putstr(char *str, int fd)
 		i++;
 	}
 }
+
+void	ft_putstr_n(char *str, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		ft_putchar(str[i], fd);
+		i++;
+	}
+	ft_putchar('\n', fd);
+}

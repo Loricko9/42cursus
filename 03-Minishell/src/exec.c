@@ -42,19 +42,24 @@ void	fork_exec(char **env, char *line, int *fd)
 
 	if (fd[0] != -2 && fd[1] != -2)
 	{
-		pid = fork();
-		if (pid == -1)
-			perror("minishell");
-		if (pid == 0)
-		{	
-			if (fd[0] > -1)
-				ft_redirect_fd(fd[0], STDIN_FILENO, fd);
-			if (fd[1] > -1)
-				ft_redirect_fd(fd[1], STDOUT_FILENO, fd);
-			free(fd);
-			ft_case(env, line);
+		if (ft_strcmp_shell(line, "export", 0) == 1)
+			ft_export(&env, line);
+		else
+		{
+			pid = fork();
+			if (pid == -1)
+				perror("minishell");
+			if (pid == 0)
+			{	
+				if (fd[0] > -1)
+					ft_redirect_fd(fd[0], STDIN_FILENO, fd);
+				if (fd[1] > -1)
+					ft_redirect_fd(fd[1], STDOUT_FILENO, fd);
+				free(fd);
+				ft_case(env, line);
+			}
+			waitpid(pid, NULL, 0);
 		}
-		waitpid(pid, NULL, 0);
 	}
 	if (fd[0] > -1)
 		close(fd[0]);

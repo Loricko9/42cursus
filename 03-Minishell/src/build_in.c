@@ -28,6 +28,7 @@ void	ft_pwd(char **tab)
 		}
 		i++;
 	}
+	exit(1);
 }
 
 //fonction echo du shell
@@ -48,8 +49,9 @@ void	ft_echo(char *line)
 	while (temp[i] != NULL)
 	{
 		ft_putstr(temp[i], 1);
-		ft_putchar(' ', 1);
 		i++;
+		if (temp[i] != NULL)
+			ft_putchar(' ', 1);
 	}
 	if (flag == 0)
 		ft_putchar('\n', 1);
@@ -60,17 +62,33 @@ void	ft_echo(char *line)
 {
 	
 }
-
-void	ft_export(char **tab, char *line)
+*/
+void	ft_export(char ***tab, char *line)
 {
-	char **temp;
+	char	**temp;
+	char	*name;
+	int		index;
 
 	temp = ft_split(line, " ", 0);
 	if (temp[1] == NULL)
-		print_export(tab);
+	{
+		print_export(*tab);
+	}
 	else
 	{
-
+		name = get_var_name(temp[1]);
+		index = is_exported(*tab, name);
+//		printf("%s\n", temp[1]);
+		if (index == -1)
+		{
+			printf("new\n");
+			*tab = add_index(*tab, temp[1]);
+		}
+		else
+		{
+			printf("test\n");
+			*tab = mod_index(*tab, index, temp[1]);
+		}
 	}
 }
 
@@ -85,5 +103,3 @@ void	print_export(char **tab)
 		i++;
 	}
 }
-
-*/

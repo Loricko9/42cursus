@@ -17,6 +17,8 @@ char	*ft_clean_line2(char *str, int i)
 	int	index;
 
 	index = i - 1;
+	if (str[i] == '<' || str[i] == '>')
+		i++;
 	while (str[i] == ' ' && str[i] != '\0')
 		i++;
 	i = i + get_len_quote(str + i);

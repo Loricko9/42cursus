@@ -21,15 +21,30 @@ static void	error_fd(char *path, int *fd)
 	perror("");
 }
 
-void	ft_redirect_fd(int fd_redir, int fd_to, int *fd)
+void	get_output_append(int *fd_out, char *line, int *j)
 {
-	if (dup2(fd_redir, fd_to) == -1)
+	char	*path;
+	int		i;
+
+	i = 0;
+	++*j;
+	while (line[i] == ' ')
+		i++;
+	path = extract_path_fd(line + i);
+	if (*fd_out > -1)
+		close(*fd_out);
+	if (access(path, F_OK) == 0)
 	{
-		perror("minishell");
-		if (fd)
-			free(fd);
-		exit(1);
+		if (access(path, W_OK) == -1)
+			*fd_out = -2;
+		else
+			unlink(path);
 	}
+	if (*fd_out != -2)
+		*fd_out = open(path, O_RDWR | O_CREAT | O_APPEND, 00777);
+	if (*fd_out < 0)
+		error_fd(path, fd_out);
+	free(path); 
 }
 
 int	get_len_quote(char *str)
