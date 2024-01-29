@@ -24,7 +24,8 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "get_next_line.h"
+
+extern	int res_error;
 
 int		*get_redirec(char *str);
 void	ft_case(char **env, char *line);
@@ -47,6 +48,10 @@ char	*ft_extract_str(char *str, int start, int end);
 void	ft_free_tab(char **tab);
 void	ft_check_redir(int *trig, int i, char *line);
 int		ft_strcmp(char *src, char *dest);
+char	*ft_itoa(int n);
+
+/*utils4.c*/
+int		ft_strlen(char *str);
 
 /*print.c*/
 void	print_tab(char **tab);

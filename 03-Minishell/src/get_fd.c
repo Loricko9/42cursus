@@ -33,18 +33,13 @@ void	get_output_append(int *fd_out, char *line, int *j)
 	path = extract_path_fd(line + i);
 	if (*fd_out > -1)
 		close(*fd_out);
-	if (access(path, F_OK) == 0)
-	{
-		if (access(path, W_OK) == -1)
-			*fd_out = -2;
-		else
-			unlink(path);
-	}
+	if (access(path, F_OK) == 0 && access(path, W_OK) == -1)
+		*fd_out = -2;
 	if (*fd_out != -2)
 		*fd_out = open(path, O_RDWR | O_CREAT | O_APPEND, 00777);
 	if (*fd_out < 0)
 		error_fd(path, fd_out);
-	free(path); 
+	free(path);
 }
 
 int	get_len_quote(char *str)
@@ -104,5 +99,5 @@ void	get_output(int *fd_out, char *line)
 		*fd_out = open(path, O_RDWR | O_CREAT, 00777);
 	if (*fd_out < 0)
 		error_fd(path, fd_out);
-	free(path); 
+	free(path);
 }

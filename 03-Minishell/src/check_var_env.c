@@ -64,6 +64,7 @@ char	*new_line(char *line, char **env, int *i)
 {
 	char	*new;
 	char	*var;
+	char	*res_err_str;
 	int		j;
 
 	var = get_var(line + *i + 1);
@@ -72,10 +73,14 @@ char	*new_line(char *line, char **env, int *i)
 	j = 0;
 	while (env[j] != NULL && ft_strcmp_shell(env[j], var, 2) == 0)
 		j++;
-	if (env[j] == NULL)
+	res_err_str = ft_itoa(res_error);
+	if (line[*i + 1] == '?')
+		new = create_new_line("?", line, res_err_str, i);
+	else if (env[j] == NULL)
 		new = create_new_line(var, line, "\0", i);
 	else
 		new = create_new_line(var, line, env[j] + ft_strlen(var) + 1, i);
+	free(res_err_str);
 	free(var);
 	free(line);
 	--*i;

@@ -59,7 +59,8 @@ void	fork_pipe(char **cmd, char **env, int i, int **fd)
 	close(fd_pipe[1]);
 	*fd = get_redirec(cmd[i + 1]);
 	redirect_fd_pipe(fd_pipe, *fd, 0);
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &res_error, 0);
+	res_error = WEXITSTATUS(res_error);
 }
 
 void	ft_master_pipe(char **cmd, char **env)
@@ -98,6 +99,7 @@ void	ft_pipe(char **env, char **cmd)
 		perror("minishell");
 	if (pid == 0)
 		ft_master_pipe(cmd, env);
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &res_error, 0);
+	res_error = WEXITSTATUS(res_error);
 	ft_free_tab(cmd);
 }

@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int		res_error;
+
 void	ft_redirect_fd(int fd_redir, int fd_to, int *fd)
 {
 	if (dup2(fd_redir, fd_to) == -1)
@@ -44,8 +46,8 @@ int	*get_redirec(char *str)
 			get_input_heredoc(&fd[0], str + i + 2, fd, &i);
 		else if (str[i] == '<' && trig == 0)
 			get_input(&fd[0], str + i + 1);
-		/*else if (str[i] == '>' && str[i + 1] == '>' && trig == 0)
-			get_output_append(&fd[1], str + i + 2, &i);*/
+		else if (str[i] == '>' && str[i + 1] == '>' && trig == 0)
+			get_output_append(&fd[1], str + i + 2, &i);
 		else if (str[i] == '>' && trig == 0)
 			get_output(&fd[1], str + i + 1);
 		if (fd[0] == -2 || fd[1] == -2)
@@ -74,10 +76,7 @@ void	ft_case(char **env, char *line)
 {
 	line = ft_clean_line(line);
 	if (ft_strcmp_shell(line, "./", 1) == 1)
-	{
-		if (ft_exec_prog(ft_split(line, " ", 0), env) == 1)
-			exit(1);
-	}
+		exit(ft_exec_prog(ft_split(line, " ", 0), env));
 	else if (ft_strcmp_shell(line, "env", 0) == 1)
 	{
 		print_tab(env);
@@ -88,14 +87,14 @@ void	ft_case(char **env, char *line)
 	else if (ft_strcmp_shell(line, "echo", 0) == 1)
 		ft_echo(line);
 	else
-		if (ft_exec_cmd(ft_split(line, " ", 0), env) == 1)
-			exit(1);
+		exit(ft_exec_cmd(ft_split(line, " ", 0), env));
 }
 
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	**my_env;
+
 
 	my_env = dup_tab(env, ac, av);
 	if (!my_env)
