@@ -28,8 +28,9 @@
 extern	int res_error;
 
 int		*get_redirec(char *str);
-void	ft_case(char **env, char *line);
-void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);;
+int		ft_case_change_env(char ***env, char *line);
+void	ft_case(char ***env, char *line);
+void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);
 
 /*utils_signal.c*/
 void	init_signal(void);
@@ -62,7 +63,7 @@ void	ft_putstr(char *str, int fd);
 void	ft_putstr_n(char *str, int fd);
 
 /*exec.c*/
-void	fork_exec(char **env, char *line, int *fd);
+void	fork_exec(char ***env, char *line, int *fd);
 char	*ft_clean_line(char *str);
 int		ft_exec_prog(char **cmd, char **env);
 int		ft_exec_cmd(char **cmd, char **env);

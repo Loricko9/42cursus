@@ -46,12 +46,11 @@ char	**mod_index(char **tab, int i, char *str)
 		if (j != i)
 			new[j] = tab[j];
 		else
-		{
 			new[j] = str;
-		}
 		j++;
 	}
 	new[j] = NULL;
+	free(tab);
 	return (new);
 }
 
@@ -69,6 +68,7 @@ char	**add_index(char **tab, char *str)
 	}
 	new[j++] = str;
 	new[j] = NULL;
+	free(tab);
 	return (new);
 }
 
