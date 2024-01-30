@@ -52,6 +52,7 @@ char	*ft_itoa(int n);
 
 /*utils4.c*/
 int		ft_strlen(char *str);
+char	*ft_strdup(char *s);
 
 /*print.c*/
 void	print_tab(char **tab);

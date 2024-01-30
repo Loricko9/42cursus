@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -20,3 +22,22 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+char	*ft_strdup(char *s)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	str = malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!str)
+		return (NULL);
+	while (s[i] != '\0')
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}

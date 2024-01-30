@@ -96,14 +96,17 @@ int	ft_exec_prog(char **cmd, char **env)
 int	ft_exec_cmd(char **cmd, char **env)
 {
 	char	*path;
-	char	**env_path;
+	char	**env_path;	
 	int		res;
 
 	res = 0;
 	env_path = ft_split(env[ft_path_env(env)], ":", 0);
 	if (!env_path)
 		return (perror("minishell"), ft_free_tab(env_path), ft_free_tab(cmd), 1);
-	path = ft_get_path(env_path, cmd[0]);
+	if (access(cmd[0], X_OK) == 0)
+		path = ft_strdup(cmd[0]);
+	else
+		path = ft_get_path(env_path, cmd[0]);
 	if (!path)
 		return (ft_putstr("minishell: command not found: ", 2), ft_putstr(cmd[0],
 				2), ft_putchar('\n', 2), ft_free_tab(env_path),
