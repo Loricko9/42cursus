@@ -96,19 +96,18 @@ int	main(int ac, char **av, char **env)
 	char	*line;
 	char	**my_env;
 
-
 	my_env = dup_tab(env, ac, av);
 	if (!my_env)
 		return (printf("Error : malloc\n"));
-	init_signal();
 	while (1)
 	{
+		init_signal();
 		line = readline("\001\033[32m\002minishell> \001\033[0m\002");
 		add_history(line);
-		line = check_var(line, env);
+		line = check_var(line, my_env);
 		if (line == NULL || ft_strcmp_shell(line, "exit", 0) == 1)
 			break ;
-		else if (ft_check_line(line) == 1)
+		else if (ft_check_line(line) == 1 && change_sigint() == 1)
 		{
 			if (ft_find_char_quote(line, '|') == 1)
 				ft_pipe(my_env, ft_split(line, "|", 1));

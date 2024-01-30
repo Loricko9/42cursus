@@ -14,17 +14,17 @@
 
 void	init_signal(void)
 {
-	if (signal(SIGINT, exec_signal) == SIG_ERR)
+	if (signal(SIGINT, exec_signal_print) == SIG_ERR)
 	{
 		perror("minishell");
 		exit(1);
 	}
 }
 
-void	exec_signal(int signum)
+void	exec_signal_print(int signum)
 {
 	(void)signum;
-	printf("\n\033[32mminishell>\033[0m");
+	printf("\n\033[32mminishell> \033[0m");
 }
 
 void	recover_signal(void)
@@ -34,4 +34,19 @@ void	recover_signal(void)
 		perror("minishell");
 		exit(1);
 	}
+}
+
+int	change_sigint(void)
+{
+	if (signal(SIGINT, exec_signal) == SIG_ERR)
+	{
+		perror("minishell");
+		return (0);
+	}
+	return (1);
+}
+
+void	exec_signal(int signum)
+{
+	(void)signum;
 }

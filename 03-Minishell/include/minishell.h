@@ -34,8 +34,10 @@ void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);
 
 /*utils_signal.c*/
 void	init_signal(void);
-void	exec_signal(int signum);
+void	exec_signal_print(int signum);
 void	recover_signal(void);
+int		change_sigint(void);
+void	exec_signal(int signum);
 
 /*utils.c*/
 int		ft_strlen(char *str);
