@@ -40,33 +40,32 @@ void	fork_exec(char **env, char *line, int *fd)
 {
 	pid_t	pid;
 
-	if (fd[0] != -2 && fd[1] != -2)
+	if (ft_strcmp_shell(line, "export", 0) == 1)
+		ft_export(&env, line);
+	else
 	{
-		if (ft_strcmp_shell(line, "export", 0) == 1)
-			ft_export(&env, line);
-		else
-		{
-			pid = fork();
-			if (pid == -1)
-				perror("minishell");
-			if (pid == 0)
-			{	
-				if (fd[0] > -1)
-					ft_redirect_fd(fd[0], STDIN_FILENO, fd);
-				if (fd[1] > -1)
-					ft_redirect_fd(fd[1], STDOUT_FILENO, fd);
+		pid = fork();
+		if (pid == -1)
+			perror("minishell");
+		if (pid == 0)
+		{	
+			recover_signal();
+			fd = get_redirec(line);
+			if (fd[0] > -1)
+				ft_redirect_fd(fd[0], STDIN_FILENO, fd);
+			if (fd[1] > -1)
+				ft_redirect_fd(fd[1], STDOUT_FILENO, fd);
+			if (fd[0] != -2 && fd[1] != -2)
+			{
 				free(fd);
 				ft_case(env, line);
 			}
-			waitpid(pid, &res_error, 0);
-			res_error = WEXITSTATUS(res_error);
+			free(fd);
+			exit(1);
 		}
+		waitpid(pid, &res_error, 0);
+		res_error = WEXITSTATUS(res_error);
 	}
-	if (fd[0] > -1)
-		close(fd[0]);
-	if (fd[1] > -1)
-		close(fd[1]);
-	free(fd);
 }
 
 int	ft_exec_prog(char **cmd, char **env)

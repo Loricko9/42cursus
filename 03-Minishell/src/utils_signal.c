@@ -1,43 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils4.c                                           :+:      :+:    :+:   */
+/*   utils_signal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 14:27:24 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/25 14:27:24 by lle-saul         ###   ########.fr       */
+/*   Created: 2024/01/30 12:14:36 by lle-saul          #+#    #+#             */
+/*   Updated: 2024/01/30 12:14:36 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_strlen(char *str)
+void	init_signal(void)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
+	if (signal(SIGINT, exec_signal) == SIG_ERR)
+	{
+		perror("minishell");
+		exit(1);
+	}
 }
 
-char	*ft_strdup(char *s)
+void	exec_signal(int signum)
 {
-	int		i;
-	char	*str;
+	(void)signum;
+	printf("\n\033[32mminishell>\033[0m");
+}
 
-	i = 0;
-	if (!s)
-		return (NULL);
-	str = malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (!str)
-		return (NULL);
-	while (s[i] != '\0')
+void	recover_signal(void)
+{
+	if (signal(SIGINT, SIG_DFL) == SIG_ERR)
 	{
-		str[i] = s[i];
-		i++;
+		perror("minishell");
+		exit(1);
 	}
-	str[i] = '\0';
-	return (str);
 }

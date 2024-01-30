@@ -12,19 +12,34 @@
 
 #include "minishell.h"
 
-void	init_signal(void)
+int	ft_strlen(char *str)
 {
-	if (signal(SIGINT, exec_signal) == SIG_ERR)
-	{
-		perror("minishell");
-		exit(1);
-	}
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }
 
-void	exec_signal(int signum)
+char	*ft_strdup(char *s)
 {
-	(void)signum;
-	printf("\nminishell>");
+	int		i;
+	char	*str;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	str = malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!str)
+		return (NULL);
+	while (s[i] != '\0')
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
 
 int		ft_strcmp_shell(const char *s1, const char *s2, int n)

@@ -99,7 +99,7 @@ int	main(int ac, char **av, char **env)
 	my_env = dup_tab(env, ac, av);
 	if (!my_env)
 		return (printf("Error : malloc\n"));
-	//init_signal();
+	init_signal();
 	while (1)
 	{
 		line = readline("\033[32mminishell> \033[0m");
@@ -112,7 +112,7 @@ int	main(int ac, char **av, char **env)
 			if (ft_find_char_quote(line, '|') == 1)
 				ft_pipe(env, ft_split(line, "|", 1));
 			else
-				fork_exec(env, line, get_redirec(line));
+				fork_exec(env, line, NULL);
 		}
 		free(line);
 	}

@@ -1,5 +1,5 @@
 FILES 	=	main.c utils.c utils2.c utils3.c print.c exec.c exec_pipe.c exec_utils.c get_fd.c\
-			ft_split.c check_var_env.c get_fd_heredoc.c utils4.c \
+			ft_split.c check_var_env.c get_fd_heredoc.c utils_signal.c \
 			build_in.c build_in_utils.c build_in_utils_bis.c
 
 NAME	=	minishell

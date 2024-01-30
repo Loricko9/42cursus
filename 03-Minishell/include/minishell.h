@@ -31,9 +31,14 @@ int		*get_redirec(char *str);
 void	ft_case(char **env, char *line);
 void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);;
 
-/*utils.c*/
+/*utils_signal.c*/
 void	init_signal(void);
 void	exec_signal(int signum);
+void	recover_signal(void);
+
+/*utils.c*/
+int		ft_strlen(char *str);
+char	*ft_strdup(char *s);
 int		ft_strcmp_shell(const char *s1, const char *s2, int n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_find_char_quote(const char *s1, const char c);
@@ -49,10 +54,6 @@ void	ft_free_tab(char **tab);
 void	ft_check_redir(int *trig, int i, char *line);
 int		ft_strcmp(char *src, char *dest);
 char	*ft_itoa(int n);
-
-/*utils4.c*/
-int		ft_strlen(char *str);
-char	*ft_strdup(char *s);
 
 /*print.c*/
 void	print_tab(char **tab);
