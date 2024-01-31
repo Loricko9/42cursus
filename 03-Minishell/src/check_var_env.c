@@ -98,11 +98,8 @@ char	*check_var(char *line, char **env)
 	quote = 0;
 	while (line[i] != '\0')
 	{
-		if (quote == 0 && line[i] == '\'')
-			quote = 1;
-		else if (quote == 1 && line[i] == '\'')
-			quote = 0;
-		if (line[i] == '$' && quote == 0)
+		ft_cote(&quote, line[i]);
+		if (line[i] == '$' && (quote == 0 || quote == '"'))
 			line = new_line(line, env, &i);
 		if (!line)
 			return (NULL);
