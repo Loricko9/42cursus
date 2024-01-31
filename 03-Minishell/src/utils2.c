@@ -50,50 +50,6 @@ char	**dup_tab(char **tab, int ac, char **av)
 	return (tab_copy);
 }
 
-void	ft_check_quote(int *trig, int *i, char *line)
-{
-	if (line[*i] == '"')
-	{
-		*trig = 1;
-		++*i;
-		while (line[*i] != '"' && line[*i] != '\0')
-			++*i;
-		if (line[*i] == '"')
-			*trig = 0;
-	}
-	else if (line[*i] == '\'')
-	{
-		*trig = 1;
-		++*i;
-		while (line[*i] != '\'' && line[*i] != '\0')
-			++*i;
-		if (line[*i] == '\'')
-			*trig = 0;
-	}
-}
-
-int	ft_check_line(char *line)
-{
-	int i;
-	int	trig;
-	int	len;
-
-	i = 0;
-	trig = 0;
-	len = ft_strlen(line);
-	while (i < len)
-	{
-		ft_check_quote(&trig, &i, line);
-		ft_check_redir(&trig, i, line);
-		if (trig == 2)
-			return (printf("minishell : syntaxe error\n"), 0);
-		i++;
-	}
-	if (trig == 0)
-		return (1);
-	return (printf("minishell : undeterminated quote\n"), 0);
-}
-
 char	*ft_extract_str(char *str, int start, int end)
 {
 	char	*new;
@@ -114,4 +70,32 @@ char	*ft_extract_str(char *str, int start, int end)
 	new[j++] = '\0';
 	free(str);
 	return (new);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	int		i;
+	int		j;
+	char	*tab;
+	size_t	size;
+
+	size = ft_strlen(s1) + ft_strlen(s2) + 1;
+	i = 0;
+	tab = malloc(size * sizeof(char));
+	if (!tab)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		tab[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j] != '\0')
+	{
+		tab[i] = s2[j];
+		i++;
+		j++;
+	}
+	tab[i] = '\0';
+	return (tab);
 }

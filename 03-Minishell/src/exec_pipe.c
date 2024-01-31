@@ -54,7 +54,7 @@ void	fork_pipe(char **cmd, char **env, int i, int **fd)
 	{
 		close(fd_pipe[0]);
 		redirect_fd_pipe(fd_pipe, *fd, 1);
-		ft_case(&env, cmd[i]);
+		ft_case(env, cmd[i]);
 	}
 	close(fd_pipe[1]);
 	*fd = get_redirec(cmd[i + 1]);
@@ -87,7 +87,7 @@ void	ft_master_pipe(char **cmd, char **env)
 		i++;
 	}
 	redirect_fd_pipe(NULL, fd, 3);
-	ft_case(&env, cmd[i]);
+	ft_case(env, cmd[i]);
 }
 
 void	ft_pipe(char **env, char **cmd)

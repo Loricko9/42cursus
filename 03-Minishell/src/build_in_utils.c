@@ -46,7 +46,11 @@ char	**mod_index(char **tab, int i, char *str)
 		if (j != i)
 			new[j] = tab[j];
 		else
+		{
+			free(tab[j]);
 			new[j] = str;
+		}
+			
 		j++;
 	}
 	new[j] = NULL;
@@ -84,10 +88,32 @@ int is_exported(char **tab, char *str)
 		if (ft_strcmp_shell(temp, str, 0) == 1)
 		{
 			free(temp);
+			free(str);
 			return (i);
 		}
 		free(temp);
 		i++;
 	}
+	free(str);
 	return(-1);
+}
+
+int	ft_check_export(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[0] == '=')
+		return (printf("minishell: export: '%s' not a valid identifier\n", str), 1);
+	while (str[i] != '=' && str[i] != '\0')
+	{
+		if ((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'z') ||
+				(str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_')
+			i++;			
+		else
+			return (printf("minishell: export: '%s' not a valid identifier\n", str), 1);
+	}
+	if (str[i] == '\0')
+		return (1);
+	return (0);
 }

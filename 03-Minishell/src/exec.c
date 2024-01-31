@@ -56,7 +56,7 @@ void	fork_exec(char ***env, char *line, int *fd)
 			if (fd[0] != -2 && fd[1] != -2)
 			{
 				free(fd);
-				ft_case(env, line);
+				ft_case(*env, line);
 			}
 			free(fd);
 			exit(1);
@@ -107,9 +107,7 @@ int	ft_exec_cmd(char **cmd, char **env)
 	else
 		path = ft_get_path(env_path, cmd[0]);
 	if (!path)
-		return (ft_putstr("minishell: command not found: ", 2), ft_putstr(cmd[0],
-				2), ft_putchar('\n', 2), ft_free_tab(env_path),
-				ft_free_tab(cmd), 127);
+		return (cmd_error(cmd[0]), ft_free_tab(env_path), ft_free_tab(cmd), 127);
 	res = execve(path, cmd, env);
 	ft_free_var(cmd, env_path, path);
 	if (res == -1)

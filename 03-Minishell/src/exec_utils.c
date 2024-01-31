@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void	cmd_error(char *cmd)
+{
+	dup2(STDERR_FILENO, STDOUT_FILENO);
+	printf("minishell: command not found: %s\n", cmd);
+}
+
 char	*ft_clean_line2(char *str, int i)
 {
 	int	index;
@@ -66,32 +72,4 @@ char	*ft_get_path(char **path, char *cmd)
 		i++;
 	}
 	return (free(new_cmd), NULL);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	int		i;
-	int		j;
-	char	*tab;
-	size_t	size;
-
-	size = ft_strlen(s1) + ft_strlen(s2) + 1;
-	i = 0;
-	tab = malloc(size * sizeof(char));
-	if (!tab)
-		return (NULL);
-	while (s1[i] != '\0')
-	{
-		tab[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j] != '\0')
-	{
-		tab[i] = s2[j];
-		i++;
-		j++;
-	}
-	tab[i] = '\0';
-	return (tab);
 }

@@ -29,8 +29,14 @@ extern	int res_error;
 
 int		*get_redirec(char *str);
 int		ft_case_change_env(char ***env, char *line);
-void	ft_case(char ***env, char *line);
+void	ft_case(char **env, char *line);
 void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);
+
+/*check.c*/
+void	ft_check_redir(int *trig, int i, char *line);
+void	ft_check_quote(int *trig, int *i, char *line);
+int		ft_check_pipe(int i, char *line, int len);
+int		ft_check_line(char *line);
 
 /*utils_signal.c*/
 void	init_signal(void);
@@ -49,12 +55,11 @@ int		ft_find_char_quote(const char *s1, const char c);
 /*utils2.c*/
 int		ft_tablen(char **tab);
 char	**dup_tab(char **tab, int ac, char **av);
-int		ft_check_line(char *line);
 char	*ft_extract_str(char *str, int start, int end);
+char	*ft_strjoin(char *s1, char *s2);
 
 /*utils3.c*/
 void	ft_free_tab(char **tab);
-void	ft_check_redir(int *trig, int i, char *line);
 int		ft_strcmp(char *src, char *dest);
 char	*ft_itoa(int n);
 
@@ -71,11 +76,11 @@ int		ft_exec_prog(char **cmd, char **env);
 int		ft_exec_cmd(char **cmd, char **env);
 
 /*exec_utils.c*/
+void	cmd_error(char *cmd);
 char	*ft_clean_line2(char *str, int i);
 int		ft_path_env(char **env);
 void	ft_free_var(char **cmd, char **env_path, char *path);
 char	*ft_get_path(char **path, char *cmd);
-char	*ft_strjoin(char *s1, char *s2);
 
 /*exec_pipe.c*/
 void	redirect_fd_pipe(int *fd_pipe, int *fd, int i);
@@ -114,6 +119,7 @@ char	**rm_index(char **tab, int i);
 char	**mod_index(char **tab, int i, char *str);
 char	**add_index(char **tab, char *str);
 int		is_exported(char **tab, char *str);
+int		ft_check_export(char *str);
 
 /*build_in_utils_bis.c*/
 char	*get_var_name(char *line);
