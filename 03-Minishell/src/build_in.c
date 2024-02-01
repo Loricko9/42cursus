@@ -13,21 +13,10 @@
 #include "minishell.h"
 
 //fonction pwd du shell
-void	ft_pwd(char **tab)
+void	ft_pwd(void)
 {
-	int i;
-	char *tmp;
-	i = 0;
-	while (tab[i] != NULL)
-	{
-		if (ft_strcmp_shell(tab[i], "PWD=", 0) == 1)
-		{
-			tmp = tab[i];
-			tmp += 4;
-			printf("%s\n", tmp);
-		}
-		i++;
-	}
+	char path[1024];
+	printf("%s\n", getcwd(path, 1024));
 }
 
 //fonction echo du shell
@@ -58,11 +47,23 @@ void	ft_echo(char *line)
 	free(line);
 }
 
-/*void	ft_cd(char **tab, char *line)
+void	ft_unset(char ***tab, char *line)
 {
-	
+	char	**temp;
+	int		index;
+	int		i;
+
+	i = 0;
+	temp = ft_split(line, " ", 0);
+	while (temp[i] != NULL)
+	{
+		index = is_exported(*tab, get_var_name(temp[i]));
+		if (index != -1)
+			*tab = rm_index(*tab, index);
+		i++;
+	}
 }
-*/
+
 void	ft_export(char ***tab, char *line)
 {
 	char	**temp;
@@ -84,20 +85,31 @@ void	ft_export(char ***tab, char *line)
 		if (index == -1)
 			*tab = add_index(*tab, temp[i]);
 		else
-			*tab = mod_index(*tab, index, temp[i]);
+		{
+			if (is_var_empty(temp[i]) != 2)
+				*tab = mod_index(*tab, index, temp[i]);
+		}
 	}
 	free(temp[0]);
 	free(temp);
 }
 
-void	print_export(char **tab)
+void	ft_cd(char ***tab, char *line)
 {
-	int i;
+	char	**temp;
+	char	path[1024];
+	char	*pwd;
 
-	i = 0;
-	while (tab[i] != NULL)
+	temp = ft_split(line, " ", 0);
+	if (chdir(temp[1]) == -1)
 	{
-		printf("declare -x %s\n", tab[i]);
-		i++;
+		printf("Minishell: cd: %s: No such file or directory !\n", temp[1]);
 	}
+	else
+	{		
+		getcwd(path, 1024);
+		pwd = ft_strjoin("PWD=", path);
+		*tab = mod_index(*tab, is_exported(*tab, "PWD"), pwd);
+	}
+	ft_free_tab(temp);
 }

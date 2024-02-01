@@ -103,16 +103,18 @@ char	**ft_split(char *s, char *c, int bol_quote);
 int		ft_find_char(const char *s1, const char c);
 
 /*check_var_env.c*/
-char	*check_var(char *line, char **env);
+char	*change_line(char *line, char **env);
 char	*new_line(char *line, char **env, int *i);
 char	*get_var(char *line);
 char	*create_new_line(char *var, char *line, char *env, int *index);
 
 /*build_in.c*/
-void	ft_pwd(char **tab);
+void	ft_pwd(void);
 void	ft_echo(char *line);
 void	ft_export(char ***tab, char *line);
-void	print_export(char **tab);
+void	ft_unset(char ***tab, char *line);
+void	ft_cd(char ***tab, char *line);
+
 
 /*build_in_utils.c*/
 char	**rm_index(char **tab, int i);
@@ -123,6 +125,9 @@ int		ft_check_export(char *str);
 
 /*build_in_utils_bis.c*/
 char	*get_var_name(char *line);
+char	*get_var_value(char *line);
+int		is_var_empty(char *line);
+void	print_export(char **tab);
 
 #endif
 

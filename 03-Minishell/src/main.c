@@ -61,9 +61,9 @@ int	ft_case_change_env(char ***env, char *line)
 	if (ft_strcmp_shell(line, "export", 0) == 1)
 		ft_export(env, line);
 	else if (ft_strcmp_shell(line, "unset", 0) == 1)
-		printf("merde\n");
+		ft_unset(env, line);
 	else if (ft_strcmp_shell(line, "cd", 0) == 1)
-		printf("fait chier\n");
+		ft_cd(env, line);
 	else
 		return (1);
 	return (0);
@@ -77,7 +77,7 @@ void	ft_case(char **env, char *line)
 	else if (ft_strcmp_shell(line, "env", 0) == 1)
 		print_tab(env);
 	else if (ft_strcmp_shell(line, "pwd", 0) == 1)
-		ft_pwd(env);
+		ft_pwd();
 	else if (ft_strcmp_shell(line, "echo", 0) == 1)
 		ft_echo(line);
 	else if (ft_strcmp_shell(line, "export", 0) == 1 || ft_strcmp_shell(line, 
@@ -105,7 +105,7 @@ int	main(int ac, char **av, char **env)
 		init_signal();
 		line = readline("\001\033[32m\002minishell> \001\033[0m\002");
 		add_history(line);
-		line = check_var(line, my_env);
+		line = change_line(line, my_env);
 		if (line == NULL || ft_strcmp_shell(line, "exit", 0) == 1)
 			break ;
 		else if (ft_check_line(line) == 1 && change_sigint() == 1)

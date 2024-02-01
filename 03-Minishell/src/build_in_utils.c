@@ -28,7 +28,10 @@ char	**rm_index(char **tab, int i)
 		if (k != i)
 			new[j++] = tab[k++];
 		else
+		{
+			free(tab[k]);
 			k++;
+		}
 	}
 	new[j] = NULL;
 	return (new);
@@ -88,13 +91,11 @@ int is_exported(char **tab, char *str)
 		if (ft_strcmp_shell(temp, str, 0) == 1)
 		{
 			free(temp);
-			free(str);
 			return (i);
 		}
 		free(temp);
 		i++;
 	}
-	free(str);
 	return(-1);
 }
 
@@ -113,7 +114,5 @@ int	ft_check_export(char *str)
 		else
 			return (printf("minishell: export: '%s' not a valid identifier\n", str), 1);
 	}
-	if (str[i] == '\0')
-		return (1);
 	return (0);
 }
