@@ -93,17 +93,22 @@ int	ft_check_line(char *line)
 	i = 0;
 	trig = 0;
 	len = ft_strlen(line);
+	while (line[i] == ' ' && line[i] != '\0')
+		i++;
+	if (line[i] == '\0')
+		return (0);
+	i = 0;
 	if (ft_check_pipe(i, line, len) == 1)
-		return (printf("minishell : syntaxe error near unexpected token\n"), 0);
+		return (printf("\033[1;91mminishell:\033[0m syntaxe error near unexpected token !\n"), 0);
 	while (i < len)
 	{
 		ft_check_quote(&trig, &i, line);
 		ft_check_redir(&trig, i, line);
 		if (trig == 2)
-			return (printf("minishell : syntaxe error\n"), 0);
+			return (printf("\033[1;91mminishell:\033[0m syntaxe error !\n"), 0);
 		i++;
 	}
 	if (trig == 0)
 		return (1);
-	return (printf("minishell : undeterminated quote\n"), 0);
+	return (printf("\033[1;91mminishell:\033[0m undeterminated quote !\n"), 0);
 }

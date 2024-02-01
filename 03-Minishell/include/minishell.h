@@ -22,10 +22,12 @@
 # include <sys/time.h>
 # include <sys/wait.h>
 # include <signal.h>
+#include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
 extern	int res_error;
+extern	int res_sigint;
 
 int		*get_redirec(char *str);
 int		ft_case_change_env(char ***env, char *line);
@@ -62,6 +64,7 @@ char	*ft_strjoin(char *s1, char *s2);
 void	ft_free_tab(char **tab);
 int		ft_strcmp(char *src, char *dest);
 char	*ft_itoa(int n);
+const char	*print_start(void);
 
 /*print.c*/
 void	print_tab(char **tab);
@@ -113,8 +116,7 @@ void	ft_pwd(void);
 void	ft_echo(char *line);
 void	ft_export(char ***tab, char *line);
 void	ft_unset(char ***tab, char *line);
-void	ft_cd(char ***tab, char *line);
-
+void	ft_cd(char ***tab, char **tab_bis, char *line);
 
 /*build_in_utils.c*/
 char	**rm_index(char **tab, int i);

@@ -87,18 +87,6 @@ char	*new_line(char *line, char **env, int *i)
 	return (new);
 }
 
-char	*change_wildcards(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] != '\0')
-	{
-		i++;
-	}
-	return (line);
-}
-
 char	*change_line(char *line, char **env)
 {
 	int	i;
@@ -117,5 +105,5 @@ char	*change_line(char *line, char **env)
 			return (NULL);
 		i++;
 	}
-	return (change_wildcards(line));
+	return (line);
 }

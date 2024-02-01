@@ -14,20 +14,20 @@
 
 void	redirect_fd_pipe(int *fd_pipe, int *fd, int i)
 {
-	if (i == 2 && fd[0] > -1)
+	if (i == 2 && fd[0] > 0)
 		ft_redirect_fd(fd[0], STDIN_FILENO, NULL);
-	else if (i == 3 && fd[1] > -1)
+	else if (i == 3 && fd[1] > 1)
 		ft_redirect_fd(fd[1], STDOUT_FILENO, NULL);
 	else if (i == 1)
 	{
-		if (fd[1] > -1)
+		if (fd[1] > 1)
 			ft_redirect_fd(fd[1], STDOUT_FILENO, NULL);	
 		else
 			ft_redirect_fd(fd_pipe[1], STDOUT_FILENO, NULL);
 	}
 	else if (i == 0)
 	{
-		if (fd[0] > -1)
+		if (fd[0] > 0)
 			ft_redirect_fd(fd[0], STDIN_FILENO, NULL);
 		else
 			ft_redirect_fd(fd_pipe[0], STDIN_FILENO, NULL);
@@ -70,7 +70,7 @@ void	ft_master_pipe(char **cmd, char **env)
 
 	i = 0;
 	fd = get_redirec(cmd[i]);
-	if (fd[0] == -2 || fd[1] == -2)
+	if (fd[0] == -1 || fd[1] == -1)
 	{
 		free(fd);
 		exit(1);
@@ -79,7 +79,7 @@ void	ft_master_pipe(char **cmd, char **env)
 	while (cmd[i + 1] != NULL)
 	{
 		fork_pipe(cmd, env, i, &fd);
-		if (fd[0] == -2 || fd[1] == -2)
+		if (fd[0] == -1 || fd[1] == -1)
 		{
 			free(fd);
 			exit(1);

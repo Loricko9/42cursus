@@ -24,7 +24,9 @@ void	init_signal(void)
 void	exec_signal_print(int signum)
 {
 	(void)signum;
-	printf("\n\033[32mminishell> \033[0m");
+	close(0);
+	res_sigint = 1;
+	res_error = 130;
 }
 
 void	recover_signal(void)

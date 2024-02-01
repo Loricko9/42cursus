@@ -15,7 +15,8 @@
 void	cmd_error(char *cmd)
 {
 	dup2(STDERR_FILENO, STDOUT_FILENO);
-	printf("minishell: command not found: %s\n", cmd);
+	printf("\033[1;91mminishell:\033[0;91m %s: \033[0m", cmd);
+	printf("command not found !\n");
 }
 
 char	*ft_clean_line2(char *str, int i)

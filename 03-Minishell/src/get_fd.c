@@ -14,8 +14,8 @@
 
 static void	error_fd(char *path, int *fd)
 {
-	*fd = -2;
-	ft_putstr("minishell: ", 1);
+	*fd = -1;
+	ft_putstr("\033[1;91mminishell: \033[0m", 1);
 	ft_putstr(path, 1);
 	ft_putstr(":", 1);
 	perror("");
@@ -31,11 +31,11 @@ void	get_output_append(int *fd_out, char *line, int *j)
 	while (line[i] == ' ')
 		i++;
 	path = extract_path_fd(line + i);
-	if (*fd_out > -1)
+	if (*fd_out > 1)
 		close(*fd_out);
 	if (access(path, F_OK) == 0 && access(path, W_OK) == -1)
-		*fd_out = -2;
-	if (*fd_out != -2)
+		*fd_out = -1;
+	if (*fd_out != -1)
 		*fd_out = open(path, O_RDWR | O_CREAT | O_APPEND, 00777);
 	if (*fd_out < 0)
 		error_fd(path, fd_out);
@@ -69,7 +69,7 @@ void	get_input(int *fd_in, char *line)
 	while (line[i] == ' ')
 		i++;
 	path = extract_path_fd(line + i);
-	if (*fd_in > -1)
+	if (*fd_in > 0)
 		close(*fd_in);
 	*fd_in = open(path, O_RDONLY);
 	if (*fd_in < 0)

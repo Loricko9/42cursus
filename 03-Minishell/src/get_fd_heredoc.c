@@ -90,7 +90,7 @@ void	ft_here_doc(char *end, int *fd_tab, int *fd_in)
 		close(fd_pipe[0]);
 		close(fd_pipe[1]);
 		perror("minishell");
-		*fd_in = -2;
+		*fd_in = -1;
 		return ;
 	}
 	if (pid == 0)
@@ -113,14 +113,14 @@ void	get_input_heredoc(int *fd_in, char *line, int *fd, int *j)
 	temp = extract_path_fd(line + i);
 	if (!temp)
 	{
-		*fd_in = -2;
+		*fd_in = -1;
 		return ;
 	}
 	limiter = ft_strjoin(temp, "\n");
 	free(temp);
 	if (!limiter)
 	{
-		*fd_in = -2;
+		*fd_in = -1;
 		return ;
 	}
 	ft_here_doc(limiter, fd, fd_in);

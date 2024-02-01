@@ -94,22 +94,32 @@ void	ft_export(char ***tab, char *line)
 	free(temp);
 }
 
-void	ft_cd(char ***tab, char *line)
+void	ft_cd(char ***tab, char **tab_bis, char *line)
 {
 	char	**temp;
 	char	path[1024];
 	char	*pwd;
 
 	temp = ft_split(line, " ", 0);
-	if (chdir(temp[1]) == -1)
+	if (temp[1] == NULL)
 	{
-		printf("Minishell: cd: %s: No such file or directory !\n", temp[1]);
+		chdir(get_var_value(tab_bis[is_exported(tab_bis, "HOME")]));
 	}
 	else
-	{		
-		getcwd(path, 1024);
-		pwd = ft_strjoin("PWD=", path);
-		*tab = mod_index(*tab, is_exported(*tab, "PWD"), pwd);
+	{
+		if (chdir(temp[1]) == -1)
+		{
+			printf("\033[1;91mminishell:\033[0;91m cd: %s:\033[0m", temp[1]);
+			printf(" No such file or directory !\n");
+		}
+		else
+		{		
+			getcwd(path, 1024);
+			pwd = ft_strjoin("PWD=", path);
+			*tab = mod_index(*tab, is_exported(*tab, "PWD"), pwd);
+		}
 	}
 	ft_free_tab(temp);
 }
+
+
