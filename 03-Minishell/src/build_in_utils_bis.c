@@ -41,8 +41,9 @@ char	*get_var_value(char *line)
 	j = 0;
 	while(line[i] && line[i] != '=')
 		i++;
-	i++;
-	while(line[i + j])
+	if (line[i] == '=')
+		i++;
+	while(line[i + j] != '\0')
 		j++;
 	if (j == 0)
 		return (NULL);
@@ -74,17 +75,22 @@ int	is_var_empty(char *line)
 void	print_export(char **tab)
 {
 	int		i;
+	char	*name;
+	char	*value;
 
 	i = 0;
 	while (tab[i] != NULL)
 	{
+		name = get_var_name(tab[i]);
+		value = get_var_value(tab[i]);
 		if (is_var_empty(tab[i]) == 2)
-			printf("declare -x %s\n", get_var_name(tab[i]));
+			printf("declare -x %s\n", name);
 		else if (is_var_empty(tab[i]) == 0)
-			printf("declare -x %s=\"%s\"\n", get_var_name(tab[i]), get_var_value(tab[i]));
+			printf("declare -x %s=\"%s\"\n", name, value);
 		else
-			printf("declare -x %s=\"\"\n", get_var_name(tab[i]));
-		
+			printf("declare -x %s=\"\"\n", name);
 		i++;
+		free(name);
+		free(value);
 	}
 }

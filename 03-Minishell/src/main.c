@@ -64,17 +64,17 @@ int	ft_case_change_env(char ***env, char *line)
 	else if (ft_strcmp_shell(line, "unset", 0) == 1)
 		ft_unset(env, line);
 	else if (ft_strcmp_shell(line, "cd", 0) == 1)
-		ft_cd(env, *env, line);
+		ft_cd(env, line);
 	else
 		return (1);
 	return (0);
 }
 
-void	ft_case(char **env, char *line)
+void	ft_case(char **env, char *line, char **cmd)
 {
 	line = ft_clean_line(line);
 	if (ft_strcmp_shell(line, "./", 1) == 1)
-		exit(ft_exec_prog(ft_split(line, " ", 0), env));
+		exit(ft_exec_prog(ft_split(line, " ", 0), env, line));
 	else if (ft_strcmp_shell(line, "env", 0) == 1)
 		print_tab(env);
 	else if (ft_strcmp_shell(line, "pwd", 0) == 1)
@@ -82,14 +82,16 @@ void	ft_case(char **env, char *line)
 	else if (ft_strcmp_shell(line, "echo", 0) == 1)
 		ft_echo(line);
 	else if (ft_strcmp_shell(line, "export", 0) == 1 || ft_strcmp_shell(line, 
-				"unset", 0) == 1 || ft_strcmp_shell(line, "cd", 0) == 1)
-	{
-		ft_free_tab(env);
-		exit(0);
-	}
+				"unset", 0) == 1 || ft_strcmp_shell(line, "cd", 0) == 1 ||
+				ft_strcmp_shell(line, "exit", 0) == 1)
+		(void)line;
 	else
-		exit(ft_exec_cmd(ft_split(line, " ", 0), env));
+		exit(ft_exec_cmd(ft_split(line, " ", 0), env, line));
 	ft_free_tab(env);
+	if (cmd)
+		ft_free_tab(cmd);
+	else
+		free(line);
 	exit(0);
 }
 
@@ -97,13 +99,9 @@ int	exploit_line(char *line, char ***my_env)
 {
 	line = change_line(line, *my_env);
 	if (line == NULL || ft_strcmp_shell(line, "exit", 0) == 1)
-	{
-		if (res_sigint == 1)
-			return (0);
-		else
 			return (1);
-	}
-	else if (ft_check_line(line) == 1 && change_sigint() == 1)
+	res_sigint = 0;
+	if (ft_check_line(line) == 1 && change_sigint() == 1)
 	{
 		if (ft_find_char_quote(line, '|') == 1)
 			ft_pipe(*my_env, ft_split(line, "|", 1));
@@ -119,7 +117,7 @@ int	main(int ac, char **av, char **env)
 	char	*line;
 	char	**my_env;
 	int		std_in;
-	const char	*test;
+	char	*prompt;
 
 	my_env = dup_tab(env, ac, av);
 	if (!my_env)
@@ -129,14 +127,18 @@ int	main(int ac, char **av, char **env)
 	{
 		std_in = dup(STDIN_FILENO);
 		init_signal();
-		test = print_start();
-		line = readline(test);
+		prompt = print_start();
+		line = readline(prompt);
+		free(prompt);
+		if (line == NULL && res_sigint == 1)
+		{
+			dup2(std_in, STDIN_FILENO);
+			continue ;
+		}
 		if (line)
 			add_history(line);
 		if (exploit_line(line, &my_env) == 1)
 			break ;
-		dup2(std_in, STDIN_FILENO);
-		res_sigint = 0;
 	}
 	return (rl_clear_history(), free(line), ft_free_tab(my_env), 1);
 }

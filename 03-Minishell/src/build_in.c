@@ -44,12 +44,12 @@ void	ft_echo(char *line)
 	if (flag == 0)
 		ft_putchar('\n', 1);
 	ft_free_tab(temp);
-	free(line);
 }
 
 void	ft_unset(char ***tab, char *line)
 {
 	char	**temp;
+	char 	*name;
 	int		index;
 	int		i;
 
@@ -57,16 +57,19 @@ void	ft_unset(char ***tab, char *line)
 	temp = ft_split(line, " ", 0);
 	while (temp[i] != NULL)
 	{
-		index = is_exported(*tab, get_var_name(temp[i]));
+		name = get_var_name(temp[i]);
+		index = is_exported(*tab, name, 1);
 		if (index != -1)
 			*tab = rm_index(*tab, index);
 		i++;
 	}
+	ft_free_tab(temp);
 }
 
 void	ft_export(char ***tab, char *line)
 {
 	char	**temp;
+	char	*name;
 	int		index;
 	int		i;
 
@@ -81,45 +84,47 @@ void	ft_export(char ***tab, char *line)
 			free(temp[i]);
 			continue ;
 		}
-		index = is_exported(*tab, get_var_name(temp[i]));
+		name = get_var_name(temp[i]);
+		index = is_exported(*tab, name, 1);
 		if (index == -1)
 			*tab = add_index(*tab, temp[i]);
 		else
-		{
 			if (is_var_empty(temp[i]) != 2)
 				*tab = mod_index(*tab, index, temp[i]);
-		}
 	}
 	free(temp[0]);
 	free(temp);
 }
 
-void	ft_cd(char ***tab, char **tab_bis, char *line)
+void	ft_cd(char ***tab, char *line)
 {
 	char	**temp;
-	char	path[1024];
-	char	*pwd;
+	char	*home;
 
 	temp = ft_split(line, " ", 0);
+	set_pwd(tab);
+	home = get_var_value((*tab)[is_exported(*tab, "HOME", 0)]);
 	if (temp[1] == NULL)
+		chdir(home);
+	else if (temp[2] == NULL)
 	{
-		chdir(get_var_value(tab_bis[is_exported(tab_bis, "HOME")]));
-	}
-	else
-	{
-		if (chdir(temp[1]) == -1)
+		if (temp[1][0] == '~')
+			tilde_manage(tab, temp);
+		else if (temp[1][0] == '-')
+			oldpwd_manage(tab, temp[1]);
+		else if (chdir(temp[1]) == -1)
 		{
 			printf("\033[1;91mminishell:\033[0;91m cd: %s:\033[0m", temp[1]);
 			printf(" No such file or directory !\n");
 		}
 		else
-		{		
-			getcwd(path, 1024);
-			pwd = ft_strjoin("PWD=", path);
-			*tab = mod_index(*tab, is_exported(*tab, "PWD"), pwd);
-		}
+			update_pwd(tab);
 	}
+	else
+	{
+		printf("\033[1;91mminishell:\033[0;91m cd:\033[0m");
+		printf(" too many arguments !\n");
+	}
+	free(home);
 	ft_free_tab(temp);
 }
-
-

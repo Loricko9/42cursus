@@ -33,6 +33,7 @@ char	**rm_index(char **tab, int i)
 			k++;
 		}
 	}
+	free(tab);
 	new[j] = NULL;
 	return (new);
 }
@@ -79,7 +80,7 @@ char	**add_index(char **tab, char *str)
 	return (new);
 }
 
-int is_exported(char **tab, char *str)
+int is_exported(char **tab, char *str, int type)
 {
 	int		i;
 	char	*temp;
@@ -91,11 +92,15 @@ int is_exported(char **tab, char *str)
 		if (ft_strcmp_shell(temp, str, 0) == 1)
 		{
 			free(temp);
+			if (type == 1)
+				free(str);
 			return (i);
 		}
 		free(temp);
 		i++;
 	}
+	if (type == 1)
+		free(str);
 	return(-1);
 }
 

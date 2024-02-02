@@ -81,15 +81,15 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-const char	*print_start(void)
+char	*print_start(void)
 {
 	char		pwd[1024];
 	char		*temp;
-	const char	*result;
+	char	*result;
 
 	getcwd(pwd, 1024);
-	temp = ft_strjoin("\001\033[2;95m\002minishell>:\001\033[36m\002", pwd);
-	result = ft_strjoin(temp, "\001\033[2;95m\002-> \001\033[0m\002");
+	temp = ft_strjoin("\001\033[95m\002minishell>:\001\033[36m\002", pwd);
+	result = ft_strjoin(temp, "\001\033[5;95m\002-> \001\033[0m\002");
 	free(temp);
 	return (result);
 }

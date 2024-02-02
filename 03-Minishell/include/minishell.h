@@ -31,7 +31,7 @@ extern	int res_sigint;
 
 int		*get_redirec(char *str);
 int		ft_case_change_env(char ***env, char *line);
-void	ft_case(char **env, char *line);
+void	ft_case(char **env, char *line, char **cmd);
 void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);
 
 /*check.c*/
@@ -64,7 +64,7 @@ char	*ft_strjoin(char *s1, char *s2);
 void	ft_free_tab(char **tab);
 int		ft_strcmp(char *src, char *dest);
 char	*ft_itoa(int n);
-const char	*print_start(void);
+char	*print_start(void);
 
 /*print.c*/
 void	print_tab(char **tab);
@@ -75,8 +75,8 @@ void	ft_putstr_n(char *str, int fd);
 /*exec.c*/
 void	fork_exec(char ***env, char *line, int *fd);
 char	*ft_clean_line(char *str);
-int		ft_exec_prog(char **cmd, char **env);
-int		ft_exec_cmd(char **cmd, char **env);
+int		ft_exec_prog(char **cmd, char **env, char *line);
+int		ft_exec_cmd(char **cmd, char **env, char *line);
 
 /*exec_utils.c*/
 void	cmd_error(char *cmd);
@@ -116,13 +116,13 @@ void	ft_pwd(void);
 void	ft_echo(char *line);
 void	ft_export(char ***tab, char *line);
 void	ft_unset(char ***tab, char *line);
-void	ft_cd(char ***tab, char **tab_bis, char *line);
+void	ft_cd(char ***tab, char *line);
 
 /*build_in_utils.c*/
 char	**rm_index(char **tab, int i);
 char	**mod_index(char **tab, int i, char *str);
 char	**add_index(char **tab, char *str);
-int		is_exported(char **tab, char *str);
+int		is_exported(char **tab, char *str, int type);
 int		ft_check_export(char *str);
 
 /*build_in_utils_bis.c*/
@@ -130,6 +130,13 @@ char	*get_var_name(char *line);
 char	*get_var_value(char *line);
 int		is_var_empty(char *line);
 void	print_export(char **tab);
+
+/*cd_utils*/
+void	update_pwd(char ***tab);
+void	tilde_manage(char ***tab, char **temp);
+void	old_pwd(char ***tab);
+void	oldpwd_manage(char ***tab, char *line);
+void	set_pwd(char ***tab);
 
 #endif
 
