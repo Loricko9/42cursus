@@ -12,32 +12,19 @@
 
 #include "minishell.h"
 
-int		res_error;
-int		res_sigint;
-
-void	ft_redirect_fd(int fd_redir, int fd_to, int *fd)
-{
-	if (dup2(fd_redir, fd_to) == -1)
-	{
-		perror("minishell");
-		if (fd)
-			free(fd);
-		exit(1);
-	}
-}
+int		g_res_error;
+int		g_res_sigint;
 
 /*fd[0] = fd_in | fd[1] = fd_out*/
 int	*get_redirec(char *str)
 {
 	int	trig;
-	int		*fd;
-	int		i;
+	int	*fd;
+	int	i;
 
-	fd = malloc(sizeof(int) * 2);
+	fd = init_fd_tab();
 	if (!fd)
 		return (NULL);
-	fd[0] = 0;
-	fd[1] = 1;
 	i = -1;
 	trig = 0;
 	while (str[++i] != '\0')
@@ -81,9 +68,9 @@ void	ft_case(char **env, char *line, char **cmd)
 		ft_pwd();
 	else if (ft_strcmp_shell(line, "echo", 0) == 1)
 		ft_echo(line);
-	else if (ft_strcmp_shell(line, "export", 0) == 1 || ft_strcmp_shell(line, 
-				"unset", 0) == 1 || ft_strcmp_shell(line, "cd", 0) == 1 ||
-				ft_strcmp_shell(line, "exit", 0) == 1)
+	else if (ft_strcmp_shell(line, "export", 0) == 1 || ft_strcmp_shell(line,
+			"unset", 0) == 1 || ft_strcmp_shell(line, "cd", 0) == 1
+		|| ft_strcmp_shell(line, "exit", 0) == 1)
 		(void)line;
 	else
 		exit(ft_exec_cmd(ft_split(line, " ", 0), env, line));
@@ -97,14 +84,18 @@ void	ft_case(char **env, char *line, char **cmd)
 
 int	exploit_line(char *line, char ***my_env)
 {
+	if (line)
+		add_history(line);
 	line = change_line(line, *my_env);
-	if (line == NULL || ft_strcmp_shell(line, "exit", 0) == 1)
-			return (1);
-	res_sigint = 0;
+	if (line == NULL)
+		return (1);
+	g_res_sigint = 0;
 	if (ft_check_line(line) == 1 && change_sigint() == 1)
 	{
 		if (ft_find_char_quote(line, '|') == 1)
 			ft_pipe(*my_env, ft_split(line, "|", 1));
+		else if (ft_strcmp_shell(line, "exit", 0) == 1)
+			return (1);
 		else
 			fork_exec(my_env, line, NULL);
 	}
@@ -130,13 +121,11 @@ int	main(int ac, char **av, char **env)
 		prompt = print_start();
 		line = readline(prompt);
 		free(prompt);
-		if (line == NULL && res_sigint == 1)
+		if (line == NULL && g_res_sigint == 1)
 		{
 			dup2(std_in, STDIN_FILENO);
 			continue ;
 		}
-		if (line)
-			add_history(line);
 		if (exploit_line(line, &my_env) == 1)
 			break ;
 	}

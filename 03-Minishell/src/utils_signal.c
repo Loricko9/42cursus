@@ -25,10 +25,10 @@ void	exec_signal_print(int signum)
 {
 	(void)signum;
 	close(0);
-	if (res_sigint == 0)
+	if (g_res_sigint == 0)
 		printf("\n");
-	res_sigint = 1;
-	res_error = 130;
+	g_res_sigint = 1;
+	g_res_error = 130;
 }
 
 void	recover_signal(void)

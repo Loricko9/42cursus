@@ -14,15 +14,15 @@
 
 char	*get_var_name(char *line)
 {
-	int 	i;
+	int		i;
 	char	*name;
 
 	i = 0;
-	while(line[i] && line[i] != '=')
+	while (line[i] && line[i] != '=')
 		i++;
 	name = malloc(sizeof(char) * (i + 1));
 	i = 0;
-	while(line[i] && line[i] != '=')
+	while (line[i] && line[i] != '=')
 	{
 		name[i] = line[i];
 		i++;
@@ -36,20 +36,20 @@ char	*get_var_value(char *line)
 	int		i;
 	int		j;
 	char	*value;
-	
+
 	i = 0;
 	j = 0;
-	while(line[i] && line[i] != '=')
+	while (line[i] && line[i] != '=')
 		i++;
 	if (line[i] == '=')
 		i++;
-	while(line[i + j] != '\0')
+	while (line[i + j] != '\0')
 		j++;
 	if (j == 0)
 		return (NULL);
 	value = malloc(sizeof(char) * (j + 1));
 	j = 0;
-		while(line[i + j])
+	while (line[i + j])
 	{
 		value[j] = line[i + j];
 		j++;
@@ -60,16 +60,16 @@ char	*get_var_value(char *line)
 
 int	is_var_empty(char *line)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
-	while(line[i] && line[i] != '=')
+	while (line[i] && line[i] != '=')
 		i++;
 	if (line[i] != '=')
 		return (2);
 	if (line[i + 1] == '\0')
-		return(1);
-	return(0);
+		return (1);
+	return (0);
 }
 
 void	print_export(char **tab)

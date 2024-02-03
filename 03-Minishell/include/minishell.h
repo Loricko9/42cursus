@@ -22,17 +22,16 @@
 # include <sys/time.h>
 # include <sys/wait.h>
 # include <signal.h>
-#include <dirent.h>
+# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
-extern	int res_error;
-extern	int res_sigint;
+extern int	g_res_error;
+extern int	g_res_sigint;
 
 int		*get_redirec(char *str);
 int		ft_case_change_env(char ***env, char *line);
 void	ft_case(char **env, char *line, char **cmd);
-void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);
 
 /*check.c*/
 void	ft_check_redir(int *trig, int i, char *line);
@@ -55,6 +54,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_find_char_quote(const char *s1, const char c);
 
 /*utils2.c*/
+
 int		ft_tablen(char **tab);
 char	**dup_tab(char **tab, int ac, char **av);
 char	*ft_extract_str(char *str, int start, int end);
@@ -65,6 +65,10 @@ void	ft_free_tab(char **tab);
 int		ft_strcmp(char *src, char *dest);
 char	*ft_itoa(int n);
 char	*print_start(void);
+
+/*utils_fd.c*/
+void	ft_redirect_fd(int fd_redir, int fd_to, int *fd);
+int		*init_fd_tab(void);
 
 /*print.c*/
 void	print_tab(char **tab);
@@ -125,6 +129,10 @@ char	**add_index(char **tab, char *str);
 int		is_exported(char **tab, char *str, int type);
 int		ft_check_export(char *str);
 
+/*build_in_bis.c*/
+void	ft_export_bis(char ***tab, char **temp, int i);
+void	ft_cd_bis(char ***tab, char **temp);
+
 /*build_in_utils_bis.c*/
 char	*get_var_name(char *line);
 char	*get_var_value(char *line);
@@ -133,10 +141,9 @@ void	print_export(char **tab);
 
 /*cd_utils*/
 void	update_pwd(char ***tab);
-void	tilde_manage(char ***tab, char **temp);
+void	tilde_manage(char ***tab, char **temp, int index);
 void	old_pwd(char ***tab);
 void	oldpwd_manage(char ***tab, char *line);
 void	set_pwd(char ***tab);
 
 #endif
-

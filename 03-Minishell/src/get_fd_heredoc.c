@@ -126,5 +126,3 @@ void	get_input_heredoc(int *fd_in, char *line, int *fd, int *j)
 	ft_here_doc(limiter, fd, fd_in);
 	free(limiter);
 }
-
-

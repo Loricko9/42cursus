@@ -42,7 +42,7 @@ char	*ft_strdup(char *s)
 	return (str);
 }
 
-int		ft_strcmp_shell(const char *s1, const char *s2, int n)
+int	ft_strcmp_shell(const char *s1, const char *s2, int n)
 {
 	size_t	i;
 	size_t	j;

@@ -21,7 +21,7 @@ void	redirect_fd_pipe(int *fd_pipe, int *fd, int i)
 	else if (i == 1)
 	{
 		if (fd[1] > 1)
-			ft_redirect_fd(fd[1], STDOUT_FILENO, NULL);	
+			ft_redirect_fd(fd[1], STDOUT_FILENO, NULL);
 		else
 			ft_redirect_fd(fd_pipe[1], STDOUT_FILENO, NULL);
 	}
@@ -103,7 +103,7 @@ void	ft_pipe(char **env, char **cmd)
 		recover_signal();
 		ft_master_pipe(cmd, env);
 	}
-	waitpid(pid, &res_error, 0);
-	res_error = WEXITSTATUS(res_error);
+	waitpid(pid, &g_res_error, 0);
+	g_res_error = WEXITSTATUS(g_res_error);
 	ft_free_tab(cmd);
 }

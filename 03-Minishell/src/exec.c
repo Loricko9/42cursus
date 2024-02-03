@@ -46,23 +46,22 @@ void	fork_exec(char ***env, char *line, int *fd)
 		if (pid == -1)
 			perror("minishell");
 		if (pid == 0)
-		{	
+		{
 			recover_signal();
 			fd = get_redirec(line);
-			if (fd[0] > -1)
-				ft_redirect_fd(fd[0], STDIN_FILENO, fd);
-			if (fd[1] > -1)
-				ft_redirect_fd(fd[1], STDOUT_FILENO, fd);
-			if (fd[0] != -2 && fd[1] != -2)
+			if (fd[0] < 0 || fd[1] < 0)
 			{
 				free(fd);
-				ft_case(*env, line, NULL);
+				ft_free_tab(*env);
+				exit(1);
 			}
+			ft_redirect_fd(fd[0], STDIN_FILENO, fd);
+			ft_redirect_fd(fd[1], STDOUT_FILENO, fd);
 			free(fd);
-			exit(1);
+			ft_case(*env, line, NULL);
 		}
-		waitpid(pid, &res_error, 0);
-		res_error = WEXITSTATUS(res_error);
+		waitpid(pid, &g_res_error, 0);
+		g_res_error = WEXITSTATUS(g_res_error);
 	}
 }
 
@@ -75,13 +74,13 @@ int	ft_exec_prog(char **cmd, char **env, char *line)
 	res = 0;
 	free(line);
 	if (!cmd)
-		return(perror("minishell"), 1);
+		return (perror("minishell"), 1);
 	pwd = getcwd(NULL, 1000);
 	if (!pwd)
-		return(perror("minishell"), ft_free_tab(cmd), 1);
+		return (perror("minishell"), ft_free_tab(cmd), 1);
 	path = ft_strjoin(pwd, cmd[0] + 1);
 	if (!path)
-		return(perror("minishell"), ft_free_tab(cmd), free(pwd), 1);
+		return (perror("minishell"), ft_free_tab(cmd), free(pwd), 1);
 	res = execve(path, cmd, env);
 	if (res == -1)
 		perror("minishell");
@@ -100,16 +99,18 @@ int	ft_exec_cmd(char **cmd, char **env, char *line)
 	res = 0;
 	free(line);
 	if (cmd[0] == NULL)
-		return (free(cmd), res_error);
+		return (free(cmd), ft_free_tab(env), g_res_error);
 	env_path = ft_split(env[ft_path_env(env)], ":", 0);
 	if (!env_path)
-		return (perror("minishell"), ft_free_tab(env_path), ft_free_tab(cmd), ft_free_tab(env), 1);
+		return (perror("minishell"), ft_free_tab(env_path),
+			ft_free_tab(cmd), ft_free_tab(env), 1);
 	if (access(cmd[0], X_OK) == 0)
 		path = ft_strdup(cmd[0]);
 	else
 		path = ft_get_path(env_path, cmd[0]);
 	if (!path)
-		return (cmd_error(cmd[0]), ft_free_tab(env_path), ft_free_tab(cmd), ft_free_tab(env), 127);
+		return (cmd_error(cmd[0]), ft_free_tab(env_path),
+			ft_free_tab(cmd), ft_free_tab(env), 127);
 	res = execve(path, cmd, env);
 	ft_free_var(cmd, env_path, path);
 	if (res == -1)

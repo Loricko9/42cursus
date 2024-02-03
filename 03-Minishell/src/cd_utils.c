@@ -17,7 +17,7 @@ void	update_pwd(char ***tab)
 	char	*pwd;
 	char	path[1024];
 	int		index;
-	
+
 	getcwd(path, 1024);
 	pwd = ft_strjoin("PWD=", path);
 	index = is_exported(*tab, "PWD", 0);
@@ -33,7 +33,7 @@ void	set_pwd(char ***tab)
 	char	*pwd;
 	char	path[1024];
 	int		index;
-	
+
 	getcwd(path, 1024);
 	pwd = ft_strjoin("PWD=", path);
 	index = is_exported(*tab, "PWD", 0);
@@ -43,13 +43,11 @@ void	set_pwd(char ***tab)
 		*tab = add_index(*tab, pwd);
 }
 
-void	tilde_manage(char ***tab, char **temp)
+void	tilde_manage(char ***tab, char **temp, int index)
 {
 	char	*vaguelette;
-	int		index;
 	char	*value;
-	
-	index = is_exported(*tab, "HOME", 0);
+
 	if (index == -1)
 	{
 		printf("\033[1;91mminishell:\033[0;91m cd:\033[0m");
@@ -63,7 +61,7 @@ void	tilde_manage(char ***tab, char **temp)
 		vaguelette = temp[1] + 2;
 		if (chdir(vaguelette) == -1)
 		{
-			value  = get_var_value((*tab)[is_exported(*tab, "PWD", 0)]);
+			value = get_var_value((*tab)[is_exported(*tab, "PWD", 0)]);
 			chdir(value);
 			printf("\033[1;91mminishell:\033[0;91m cd: %s:\033[0m", temp[1]);
 			printf(" No such file or directory !\n");
@@ -97,7 +95,6 @@ void	oldpwd_manage(char ***tab, char *line)
 		printf("\033[1;91mminishell:\033[0;91m cd:\033[0m");
 		printf(" OLDPWD not set !\n");
 	}
-	
 }
 
 void	old_pwd(char ***tab)
@@ -105,7 +102,7 @@ void	old_pwd(char ***tab)
 	char	*pwd;
 	char	*oldpwd;
 	int		index;
-	
+
 	pwd = (*tab)[is_exported(*tab, "PWD", 0)];
 	oldpwd = ft_strjoin("OLD", pwd);
 	index = is_exported(*tab, "OLDPWD", 0);

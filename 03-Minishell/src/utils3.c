@@ -83,8 +83,8 @@ char	*ft_itoa(int n)
 
 char	*print_start(void)
 {
-	char		pwd[1024];
-	char		*temp;
+	char	pwd[1024];
+	char	*temp;
 	char	*result;
 
 	getcwd(pwd, 1024);

@@ -1,6 +1,6 @@
 FILES 	=	main.c utils.c utils2.c utils3.c print.c exec.c exec_pipe.c exec_utils.c get_fd.c\
-			ft_split.c change_line.c get_fd_heredoc.c utils_signal.c \
-			build_in.c build_in_utils.c build_in_utils_bis.c check.c cd_utils.c
+			ft_split.c change_line.c get_fd_heredoc.c utils_signal.c utils_fd.c \
+			build_in.c build_in_utils.c build_in_utils_bis.c check.c cd_utils.c build_in_bis.c
 
 NAME	=	minishell
 CC		=	cc

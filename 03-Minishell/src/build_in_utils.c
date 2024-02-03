@@ -54,7 +54,6 @@ char	**mod_index(char **tab, int i, char *str)
 			free(tab[j]);
 			new[j] = str;
 		}
-			
 		j++;
 	}
 	new[j] = NULL;
@@ -80,7 +79,7 @@ char	**add_index(char **tab, char *str)
 	return (new);
 }
 
-int is_exported(char **tab, char *str, int type)
+int	is_exported(char **tab, char *str, int type)
 {
 	int		i;
 	char	*temp;
@@ -101,7 +100,7 @@ int is_exported(char **tab, char *str, int type)
 	}
 	if (type == 1)
 		free(str);
-	return(-1);
+	return (-1);
 }
 
 int	ft_check_export(char *str)
@@ -110,14 +109,16 @@ int	ft_check_export(char *str)
 
 	i = 0;
 	if (str[0] == '=')
-		return (printf("minishell: export: '%s' not a valid identifier\n", str), 1);
+		return (printf("minishell: export: '%s' not a valid identifier\n",
+				str), 1);
 	while (str[i] != '=' && str[i] != '\0')
 	{
-		if ((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'z') ||
-				(str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_')
-			i++;			
+		if ((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'z')
+			|| (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_')
+			i++;
 		else
-			return (printf("minishell: export: '%s' not a valid identifier\n", str), 1);
+			return (printf("minishell: export: '%s' not a valid identifier\n",
+					str), 1);
 	}
 	return (0);
 }

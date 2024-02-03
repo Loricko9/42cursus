@@ -15,7 +15,7 @@
 void	ft_check_redir(int *trig, int i, char *line)
 {
 	char	c;
-	
+
 	if (line[i] == '>' || line[i] == '<')
 	{
 		c = line[i];
@@ -72,7 +72,7 @@ int	ft_check_pipe2(char *line, int j)
 int	ft_check_pipe(int i, char *line, int len)
 {
 	int	j;
-	
+
 	while (i < len)
 	{
 		j = i;
@@ -86,7 +86,7 @@ int	ft_check_pipe(int i, char *line, int len)
 
 int	ft_check_line(char *line)
 {
-	int i;
+	int	i;
 	int	trig;
 	int	len;
 
@@ -97,16 +97,16 @@ int	ft_check_line(char *line)
 		i++;
 	if (line[i] == '\0')
 		return (0);
-	i = 0;
-	if (ft_check_pipe(i, line, len) == 1)
-		return (printf("\033[1;91mminishell:\033[0m syntaxe error near unexpected token !\n"), 0);
-	while (i < len)
+	i = -1;
+	if (ft_check_pipe(i + 1, line, len) == 1)
+		return (printf("\033[1;91mminishell:\033[0m"),
+			printf(" syntaxe error near unexpected token !\n"), 0);
+	while (++i < len)
 	{
 		ft_check_quote(&trig, &i, line);
 		ft_check_redir(&trig, i, line);
 		if (trig == 2)
 			return (printf("\033[1;91mminishell:\033[0m syntaxe error !\n"), 0);
-		i++;
 	}
 	if (trig == 0)
 		return (1);

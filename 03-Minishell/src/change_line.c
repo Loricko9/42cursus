@@ -19,7 +19,8 @@ char	*create_new_line(char *var, char *line, char *env, int *index)
 	int		j;
 	int		l;
 
-	new = malloc(sizeof(char) * (ft_strlen(line) - (ft_strlen(var) + 1) + ft_strlen(env) + 1));
+	new = malloc(sizeof(char) * (ft_strlen(line) - (ft_strlen(var) + 1)
+				+ ft_strlen(env) + 1));
 	if (!new)
 		return (NULL);
 	i = 0;
@@ -46,7 +47,8 @@ char	*get_var(char *line)
 	i = 0;
 	len = 0;
 	while (line[len] != '\0' && (line[len] == '$' || (line[len] >= 'A'
-			&& line[len] <= 'Z') || (line[len] >= 'a' && line[len] <= 'z') || (line[len] >= '0' && line[len] <= '9')))
+				&& line[len] <= 'Z') || (line[len] >= 'a' && line[len] <= 'z')
+			|| (line[len] >= '0' && line[len] <= '9')))
 		len++;
 	var = malloc(sizeof(char) * (len + 1));
 	if (!var)
@@ -73,7 +75,7 @@ char	*new_line(char *line, char **env, int *i)
 	j = 0;
 	while (env[j] != NULL && ft_strcmp_shell(env[j], var, 2) == 0)
 		j++;
-	res_err_str = ft_itoa(res_error);
+	res_err_str = ft_itoa(g_res_error);
 	if (line[*i + 1] == '?')
 		new = create_new_line("?", line, res_err_str, i);
 	else if (env[j] == NULL)

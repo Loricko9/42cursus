@@ -15,7 +15,8 @@
 //fonction pwd du shell
 void	ft_pwd(void)
 {
-	char path[1024];
+	char	path[1024];
+
 	printf("%s\n", getcwd(path, 1024));
 }
 
@@ -49,7 +50,7 @@ void	ft_echo(char *line)
 void	ft_unset(char ***tab, char *line)
 {
 	char	**temp;
-	char 	*name;
+	char	*name;
 	int		index;
 	int		i;
 
@@ -69,8 +70,6 @@ void	ft_unset(char ***tab, char *line)
 void	ft_export(char ***tab, char *line)
 {
 	char	**temp;
-	char	*name;
-	int		index;
 	int		i;
 
 	temp = ft_split(line, " ", 0);
@@ -84,13 +83,7 @@ void	ft_export(char ***tab, char *line)
 			free(temp[i]);
 			continue ;
 		}
-		name = get_var_name(temp[i]);
-		index = is_exported(*tab, name, 1);
-		if (index == -1)
-			*tab = add_index(*tab, temp[i]);
-		else
-			if (is_var_empty(temp[i]) != 2)
-				*tab = mod_index(*tab, index, temp[i]);
+		ft_export_bis(tab, temp, i);
 	}
 	free(temp[0]);
 	free(temp);
@@ -108,17 +101,7 @@ void	ft_cd(char ***tab, char *line)
 		chdir(home);
 	else if (temp[2] == NULL)
 	{
-		if (temp[1][0] == '~')
-			tilde_manage(tab, temp);
-		else if (temp[1][0] == '-')
-			oldpwd_manage(tab, temp[1]);
-		else if (chdir(temp[1]) == -1)
-		{
-			printf("\033[1;91mminishell:\033[0;91m cd: %s:\033[0m", temp[1]);
-			printf(" No such file or directory !\n");
-		}
-		else
-			update_pwd(tab);
+		ft_cd_bis(tab, temp);
 	}
 	else
 	{
