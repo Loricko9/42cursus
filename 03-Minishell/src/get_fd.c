@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:09:19 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/12 18:09:19 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/03 18:48:58 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,18 @@ void	get_output(int *fd_out, char *line)
 	while (line[i] == ' ')
 		i++;
 	path = extract_path_fd(line + i);
-	if (*fd_out > -1)
+	if (*fd_out > 1)
 		close(*fd_out);
 	if (access(path, F_OK) == 0)
 	{
 		if (access(path, W_OK) == -1)
-			*fd_out = -2;
+			*fd_out = -1;
 		else
 			unlink(path);
 	}
-	if (*fd_out != -2)
+	if (*fd_out != -1)
 		*fd_out = open(path, O_RDWR | O_CREAT, 00777);
-	if (*fd_out < 0)
+	if (*fd_out < 1)
 		error_fd(path, fd_out);
 	free(path);
 }

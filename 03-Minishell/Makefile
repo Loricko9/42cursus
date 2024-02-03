@@ -3,7 +3,7 @@ FILES 	=	main.c utils.c utils2.c utils3.c print.c exec.c exec_pipe.c exec_utils.
 			build_in.c build_in_utils.c build_in_utils_bis.c check.c cd_utils.c build_in_bis.c
 
 NAME	=	minishell
-CC		=	cc
+CC		=	gcc
 CFLAGS	+=	-W -Wall -Wextra -Werror -g
 RM		=	rm -rf
 INCLUDE	=	-I include/

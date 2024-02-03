@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:44:18 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/11 14:44:18 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:39:28 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	ft_strcmp_shell(const char *s1, const char *s2, int n)
 
 	i = 0;
 	j = 0;
+	if (!s1)
+		return (0);
 	while (s1[j] == ' ')
 		j++;
 	while (s1[j] != '\0' && s1[j] == s2[i] && s2[i] != '\0')

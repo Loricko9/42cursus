@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 18:25:24 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/23 12:48:21 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:59:18 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	redirect_fd_pipe(int *fd_pipe, int *fd, int i)
 {
-	if (i == 2 && fd[0] > 0)
+	if (fd[0] == -1 || fd[1] == -1)
+		(void)i;
+	else if (i == 2 && fd[0] > 0)
 		ft_redirect_fd(fd[0], STDIN_FILENO, NULL);
 	else if (i == 3 && fd[1] > 1)
 		ft_redirect_fd(fd[1], STDOUT_FILENO, NULL);
@@ -40,19 +42,18 @@ void	fork_pipe(char **cmd, char **env, int i, int **fd)
 	int		fd_pipe[2];
 
 	if (pipe(fd_pipe) == -1)
-	{
-		perror("minishell");
 		exit(1);
-	}
 	pid = fork();
 	if (pid == -1)
-	{
-		perror("minishell");
 		exit(1);
-	}
 	if (pid == 0)
 	{
 		close(fd_pipe[0]);
+		if ((*fd)[0] == -1 || (*fd)[1] == -1)
+		{
+			ft_free_var(cmd, NULL, *fd, env);
+			exit(1);
+		}
 		redirect_fd_pipe(fd_pipe, *fd, 1);
 		free(*fd);
 		ft_case(env, cmd[i], cmd);
@@ -70,21 +71,18 @@ void	ft_master_pipe(char **cmd, char **env)
 
 	i = 0;
 	fd = get_redirec(cmd[i]);
-	if (fd[0] == -1 || fd[1] == -1)
-	{
-		free(fd);
-		exit(1);
-	}
 	redirect_fd_pipe(NULL, fd, 2);
 	while (cmd[i + 1] != NULL)
 	{
+		fprintf(stderr, "fd[0] : %d | fd[1] : %d\n", fd[0], fd[1]);
 		fork_pipe(cmd, env, i, &fd);
-		if (fd[0] == -1 || fd[1] == -1)
-		{
-			free(fd);
-			exit(1);
-		}
 		i++;
+	}
+	fprintf(stderr, "fd[0] : %d | fd[1] : %d\n", fd[0], fd[1]);
+	if (fd[0] == -1 || fd[1] == -1)
+	{
+		ft_free_var(cmd, NULL, fd, env);
+		exit(1);
 	}
 	redirect_fd_pipe(NULL, fd, 3);
 	free(fd);
@@ -94,6 +92,8 @@ void	ft_master_pipe(char **cmd, char **env)
 void	ft_pipe(char **env, char **cmd)
 {
 	pid_t	pid;
+	int		len;
+	int		res_temp;
 
 	pid = fork();
 	if (pid == -1)
@@ -103,7 +103,12 @@ void	ft_pipe(char **env, char **cmd)
 		recover_signal();
 		ft_master_pipe(cmd, env);
 	}
-	waitpid(pid, &g_res_error, 0);
-	g_res_error = WEXITSTATUS(g_res_error);
+	len = ft_tablen(cmd);
+	while (len > 0)
+	{
+		if (waitpid(-1, &res_temp, 0) == pid)
+			g_res_error = WEXITSTATUS(res_temp);
+		len--;
+	}
 	ft_free_tab(cmd);
 }

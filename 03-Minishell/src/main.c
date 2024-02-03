@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 18:19:45 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/22 16:51:09 by arthur           ###   ########.fr       */
+/*   Updated: 2024/02/03 19:34:00 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_case(char **env, char *line, char **cmd)
 	else if (ft_strcmp_shell(line, "export", 0) == 1 || ft_strcmp_shell(line,
 			"unset", 0) == 1 || ft_strcmp_shell(line, "cd", 0) == 1
 		|| ft_strcmp_shell(line, "exit", 0) == 1)
-		(void)line;
+		line = line;
 	else
 		exit(ft_exec_cmd(ft_split(line, " ", 0), env, line));
 	ft_free_tab(env);

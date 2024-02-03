@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:17:54 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/13 17:17:54 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:05:56 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_free_tab(char **tab)
 	i = 0;
 	while (tab[i] != NULL)
 	{
-		free(tab[i]);
+		if (tab[i])
+			free(tab[i]);
 		i++;
 	}
 	free(tab);

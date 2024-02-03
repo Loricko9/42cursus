@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 17:41:49 by lle-saul          #+#    #+#             */
-/*   Updated: 2023/11/23 14:21:24 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:21:49 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,19 @@ static int	ft_countwords(char const *s, char *c, int *trig_cote)
 static char	*ft_splitword(char const *s, int *index, int i, int bol_quote)
 {
 	char	*str;
-	char	quote;
+	int		trig;
+	int		old_trig;
 	int		j;
 
-	quote = 0;
-	if ((s[i - 1] == '"' || s[i - 1] == '\'') && bol_quote == 0)
-	{
-		++*index;
-		i--;
-		quote = s[i];
-	}
+	trig = 0;
 	str = malloc((i - *index + 1) * sizeof(char));
 	j = 0;
 	while (*index < i)
 	{
-		if (s[*index] != quote || quote == 0)
+		old_trig = trig;
+		ft_cote(&trig, s[*index]);
+		if ((s[*index] != '"' && s[*index] != '\'') || trig == old_trig
+			|| bol_quote == 1)
 			str[j++] = s[*index];
 		++*index;
 	}

@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:07:42 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/13 17:07:42 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:45:08 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_clean_line2(char *str, int i)
 	return (ft_extract_str(str, index, i));
 }
 
-int	ft_path_env(char **env)
+int	ft_path_env(char **env, char *cmd)
 {
 	int	i;
 
@@ -45,13 +45,22 @@ int	ft_path_env(char **env)
 			return (i);
 		i++;
 	}
+	if (env[i] == NULL)
+	{
+		cmd_error(cmd);
+		exit(127);
+	}
 	return (i);
 }
 
-void	ft_free_var(char **cmd, char **env_path, char *path)
+void	ft_free_var(char **cmd, char **env_path, void *path, char **env)
 {
-	ft_free_tab(cmd);
-	ft_free_tab(env_path);
+	if (cmd)
+		ft_free_tab(cmd);
+	if (env_path)
+		ft_free_tab(env_path);
+	if (env)
+		ft_free_tab(env);
 	if (path)
 		free(path);
 }

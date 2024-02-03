@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:14:36 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/30 12:14:36 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:51:17 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 void	init_signal(void)
 {
 	if (signal(SIGINT, exec_signal_print) == SIG_ERR)
+	{
+		perror("minishell");
+		exit(1);
+	}
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 	{
 		perror("minishell");
 		exit(1);
@@ -34,6 +39,11 @@ void	exec_signal_print(int signum)
 void	recover_signal(void)
 {
 	if (signal(SIGINT, SIG_DFL) == SIG_ERR)
+	{
+		perror("minishell");
+		exit(1);
+	}
+	if (signal(SIGQUIT, SIG_DFL) == SIG_ERR)
 	{
 		perror("minishell");
 		exit(1);

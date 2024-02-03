@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 13:23:21 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/12 13:23:21 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:32:22 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,18 @@ int	ft_exec_prog(char **cmd, char **env, char *line)
 		return (perror("minishell"), 1);
 	pwd = getcwd(NULL, 1000);
 	if (!pwd)
-		return (perror("minishell"), ft_free_tab(cmd), 1);
+		return (perror("minishell"), ft_free_tab(cmd), ft_free_tab(env), 1);
 	path = ft_strjoin(pwd, cmd[0] + 1);
 	if (!path)
-		return (perror("minishell"), ft_free_tab(cmd), free(pwd), 1);
+		return (perror("minishell"), ft_free_tab(cmd), free(pwd),
+			ft_free_tab(env), 1);
 	res = execve(path, cmd, env);
 	if (res == -1)
 		perror("minishell");
 	free(pwd);
 	free(path);
 	ft_free_tab(cmd);
+	ft_free_tab(env);
 	exit(res);
 }
 
@@ -100,19 +102,20 @@ int	ft_exec_cmd(char **cmd, char **env, char *line)
 	free(line);
 	if (cmd[0] == NULL)
 		return (free(cmd), ft_free_tab(env), g_res_error);
-	env_path = ft_split(env[ft_path_env(env)], ":", 0);
-	if (!env_path)
-		return (perror("minishell"), ft_free_tab(env_path),
-			ft_free_tab(cmd), ft_free_tab(env), 1);
 	if (access(cmd[0], X_OK) == 0)
 		path = ft_strdup(cmd[0]);
 	else
+	{
+		env_path = ft_split(env[ft_path_env(env, cmd[0])], ":", 0);
+		if (!env_path)
+			return (perror("minishell"), ft_free_var(cmd, env_path, NULL, env)
+				, 1);
 		path = ft_get_path(env_path, cmd[0]);
+	}
 	if (!path)
-		return (cmd_error(cmd[0]), ft_free_tab(env_path),
-			ft_free_tab(cmd), ft_free_tab(env), 127);
+		return (cmd_error(cmd[0]), ft_free_var(cmd, env_path, NULL, env), 127);
 	res = execve(path, cmd, env);
-	ft_free_var(cmd, env_path, path);
+	ft_free_var(cmd, env_path, path, env);
 	if (res == -1)
 		return (perror("minishell"), 1);
 	return (res);

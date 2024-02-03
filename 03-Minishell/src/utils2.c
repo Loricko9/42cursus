@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:58:59 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/12 15:58:59 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:41:05 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char	*ft_extract_str(char *str, int start, int end)
 		i++;
 	}
 	new[j++] = '\0';
+	str = NULL;
 	free(str);
 	return (new);
 }

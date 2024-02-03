@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 18:20:11 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/01/09 18:20:11 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:45:17 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ int		ft_exec_cmd(char **cmd, char **env, char *line);
 /*exec_utils.c*/
 void	cmd_error(char *cmd);
 char	*ft_clean_line2(char *str, int i);
-int		ft_path_env(char **env);
-void	ft_free_var(char **cmd, char **env_path, char *path);
+int		ft_path_env(char **env, char *cmd);
+void	ft_free_var(char **cmd, char **env_path, void *path, char **env);
 char	*ft_get_path(char **path, char *cmd);
 
 /*exec_pipe.c*/
