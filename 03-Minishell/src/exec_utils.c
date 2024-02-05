@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:07:42 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/02/03 19:45:08 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/04 21:03:21 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ int	ft_path_env(char **env, char *cmd)
 		i++;
 	}
 	if (env[i] == NULL)
-	{
 		cmd_error(cmd);
-		exit(127);
-	}
 	return (i);
 }
 

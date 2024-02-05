@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 18:20:11 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/02/03 19:45:17 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:36:41 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_find_char_quote(const char *s1, const char c);
 
 /*utils2.c*/
-
+int		find_slash(char *line);
 int		ft_tablen(char **tab);
 char	**dup_tab(char **tab, int ac, char **av);
 char	*ft_extract_str(char *str, int start, int end);
@@ -120,7 +120,7 @@ void	ft_pwd(void);
 void	ft_echo(char *line);
 void	ft_export(char ***tab, char *line);
 void	ft_unset(char ***tab, char *line);
-void	ft_cd(char ***tab, char *line);
+void	ft_cd(char ***tab, char **cmd);
 
 /*build_in_utils.c*/
 char	**rm_index(char **tab, int i);
@@ -130,6 +130,7 @@ int		is_exported(char **tab, char *str, int type);
 int		ft_check_export(char *str);
 
 /*build_in_bis.c*/
+void	ft_env(char **env);
 void	ft_export_bis(char ***tab, char **temp, int i);
 void	ft_cd_bis(char ***tab, char **temp);
 

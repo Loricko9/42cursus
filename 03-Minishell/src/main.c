@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 18:19:45 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/02/03 19:34:00 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/05 13:14:29 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_case_change_env(char ***env, char *line)
 	else if (ft_strcmp_shell(line, "unset", 0) == 1)
 		ft_unset(env, line);
 	else if (ft_strcmp_shell(line, "cd", 0) == 1)
-		ft_cd(env, line);
+		ft_cd(env, ft_split(line, " ", 0));
 	else
 		return (1);
 	return (0);
@@ -60,10 +60,10 @@ int	ft_case_change_env(char ***env, char *line)
 void	ft_case(char **env, char *line, char **cmd)
 {
 	line = ft_clean_line(line);
-	if (ft_strcmp_shell(line, "./", 1) == 1)
+	if (find_slash(line) == 1)
 		exit(ft_exec_prog(ft_split(line, " ", 0), env, line));
 	else if (ft_strcmp_shell(line, "env", 0) == 1)
-		print_tab(env);
+		ft_env(env);
 	else if (ft_strcmp_shell(line, "pwd", 0) == 1)
 		ft_pwd();
 	else if (ft_strcmp_shell(line, "echo", 0) == 1)
@@ -77,8 +77,7 @@ void	ft_case(char **env, char *line, char **cmd)
 	ft_free_tab(env);
 	if (cmd)
 		ft_free_tab(cmd);
-	else
-		free(line);
+	free(line);
 	exit(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 17:41:49 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/02/03 16:21:49 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/04 20:59:06 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ char	**ft_split(char *s, char *c, int bol_quote)
 	int		index;
 	int		trig_cote;
 
+	if (s == NULL)
+		return (NULL);
 	tab = malloc(sizeof(char *) * (ft_countwords(s, c, &trig_cote) + 1));
 	if (!tab)
 		return (NULL);

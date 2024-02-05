@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthur <arthur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 13:11:35 by arthur            #+#    #+#             */
-/*   Updated: 2024/02/02 17:38:10 by arthur           ###   ########.fr       */
+/*   Updated: 2024/02/04 20:43:22 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ void	tilde_manage(char ***tab, char **temp, int index)
 	char	*value;
 
 	if (index == -1)
-	{
-		printf("\033[1;91mminishell:\033[0;91m cd:\033[0m");
-		printf(" HOME not set !\n");
 		return ;
-	}
 	value = get_var_value((*tab)[index]);
 	chdir(value);
 	if (temp[1][1] != '\0')

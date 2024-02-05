@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 18:25:24 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/02/03 19:59:18 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/05 13:14:20 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	fork_pipe(char **cmd, char **env, int i, int **fd)
 		}
 		redirect_fd_pipe(fd_pipe, *fd, 1);
 		free(*fd);
-		ft_case(env, cmd[i], cmd);
+		ft_case(env, ft_strdup(cmd[i]), cmd);
 	}
 	close(fd_pipe[1]);
 	free(*fd);
@@ -74,11 +74,9 @@ void	ft_master_pipe(char **cmd, char **env)
 	redirect_fd_pipe(NULL, fd, 2);
 	while (cmd[i + 1] != NULL)
 	{
-		fprintf(stderr, "fd[0] : %d | fd[1] : %d\n", fd[0], fd[1]);
 		fork_pipe(cmd, env, i, &fd);
 		i++;
 	}
-	fprintf(stderr, "fd[0] : %d | fd[1] : %d\n", fd[0], fd[1]);
 	if (fd[0] == -1 || fd[1] == -1)
 	{
 		ft_free_var(cmd, NULL, fd, env);
@@ -86,7 +84,7 @@ void	ft_master_pipe(char **cmd, char **env)
 	}
 	redirect_fd_pipe(NULL, fd, 3);
 	free(fd);
-	ft_case(env, cmd[i], cmd);
+	ft_case(env, ft_strdup(cmd[i]), cmd);
 }
 
 void	ft_pipe(char **env, char **cmd)

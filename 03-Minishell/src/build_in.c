@@ -6,21 +6,22 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:04:53 by arthur            #+#    #+#             */
-/*   Updated: 2024/02/03 16:12:46 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:31:23 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//fonction pwd du shell
+/*fonction pwd du shell*/
 void	ft_pwd(void)
 {
 	char	path[1024];
 
 	printf("%s\n", getcwd(path, 1024));
+	g_res_error = 0;
 }
 
-//fonction echo du shell
+/*/fonction echo du shell*/
 void	ft_echo(char *line)
 {
 	char	**temp;
@@ -45,6 +46,7 @@ void	ft_echo(char *line)
 	if (flag == 0)
 		ft_putchar('\n', 1);
 	ft_free_tab(temp);
+	g_res_error = 0;
 }
 
 void	ft_unset(char ***tab, char *line)
@@ -65,6 +67,7 @@ void	ft_unset(char ***tab, char *line)
 		i++;
 	}
 	ft_free_tab(temp);
+	g_res_error = 0;
 }
 
 void	ft_export(char ***tab, char *line)
@@ -74,6 +77,7 @@ void	ft_export(char ***tab, char *line)
 
 	temp = ft_split(line, " ", 0);
 	i = 0;
+	g_res_error = 0;
 	if (temp[1] == NULL)
 		print_export(*tab);
 	while (temp[++i] != NULL)
@@ -81,6 +85,7 @@ void	ft_export(char ***tab, char *line)
 		if (ft_check_export(temp[i]) == 1)
 		{
 			free(temp[i]);
+			g_res_error = 1;
 			continue ;
 		}
 		ft_export_bis(tab, temp, i);
@@ -89,25 +94,31 @@ void	ft_export(char ***tab, char *line)
 	free(temp);
 }
 
-void	ft_cd(char ***tab, char *line)
+void	ft_cd(char ***tab, char **cmd)
 {
-	char	**temp;
 	char	*home;
+	int		export;
 
-	temp = ft_split(line, " ", 0);
 	set_pwd(tab);
-	home = get_var_value((*tab)[is_exported(*tab, "HOME", 0)]);
-	if (temp[1] == NULL)
-		chdir(home);
-	else if (temp[2] == NULL)
+	export = is_exported(*tab, "HOME", 0);
+	home = NULL;
+	if (cmd[1] == NULL)
 	{
-		ft_cd_bis(tab, temp);
+		if (export >= 0)
+			home = get_var_value((*tab)[export]);
+		if (home != NULL)
+			chdir(home);
+		update_pwd(tab);
+		g_res_error = 0;
 	}
+	else if (cmd[2] == NULL)
+		ft_cd_bis(tab, cmd);
 	else
 	{
 		printf("\033[1;91mminishell:\033[0;91m cd:\033[0m");
 		printf(" too many arguments !\n");
+		g_res_error = 1;
 	}
 	free(home);
-	ft_free_tab(temp);
+	ft_free_tab(cmd);
 }

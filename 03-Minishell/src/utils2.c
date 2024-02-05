@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:58:59 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/02/03 19:41:05 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:35:50 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*ft_extract_str(char *str, int start, int end)
 	}
 	new[j++] = '\0';
 	str = NULL;
-	free(str);
 	return (new);
 }
 
@@ -99,4 +98,20 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	tab[i] = '\0';
 	return (tab);
+}
+
+int	find_slash(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ')
+		i++;
+	while (line[i] != ' ' && line[i] != '\0')
+	{
+		if (line[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
 }
