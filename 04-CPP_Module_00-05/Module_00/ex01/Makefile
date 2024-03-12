@@ -1,6 +1,6 @@
-FILES 	=	megaphone.cpp
+FILES 	=	main.cpp Contact.cpp PhoneBook.cpp
 
-NAME	=	megaphone
+NAME	=	PhoneBook
 CC		=	c++
 CFLAGS	+=	-Wall -Wextra -Werror -std=c++98
 RM		=	rm -rf
@@ -12,7 +12,7 @@ OBJS		=	$(addprefix $(OBJ_DIR), $(FILES:.cpp=.o))
 SRCS 		=	$(addprefix $(SRCS_DIR), $(FILES))
 
 $(OBJ_DIR)%.o 	:	$(SRCS_DIR)%.cpp
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(INCLUDE) $(CFLAGS) -c $< -o $@
 	@echo "$(COLOUR_YELLOW)Compiling ... $(COLOUR_GREEN)[✔]	$<$(NO_COLOUR)"
 
 all   : header message_all $(NAME)
@@ -21,7 +21,7 @@ make_OBJS_DIR	:
 	@mkdir -p $(OBJ_DIR)
 
 $(NAME)	:	make_OBJS_DIR $(OBJS) message_end
-	@$(CC) $(CFLAGS) $(OBJS) -o $@
+	@$(CC) $(INCLUDE) $(CFLAGS) $(OBJS) -o $@
 
 clean	:	header message_clean
 	@$(RM) $(OBJ_DIR)
