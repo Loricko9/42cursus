@@ -1,0 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/16 12:30:27 by lle-saul          #+#    #+#             */
+/*   Updated: 2024/03/16 16:52:17 by lle-saul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef DOG_HPP
+#define	DOG_HPP
+
+#include "Animal.hpp"
+
+class	Dog : public Animal
+{
+public:
+	Dog();
+	Dog(const Dog &src);
+	Dog&	operator=(const Dog &rhs);
+	~Dog();
+	void	makeSound() const;
+};
+
+#endif
