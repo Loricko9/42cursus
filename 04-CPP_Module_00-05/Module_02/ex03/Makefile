@@ -2,7 +2,7 @@ FILES 	=	main.cpp Fixed.cpp Point.cpp bsp.cpp
 
 NAME	=	a.out
 CC		=	c++
-CFLAGS	+=	-std=c++98
+CFLAGS	+=	-Wall -Wextra -Werror -std=c++98
 RM		=	rm -rf
 INCLUDE	=	-I include/
 
