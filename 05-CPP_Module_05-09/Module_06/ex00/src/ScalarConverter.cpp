@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:53:30 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/19 17:27:43 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:38:27 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void	ScalarConverter::print_float(const std::string &arg)
 			std::cout << "double: " << static_cast<double>(nb) << ".0" << std::endl;
 		}
 		else {
-			std::cout << "float: " << nb << std::endl;
+			std::cout << "float: " << nb << "f" << std::endl;
 			std::cout << "double: " << static_cast<double>(nb) << std::endl;
 		}
 	}

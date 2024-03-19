@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:54:30 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/19 15:47:01 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:37:07 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ public:
 	~ScalarConverter();
 	
 	static void	convert(std::string arg);
+	virtual	void	instance() = 0;
 private:
 	static bool	is_char(const std::string &arg);
 	static bool	is_int(const std::string &arg);
