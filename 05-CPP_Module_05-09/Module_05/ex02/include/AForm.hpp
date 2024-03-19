@@ -25,7 +25,7 @@ public:
 	AForm(const std::string &str, int i, int j);
 	AForm(const AForm &src);
 	AForm&	operator=(const AForm &rhs);
-	~AForm();
+	virtual ~AForm();
 
 	class	GradeTooHighException : public std::exception
 	{
