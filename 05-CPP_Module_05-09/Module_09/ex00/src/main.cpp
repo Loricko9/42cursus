@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:46:14 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/22 10:56:49 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:23:08 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,29 @@ int	main(int ac, char **av)
 		std::cerr << "Error : Can't open the file !" << std::endl;
 		return (1);
 	}
+	try {
+		BitcoinExchange	base;
+		std::string		res;
+		while (std::getline(f_in, res)) {
+			try {
+				double		val;
+				std::string	date = base.extractDate(res, &val);
+				double		coef = base.getValue(date);
+				std::cout << " = " << coef * val << std::endl;
+			}
+			catch (BitcoinExchange::BadInputException &e) {
+				std::cout << e.what() << res << std::endl;
+			}
+			catch (std::exception &e) {
+				std::cout << e.what() << std::endl;
+			}
+
+		}
+		
+	}
+	catch (std::exception &e) {
+		std::cerr << e.what() << std::endl;
+	}
 	
+	f_in.close();
 }
