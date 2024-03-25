@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:50:38 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/22 17:56:25 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:25:44 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ std::ostream&	operator<<(std::ostream &o, const BitcoinExchange &rhs)
 	std::map<std::string, double>::const_iterator	it = rhs.getBegin();
 	std::map<std::string, double>::const_iterator	end = rhs.getEnd();
 	while (it != end) {
-		std::cout << (*it).first << " --> " << (*it).second << std::endl;
+		o << (*it).first << " --> " << (*it).second << std::endl;
 		it++;
 	}
 	return (o);
