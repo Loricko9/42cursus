@@ -1,10 +1,17 @@
 #!/bin/bash
 
-service mysql start;
-mysql -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
-mysql -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';"
-mysql -e "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
-mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';"
-mysql -e "FLUSH PRIVILEGES;"
-mysqladmin -u root -p$MYSQL_ROOT_PASSWORD shutdown
-exec mysqld_safe
+MYSQL_ROOT_PASSWORD=somewordpress
+MYSQL_DATABASE=wordpress
+MYSQL_USER=wordpress
+MYSQL_PASSWORD=wordpress
+
+service mysql start
+echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;" > setup.sql
+echo "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';" >> setup.sql
+echo "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> setup.sql
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'; FLUSH PRIVILEGES;" >> setup.sql
+mysql < setup.sql
+
+kill $(cat /var/run/mysqld/mysqld.pid)
+
+mysqld
