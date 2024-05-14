@@ -10,6 +10,7 @@ RUN wget https://fr.wordpress.org/wordpress-6.5.3-fr_FR.tar.gz -P / && \
 	rm -rf /wordpress-6.5.3-fr_FR.tar.gz
 # get read acces on wordpress
 RUN chown -R root:root /var/www/wordpress
+RUN chown -R www-data:www-data /var/www/wordpress
 # copy conf file & setup.sh
 COPY conf/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
 COPY tools/setup_wp.sh /setup_wp.sh

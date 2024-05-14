@@ -8,19 +8,21 @@ services:
     restart: on-failure
     depends_on:
       - wordpress
+    ports:
+      - "443:443"  
   wordpress:
     build: requirements/wordpress
     networks:
       - Inception
     env_file: .env
     container_name: wordpress
-    ports:
-      - "443:443"
     restart: on-failure
     depends_on:
       - mariadb
     volumes:
-      - wp_data:/var/www/wordpress
+      - wordpress:/var/www/wordpress
+    expose:
+      - "9000"
   mariadb:
     build: requirements/mariadb
     networks:
@@ -29,11 +31,23 @@ services:
     container_name: mariadb
     restart: unless-stopped
     volumes:
-      - db_data:/var/lib/mysql
-  
+      - mariadb:/var/lib/mysql
+    expose:
+      - "3306"
+
 volumes:
-  db_data: {}
-  wp_data: {}
+  wordpress:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: 'C:\Users\Lorick\Documents\42cursus\05-Inception\srcs\wp_data'
+  mariadb:
+    driver: local
+    driver_opts:
+      type: 'none' 
+      o: 'bind'
+      device: 'C:\Users\Lorick\Documents\42cursus\05-Inception\srcs\db_data'
 
 networks:
   Inception:

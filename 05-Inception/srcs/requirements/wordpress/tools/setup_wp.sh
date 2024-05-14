@@ -5,7 +5,7 @@ if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
 	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 	chmod +x wp-cli.phar
 	mv wp-cli.phar /usr/local/bin/wp
-
+	sleep 10
 	# add data for 1st page of config
 	sed -i "s/votre_nom_de_bdd/$MYSQL_DATABASE/" /var/www/wordpress/wp-config-sample.php
 	sed -i "s/votre_utilisateur_de_bdd/$WORDPRESS_DB_USER/" /var/www/wordpress/wp-config-sample.php
@@ -15,10 +15,7 @@ if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
 	mv /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
 
 	# add data for 2nd page of config
-	wp core install --allow-root --path=/var/www/wordpress --title='lle-saul_WEB'
-	wp core install --allow-root --path=/var/www/wordpress --email='lle-saul@42-perpignan.fr'
-	wp core install --allow-root --path=/var/www/wordpress --admin_user='$WORDPRESS_ADMIN'
-	wp core install --allow-root --path=/var/www/wordpress --admin_password='$WORDPRESS_ADMIN_PASS'
+	wp core install --allow-root --path=/var/www/wordpress --title='lle-saul_WEB' --admin_email='lle-saul@42-perpignan.fr' --admin_user='$WORDPRESS_ADMIN' --admin_password='$WORDPRESS_ADMIN_PASS' --url=localhost
 fi
 
 if [ ! -f "/run/php" ]; then
