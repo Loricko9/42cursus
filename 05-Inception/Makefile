@@ -1,56 +1,39 @@
-FILES 	=	main.cpp BitcoinExchange.cpp
+all   : compose
 
-NAME	=	btc
-CC		=	c++
-CFLAGS	+=	-Wall -Wextra -Werror -std=c++98
-RM		=	rm -rf
-INCLUDE	=	-I include/
+compose	: header message_compose
+	mkdir db_data
+	mkdir wp_data
+	docker compose -f ./srcs/docker-compose.yml up
 
-SRCS_DIR	=	src/
-OBJ_DIR 	=	obj/
-OBJS		=	$(addprefix $(OBJ_DIR), $(FILES:.cpp=.o))
-SRCS 		=	$(addprefix $(SRCS_DIR), $(FILES))
+down	:	header message_down
+	docker compose -f ./srcs/docker-compose.yml down
 
-$(OBJ_DIR)%.o 	:	$(SRCS_DIR)%.cpp
-	@$(CC) $(INCLUDE) $(CFLAGS) -c $< -o $@
-	@echo "$(COLOUR_YELLOW)Compiling ... $(COLOUR_GREEN)[✔]	$<$(NO_COLOUR)"
+prune	:	header message_prune
+	docker compose -f ./srcs/docker-compose.yml down
+	docker system prune -a -f
+	rm -rf db_data
+	rm -rf wp_data
+	dokcer volume rm wp_volume db_volume
 
-all   : header message_all $(NAME)
+stop	: header message_stop
+	docker compose -f ./srcs/docker-compose.yml stop
 
-make_OBJS_DIR	:
-	@mkdir -p $(OBJ_DIR)
+start	:	header message_start
 
-$(NAME)	:	make_OBJS_DIR $(OBJS) message_end
-	@$(CC) $(INCLUDE) $(CFLAGS) $(OBJS) -o $@
+message_compose:
+	@echo "EXECUTION	: $(COLOUR_RED) [compose]\n$(NO_COLOUR)"
 
-clean	:	header message_clean
-	@$(RM) $(OBJ_DIR)
+message_down:
+	@echo "EXECUTION	: $(COLOUR_RED) [down]\n$(NO_COLOUR)"
 
-fclean	:	header message_fclean
-	@$(RM) $(OBJ_DIR) $(NAME)
+message_prune:
+	@echo "EXECUTION	: $(COLOUR_RED) [prune]\n$(NO_COLOUR)"
 
-fclean_re	: header message_re
-	@$(RM) $(OBJ_DIR) 
-	@$(RM) $(NAME)
+message_stop:
+	@echo "EXECUTION	: $(COLOUR_RED) [stop]\n$(NO_COLOUR)"
 
-re		:	fclean_re $(NAME)
-
-message_all:
-	@echo "EXECUTION	: $(COLOUR_RED) [all]\n$(NO_COLOUR)"
-
-message_clean:
-	@echo "EXECUTION	: $(COLOUR_RED) [clean]\n$(NO_COLOUR)"
-
-message_fclean:
-	@echo "EXECUTION	: $(COLOUR_RED) [fclean]\n$(NO_COLOUR)"
-
-message_re:
-	@echo "EXECUTION	: $(COLOUR_RED) [re]\n$(NO_COLOUR)"
-
-message_end:
-	@echo "$(COLOUR_GREEN)\n╔═════════════════════════════╗$(NO_COLOUR)"
-	@echo "$(COLOUR_GREEN)║   COMPILATION SUCCESS !!!   ║$(NO_COLOUR)"
-	@echo "$(COLOUR_GREEN)╚═════════════════════════════╝$(NO_COLOUR)"
+message_start:
+	@echo "EXECUTION	: $(COLOUR_RED) [start]\n$(NO_COLOUR)"
 
 header:
 	clear

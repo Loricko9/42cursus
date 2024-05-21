@@ -1,6 +1,7 @@
 services:
   nginx:
     build: requirements/nginx
+    image: inception-nginx
     volumes:
       - wordpress:/var/www/wordpress
     networks:
@@ -14,6 +15,7 @@ services:
       - "443:443"  
   wordpress:
     build: requirements/wordpress
+    image: inception-wordpress
     networks:
       - Inception
     env_file: .env
@@ -27,6 +29,7 @@ services:
       - "9000"
   mariadb:
     build: requirements/mariadb
+    image: inception-mariadb
     networks:
       - Inception
     env_file: .env
@@ -40,12 +43,14 @@ services:
 volumes:
   wordpress:
     driver: local
+    name: wp_volume
     driver_opts:
       type: 'none'
       o: 'bind'
       device: 'C:\Users\Lorick\Documents\42cursus\05-Inception\srcs\wp_data'
   mariadb:
     driver: local
+    name: db_volume
     driver_opts:
       type: 'none' 
       o: 'bind'
@@ -54,3 +59,4 @@ volumes:
 networks:
   Inception:
     driver: bridge
+    name: Inception
