@@ -1,24 +1,29 @@
+NAME=Inception
+
+PATH_VOLUME_DB=C:\Users\Lorick\Documents\42cursus\05-Inception\db_data
+PATH_VOLUME_WP=C:\Users\Lorick\Documents\42cursus\05-Inception\wp_data
+
 all   : compose
 
 compose	: header message_compose
-	mkdir db_data
-	mkdir wp_data
-	docker compose -f ./srcs/docker-compose.yml up
+	mkdir -p $(PATH_VOLUME_WP)
+	mkdir -p $(PATH_VOLUME_DB)
+	docker compose -f ./srcs/docker-compose.yml up -d
 
 down	:	header message_down
 	docker compose -f ./srcs/docker-compose.yml down
 
-prune	:	header message_prune
-	docker compose -f ./srcs/docker-compose.yml down
+prune	:	header message_prune down
 	docker system prune -a -f
-	rm -rf db_data
-	rm -rf wp_data
-	dokcer volume rm wp_volume db_volume
+	rm -rf $(PATH_VOLUME_WP)
+	rm -rf $(PATH_VOLUME_DB)
+	docker volume rm wp_volume db_volume
 
 stop	: header message_stop
 	docker compose -f ./srcs/docker-compose.yml stop
 
 start	:	header message_start
+	docker compose -f ./srcs/docker-compose.yml start
 
 message_compose:
 	@echo "EXECUTION	: $(COLOUR_RED) [compose]\n$(NO_COLOUR)"
@@ -36,7 +41,6 @@ message_start:
 	@echo "EXECUTION	: $(COLOUR_RED) [start]\n$(NO_COLOUR)"
 
 header:
-	clear
 	@echo "\033[32m  _______   _______   _______   _______   _______   _______   _______   _______   _______ "
 	@echo " /\\______\\ /\\______\\ /\\______\\ /\\______\\ /\\______\\ /\\______\\ /\\______\\ /\\______\\ /\\______\\"
 	@echo " \\/______/ \\/______/ \\/______/ \\/______/ \\/______/ \\/______/ \\/______/ \\/______/ \\/______/"

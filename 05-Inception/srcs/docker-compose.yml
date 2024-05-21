@@ -47,14 +47,14 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: 'C:\Users\Lorick\Documents\42cursus\05-Inception\srcs\wp_data'
+      device: 'C:\Users\Lorick\Documents\42cursus\05-Inception\wp_data'
   mariadb:
     driver: local
     name: db_volume
     driver_opts:
       type: 'none' 
       o: 'bind'
-      device: 'C:\Users\Lorick\Documents\42cursus\05-Inception\srcs\db_data'
+      device: 'C:\Users\Lorick\Documents\42cursus\05-Inception\db_data'
 
 networks:
   Inception:
