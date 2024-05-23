@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:18:20 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/13 13:37:33 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:35:12 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ int main()
 		jim.attack();
 		club.setType("some other type of club");
 		jim.attack();
+	}
+	{
+		HumanB franck("Franck");
+		franck.attack();
 	}
 	return 0;
 }
