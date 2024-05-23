@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 18:51:17 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/17 21:40:42 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:21:04 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ Character::Character(const std::string &str)
 }
 
 Character::Character(const Character &src)
+	:name(src.name)
 {
+	for (int i = 0; i < 4; i++)
+		inventory[i] = NULL;
 	*this = src;
 }
 
@@ -40,7 +43,8 @@ Character&	Character::operator=(const Character &rhs)
 		{
 			if (inventory[i] != NULL)
 				delete inventory[i];
-			inventory[i] = rhs.inventory[i];
+			if (rhs.inventory[i] != NULL)
+				inventory[i] = rhs.inventory[i]->clone();
 		}
 	}
 	return (*this);

@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:34:16 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/16 18:01:54 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:25:20 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ Dog& Dog::operator=(const Dog &rhs)
 	if (this != &rhs)
 	{
 		type = rhs.type;
+		Brain *temp = _Brain;
 		_Brain = new Brain(*rhs._Brain);
+		delete temp;
 	}
 	return (*this);
 }

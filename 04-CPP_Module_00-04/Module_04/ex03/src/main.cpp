@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 17:12:54 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/17 21:41:21 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:23:17 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main()
 	std::cout << "-------------------------------------------" << std::endl;
 
 	Character* Cloud = new Character("Cloud");
+	ICharacter* Sephiroth = new Character("Sephiroth");
 	src->learnMateria(new Ice());
 	src->learnMateria(new Cure());
 	src->learnMateria(new Ice());
@@ -53,12 +54,20 @@ int	main()
 	AMateria* Materia5 = src->createMateria("cure"); //err
 	Cloud->equip(Materia5); //err (n'affiche rien)
 
-	Cloud->use(3, *bob);
+	Cloud->use(3, *Cloud);
+	Cloud->use(1, *Sephiroth);
 	Cloud->unequip(3);
 	Cloud->unequip(3); //err
 	Cloud->use(3, *bob); //err
 	
+	Character*	Baret = new Character("Baret");
+	
+	*Baret = *Cloud;
+	Baret->use(2, *Baret);
+
 	delete Materia4;
+	delete Baret;
+	delete Sephiroth;
 	delete Cloud;
 	delete bob;
 	delete me;

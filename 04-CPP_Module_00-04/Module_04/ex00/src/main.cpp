@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:30:09 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/16 16:56:08 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:32:55 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	main()
 	delete i;
 
 	std::cout << "--------------------------------------------" << std::endl;
-	const WrongAnimal* test1 = new WrongAnimal();
-	const WrongAnimal* test2 = new WrongCat();
+	const WrongAnimal* test1 = new WrongCat();
+	const WrongCat* test2 = new WrongCat();
 	std::cout << test1->getType() << " " << std::endl;
 	std::cout << test2->getType() << " " << std::endl;
 	test1->makeSound();

@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:30:09 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/16 18:12:23 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:24:52 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,23 @@ int	main()
 	std::cout << "-----------------------------------------------------" << std::endl;
 	
 	Animal	*tab[4] = {new Dog(), new Dog(), new Cat(), new Cat()};
+	
 	tab[0]->addIdeas("eat a steack");
 	tab[2]->addIdeas("eat a fish");
 	tab[0]->think();
 	tab[2]->think();
 	
+	std::cout << "-----------------------------------------------------" << std::endl;
 	for (int i = 0; i < 4; i++)
 		delete tab[i];
+
+	std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+	Dog		test1;
+	Dog		test2;
+	test2.addIdeas("eat a chicken");
+	test2.think();
+	test1 = test2;
+	test2.think();
+	
 	std::cout << "-----------------------------------------------------" << std::endl;
 }

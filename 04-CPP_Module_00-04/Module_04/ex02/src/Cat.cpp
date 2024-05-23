@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 12:34:05 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/17 12:17:18 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:45:32 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ Cat& Cat::operator=(const Cat &rhs)
 	if (this != &rhs)
 	{
 		type = rhs.type;
+		Brain	*temp = _Brain;
 		_Brain = new Brain(*rhs._Brain);
+		delete temp;
 	}
 	return (*this);
 }
