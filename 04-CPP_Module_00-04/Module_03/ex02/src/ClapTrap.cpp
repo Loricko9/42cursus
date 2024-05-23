@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 09:14:02 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/16 11:39:31 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/26 09:41:34 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,13 @@ ClapTrap::ClapTrap(const ClapTrap &src)
 
 ClapTrap&	ClapTrap::operator=(const ClapTrap &rhs)
 {
-	name = rhs.name;
-	Hit_pt = rhs.Hit_pt;
-	Energy_pt = rhs.Energy_pt;
-	Attack_damage = rhs.Attack_damage;
+	if (this != &rhs)
+	{
+		name = rhs.name;
+		Hit_pt = rhs.Hit_pt;
+		Energy_pt = rhs.Energy_pt;
+		Attack_damage = rhs.Attack_damage;
+	}
 	return (*this);
 }
 

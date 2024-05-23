@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:12:16 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/16 11:18:32 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/26 09:42:53 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ ScavTrap::ScavTrap(const ScavTrap &src)
 
 ScavTrap&	ScavTrap::operator=(const ScavTrap &rhs)
 {
-	name = rhs.name;
-	Hit_pt = rhs.Hit_pt;
-	Energy_pt = rhs.Energy_pt;
-	Attack_damage = rhs.Attack_damage;
+	if (this != &rhs)
+	{
+		name = rhs.name;
+		Hit_pt = rhs.Hit_pt;
+		Energy_pt = rhs.Energy_pt;
+		Attack_damage = rhs.Attack_damage;
+	}
 	return (*this);
 }
 

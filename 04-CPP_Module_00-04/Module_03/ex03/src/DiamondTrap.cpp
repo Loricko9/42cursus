@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:49:47 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/16 12:27:44 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/26 09:42:29 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ DiamondTrap::DiamondTrap(const DiamondTrap &src)
 
 DiamondTrap&	DiamondTrap::operator=(const DiamondTrap &rhs)
 {
-	name = rhs.name;
-	FragTrap::Hit_pt = rhs.FragTrap::Hit_pt;
-	ScavTrap::Energy_pt = rhs.ScavTrap::Energy_pt;
-	FragTrap::Attack_damage = rhs.FragTrap::Attack_damage;
+	if (this != &rhs)
+	{
+		name = rhs.name;
+		FragTrap::Hit_pt = rhs.FragTrap::Hit_pt;
+		ScavTrap::Energy_pt = rhs.ScavTrap::Energy_pt;
+		FragTrap::Attack_damage = rhs.FragTrap::Attack_damage;
+	}
 	return (*this);
 }
 
