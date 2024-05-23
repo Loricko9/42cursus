@@ -29,6 +29,8 @@ int main(void)
 			Book.AddContact();
 		else if (str == "SEARCH")
 			Book.SearchContact();
+		else
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
-	std::cout << "Fin du prog !" << std::endl;
+	std::cout << "Exiting PhoneBook..." << std::endl;
 }
