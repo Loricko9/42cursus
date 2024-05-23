@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:31:22 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/18 16:25:23 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:31:12 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main()
 		std::cout << form1 << std::endl;
 		test1.signForm(form1);
 		std::cout << form1 << std::endl;
-		test1.signForm(form1);
+		test1.signForm(form1); //err (ne fait rien)
 	}
 	catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;

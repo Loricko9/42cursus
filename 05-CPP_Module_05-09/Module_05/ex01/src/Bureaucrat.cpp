@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:36:11 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/18 15:55:25 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:34:11 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,16 @@ void	Bureaucrat::Increment()
 
 void	Bureaucrat::signForm(Form &form)
 {
-	try
+	if (!form.getSign())
 	{
-		form.beSigned(*this);
-		std::cout << name << " signed " << form.getName() << std::endl;
-	}
-	catch (Form::GradeTooLowException &e)
-	{
-		std::cerr << name << " couldn't sign " << form.getName() << " because grade too Low" << std::endl;
+		try
+		{
+			form.beSigned(*this);
+			std::cout << name << " signed " << form.getName() << std::endl;
+		}
+		catch (Form::GradeTooLowException &e)
+		{
+			std::cerr << name << " couldn't sign " << form.getName() << " because grade too Low" << std::endl;
+		}
 	}
 }
