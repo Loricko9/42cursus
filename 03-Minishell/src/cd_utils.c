@@ -59,8 +59,8 @@ void	tilde_manage(char ***tab, char **temp, int index)
 		{
 			value = get_var_value((*tab)[is_exported(*tab, "PWD", 0)]);
 			chdir(value);
-			printf("\033[1;91mminishell:\033[0;91m cd: %s:\033[0m", temp[1]);
-			printf(" No such file or directory !\n");
+			print_error("\033[1;91mminishell:\033[0;91m cd: ", temp[1],
+				":\033[0m No such file or directory !\n");
 		}
 	}
 	free(value);
@@ -75,8 +75,8 @@ void	oldpwd_manage(char ***tab, char *line)
 	index = is_exported(*tab, "OLDPWD", 0);
 	if (line[1] != '\0')
 	{
-		printf("\033[1;91mminishell:\033[0;91m cd:\033[0m");
-		printf(" invalid option !\n");
+		print_error("\033[1;91mminishell:\033[0;91m cd:\033[0m",
+			" invalid option !\n", NULL);
 		return ;
 	}
 	if (index != -1)
@@ -87,10 +87,8 @@ void	oldpwd_manage(char ***tab, char *line)
 		free(value);
 	}
 	else
-	{
-		printf("\033[1;91mminishell:\033[0;91m cd:\033[0m");
-		printf(" OLDPWD not set !\n");
-	}
+		print_error("\033[1;91mminishell:\033[0;91m cd:\033[0m",
+			" OLDPWD not set !\n", NULL);
 }
 
 void	old_pwd(char ***tab)

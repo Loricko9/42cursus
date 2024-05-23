@@ -109,16 +109,16 @@ int	ft_check_export(char *str)
 
 	i = 0;
 	if (str[0] == '=')
-		return (printf("minishell: export: '%s' not a valid identifier\n",
-				str), 1);
+		return (print_error("minishell: export: '", str,
+				"' not a valid identifier\n"), 1);
 	while (str[i] != '=' && str[i] != '\0')
 	{
 		if ((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'z')
 			|| (str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_')
 			i++;
 		else
-			return (printf("minishell: export: '%s' not a valid identifier\n",
-					str), 1);
+			return (print_error("minishell: export: '", str,
+					"' not a valid identifier\n"), 1);
 	}
 	return (0);
 }

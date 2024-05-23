@@ -75,6 +75,7 @@ void	print_tab(char **tab);
 void	ft_putchar(char c, int fd);
 void	ft_putstr(char *str, int fd);
 void	ft_putstr_n(char *str, int fd);
+void	print_error(char *str1, char *str2, char *str3);
 
 /*exec.c*/
 void	fork_exec(char ***env, char *line, int *fd);

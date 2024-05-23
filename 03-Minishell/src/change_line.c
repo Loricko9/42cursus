@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:09:46 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/02/05 13:47:20 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/02/05 18:03:53 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ char	*change_line(char *line, char **env)
 	while (line[i] != '\0')
 	{
 		ft_cote(&quote, line[i]);
-		if (line[i] == '$' && (quote == 0 || quote == '"'))
+		if (line[i] == '$' && (quote == 0 || quote == '"')
+			&& line[i + 1] != ' ' && line[i + 1] != '\0' && line[i + 1] != '"')
 			line = new_line(line, env, &i);
 		if (!line)
 			return (NULL);

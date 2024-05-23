@@ -15,9 +15,9 @@
 static void	error_fd(char *path, int *fd)
 {
 	*fd = -1;
-	ft_putstr("\033[1;91mminishell: \033[0m", 1);
-	ft_putstr(path, 1);
-	ft_putstr(":", 1);
+	ft_putstr("\033[1;91mminishell: \033[0m", 2);
+	ft_putstr(path, 2);
+	ft_putstr(":", 2);
 	perror("");
 }
 

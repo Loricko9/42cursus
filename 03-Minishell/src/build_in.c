@@ -115,8 +115,8 @@ void	ft_cd(char ***tab, char **cmd)
 		ft_cd_bis(tab, cmd);
 	else
 	{
-		printf("\033[1;91mminishell:\033[0;91m cd:\033[0m");
-		printf(" too many arguments !\n");
+		print_error("\033[1;91mminishell:\033[0;91m cd:\033[0m",
+			" too many arguments !\n", NULL);
 		g_res_error = 1;
 	}
 	free(home);

@@ -37,8 +37,8 @@ void	ft_cd_bis(char ***tab, char **temp)
 		oldpwd_manage(tab, temp[1]);
 	else if (chdir(temp[1]) == -1)
 	{
-		printf("\033[1;91mminishell:\033[0;91m cd: %s:\033[0m", temp[1]);
-		printf(" No such file or directory !\n");
+		print_error("\033[1;91mminishell:\033[0;91m cd: ", temp[1], NULL);
+		ft_putstr(":\033[0m No such file or directory !\n", 2);
 		g_res_error = 1;
 		return ;
 	}

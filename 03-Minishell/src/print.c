@@ -12,6 +12,16 @@
 
 #include "minishell.h"
 
+void	print_error(char *str1, char *str2, char *str3)
+{
+	if (str1)
+		ft_putstr(str1, 2);
+	if (str2)
+		ft_putstr(str2, 2);
+	if (str3)
+		ft_putstr(str3, 2);
+}
+
 void	print_tab(char **tab)
 {
 	int	i;

@@ -100,15 +100,15 @@ int	ft_check_line(char *line)
 	i = -1;
 	if (ft_check_pipe(i + 1, line, len) == 1)
 		return (printf("\033[1;91mminishell:\033[0m"),
-			printf(" syntaxe error near unexpected token !\n"), 0);
+			printf(" syntaxe error near unexpected token !\n"), 2);
 	while (++i < len)
 	{
 		ft_check_quote(&trig, &i, line);
 		ft_check_redir(&trig, i, line);
 		if (trig == 2)
-			return (printf("\033[1;91mminishell:\033[0m syntaxe error !\n"), 0);
+			return (printf("\033[1;91mminishell:\033[0m syntaxe error !\n"), 2);
 	}
 	if (trig == 0)
 		return (1);
-	return (printf("\033[1;91mminishell:\033[0m undeterminated quote !\n"), 0);
+	return (printf("\033[1;91mminishell:\033[0m undeterminated quote !\n"), 2);
 }
