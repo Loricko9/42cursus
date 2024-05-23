@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:50:38 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/25 10:25:44 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:41:59 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,11 @@ void	BitcoinExchange::checkNb(std::string &str) const
 		i++;
 	if (i == size)
 		throw BadInputException();
+	int	trig = 0;
 	while (i < size) {
-		if (!isdigit(str[i]))
+		if (str[i] == '.' && trig == 0)
+			trig++;
+		else if (!isdigit(str[i]))
 			throw BadInputException();
 		i++;
 	}

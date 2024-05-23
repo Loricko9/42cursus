@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 09:46:05 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/24 14:41:56 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:14:47 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 	}
 	try {
 		RPN	rpn;
-		for (int i = 0, size = strlen(av[1]); i < size; i++) {
+		for (int i = 0, size = strlen(av[1]); i < size; i += 2) {
 			if (isdigit(av[1][i]))
 				rpn.addNb(av[1][i] - 48);
 			else if (av[1][i] == '+' || av[1][i] == '*' || av[1][i] == '-' || av[1][i] == '/')
@@ -34,7 +34,6 @@ int	main(int ac, char **av)
 			if (av[1][i + 1] != ' ' && av[1][i + 1] != '\0') {
 				throw RPN::BadInputException();
 			}
-			i++;
 		}
 		if (rpn.getSize() == 1)
 			std::cout << rpn.getNb() << std::endl;

@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 10:46:14 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/22 17:23:08 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:34:43 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ int	main(int ac, char **av)
 {
 	if (ac != 2) {
 		std::cerr << "Error : Invalid number of Argument !" << std::endl;
+		return (1);
+	}
+	std::string	file_test(av[1]);
+	if (file_test.find(".csv") != file_test.size() - 4) {
+		std::cerr << "Error : file must be in .csv extension !" << std::endl;
 		return (1);
 	}
 	std::ifstream	f_in(av[1]);
