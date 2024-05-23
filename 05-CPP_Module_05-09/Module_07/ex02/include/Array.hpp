@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:33:50 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/03/21 11:37:32 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:26:45 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ template<typename T>
 class	Array
 {
 public:
-	Array<T>() : _array(new T()), _size (0) {};
+	Array<T>() : _array(NULL), _size (0) {};
 	Array<T>(unsigned int n) : _array(new T[n]), _size(n) {};
 	Array<T>(const Array &src) : _array(new T[src._size]), _size(src._size) {
 		for (unsigned int i = 0; i < _size; i++)
@@ -26,7 +26,8 @@ public:
 	Array&	operator=(const Array &rhs) {
 		if (this != &rhs)
 		{
-			delete [] _array;
+			if (_array)
+				delete [] _array;
 			_array = new T[rhs._size];
 			_size = rhs._size;
 			for (unsigned int i = 0; i < _size; i++)
@@ -50,7 +51,7 @@ public:
 		return (_array[i]);
 	};
 	
-	unsigned int size() {return(_size);};
+	unsigned int size() const {return(_size);};
 private:
 	T* 				_array;
 	unsigned int	_size;
