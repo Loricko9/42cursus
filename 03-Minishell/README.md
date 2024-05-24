@@ -3,8 +3,9 @@
 [![fr](https://img.shields.io/badge/Langue-fr-blue)](README.fr.md)
 
 <p align="center"><img src="https://i.imgur.com/zEbeMMp.jpeg" alt="drawing" width="2000"/></p>
-<p align="center" style="color: darkgreen; font-weight: bold; font-size: 35px;">101/100 ✅</p>
-<p align="center" style="font-size: 20px;"><em>Coded with Arpages</em></p>
+
+$$\color{darkgreen}{{\Huge \mathbf {125/100 ✅}}}$$
+$$\color{dark}{\huge {Coded\ with\ Arpages}}$$
 
 ## The goal
 
