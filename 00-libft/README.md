@@ -5,7 +5,7 @@
 
 <p align="center"><img src="https://i.imgur.com/UQ00ah6.jpg" alt="drawing" width="2000"/></p>
 
-$\color{darkgreen}{{\Huge \mathbf {123/100 ✅}}}$
+$$\color{darkgreen}{{\Huge \mathbf {123/100 ✅}}}$$
 
 ## The goal
 
@@ -23,7 +23,7 @@ You can use this librairy by adding flag during the compilation, you may have so
 ````sh
 cc -I include/ -L [lib_folder] [your_file] -lft
 ````
-$$\color{red}{\large {\mathbf {⚠\ You\ need\ to\ add\ libft.h\ in\ your\ include\ directory}}}$$
+$\color{red}{\large {\mathbf {⚠\ You\ need\ to\ add\ libft.h\ in\ your\ include\ directory}}}$
 
 ## Bonus
 
