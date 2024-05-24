@@ -3,7 +3,7 @@
 [![fr](https://img.shields.io/badge/Langue-fr-blue)](README.fr.md)
 
 <p align="center"><img src="https://i.imgur.com/UQ00ah6.jpg" alt="drawing" width="2000"/></p>
-<p align="center" style="color: darkgreen; font-weight: bold; font-size: 35px;">123/100 ✅</p>
+<p align="center"><span style="color: darkgreen; font-weight: bold; font-size: 35px;">123/100 ✅</span></p>
 
 ## The goal
 
