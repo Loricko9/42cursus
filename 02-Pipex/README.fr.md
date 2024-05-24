@@ -3,7 +3,8 @@
 [![en](https://img.shields.io/badge/Language-en-red)](README.md)
 
 <div style="text-align: center;"><img src="https://i.imgur.com/NJRhA7H.jpg" alt="drawing" width="700"/></div>
-<div style="color: darkgreen; font-weight: bold; text-align: center; font-size: 35px;"><p> 125/100 ✅</p></div>
+
+$$\color{darkgreen}{{\Huge \mathbf {125/100 ✅}}}$$
 
 ## The goal
 
