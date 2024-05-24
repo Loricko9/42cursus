@@ -5,7 +5,8 @@
 
 <p align="center"><img src="https://i.imgur.com/UQ00ah6.jpg" alt="drawing" width="2000"/></p>
 
-$$\color{darkgreen}{{\huge \mathbf {123/100 ✅}}}$$
+$\color{darkgreen}{{\Huge \mathbf {123/100 ✅}}}$
+
 ## The goal
 
 Recode all basic function in C like : 
