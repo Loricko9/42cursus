@@ -3,7 +3,8 @@
 [![fr](https://img.shields.io/badge/Langue-fr-blue)](README.fr.md)
 
 <div style="text-align: center;"><img src="https://i.imgur.com/aUJ8mI5.jpg" alt="drawing" width="700"/></div>
-<div style="color: darkgreen; font-weight: bold; text-align: center; font-size: 35px;"><p> 100/100 ✅</p></div>
+
+$$\color{darkgreen}{{\Huge \mathbf {100/100 ✅}}}$$
 
 ## The goal
 
@@ -29,4 +30,5 @@ You can use this librairy by adding flag during the compilation, you may have so
 ````sh
 cc -I include/ -L [lib_folder] [your_file] -lft
 ````
-<div style="color: red; font-weight: bold; font-size: 20px;">⚠ You need to add `ft_printf.h` in your include directory </div>
+
+$\color{red}{\large {\mathbf {⚠\ You\ need\ to\ add\ ft_printf.h\ in\ your\ include\ directory}}}$

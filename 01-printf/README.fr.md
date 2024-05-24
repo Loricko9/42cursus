@@ -3,7 +3,8 @@
 [![en](https://img.shields.io/badge/Language-en-red)](README.md)
 
 <div style="text-align: center;"><img src="https://i.imgur.com/aUJ8mI5.jpg" alt="drawing" width="700"/></div>
-<div style="color: darkgreen; font-weight: bold; text-align: center; font-size: 35px;"><p> 100/100 ✅</p></div>
+
+$$\color{darkgreen}{{\Huge \mathbf {100/100 ✅}}}$$
 
 ## The goal
 
@@ -29,4 +30,4 @@ Vous pouvez utiliser cette librairie en ajoutant des flags durant la compilation
 ````sh
 cc -I include/ -L [lib_folder] [your_file] -lft
 ````
-<div style="color: red; font-weight: bold; font-size: 20px;">⚠ Vous devez ajouter le fichier `ft_printf.h` dans votre répertoire include </div>
+$\color{red}{\large {\mathbf {⚠\ Vous\ devez\ ajouter\ le\ fichier\ ft_printf.h\ dans\ votre\ répertoire\ include}}}$
