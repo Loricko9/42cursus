@@ -2,8 +2,8 @@
 
 [![en](https://img.shields.io/badge/Language-en-red)](README.md)
 
-<div style="text-align: center;"><img src="https://i.imgur.com/UQ00ah6.jpg " alt="drawing" width="700"/></div>
-<div style="color: darkgreen; font-weight: bold; text-align: center; font-size: 35px;"><p> 123/100 ✅</p></div>
+<p align="center"><img src="https://i.imgur.com/UQ00ah6.jpg" alt="drawing" width="2000"/></p>
+<p align="center" style="color: darkgreen; font-weight: bold; font-size: 35px;">123/100 ✅</p>
 
 ## L'objectif
 
