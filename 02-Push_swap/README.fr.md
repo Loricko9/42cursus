@@ -3,7 +3,8 @@
 [![en](https://img.shields.io/badge/Language-en-red)](README.md)
 
 <div style="text-align: center;"><img src="https://i.imgur.com/cDx1mo4.jpg" alt="drawing" width="700"/></div>
-<div style="color: darkgreen; font-weight: bold; text-align: center; font-size: 35px;"><p> 125/100 ✅</p></div>
+
+$$\color{darkgreen}{{\Huge \mathbf {125/100 ✅}}}$$
 
 ## L'objectif
 
@@ -22,7 +23,8 @@ Pour nous aider, nous avons une deuxième pile et une liste de mouvements :
 | rra | Décale d’une position vers le bas tous les élements de la pile b (le premier élément devient le dernier) |
 | rrb | Décale d’une position vers le bas tous les élements de la pile b (le premier élément devient le dernier) |
 | rrr | Faire rra et rrb en même temps |
-<div style="color: red; font-weight: bold;">Ce projet trie 100 nombre en moins de 600 coups et 500 nombres en moins de 5000 coups.</div>
+
+$\color{red}{\large {\mathbf {Ce\ projet\ trie\ 100\ nombres\ en\ moins\ de\ 600\ coups\ et\ 500\ nombres\ en\ moins\ de\ 5000\ coups.}}}$
 
 ## Execution
 
@@ -46,4 +48,5 @@ $> ARG="your number"; ./push_swap $ARG | ./checker $ARG
 ````
 Ou entrer manuellement toutes les commandes :
 <div style="text-align: center;"><img src="https://i.imgur.com/nio9olJ.jpg" alt="drawing" width="500"/></div>
-<div style="color: red; font-weight: bold; font-size: 17px;">⚠ Noubliez de faire Ctrl + d quand vous avez finit d'entrer les commandes</div>
+
+$\color{red}{\large {\mathbf {⚠\ N'oubliez\ pas\ de\ faire\ Ctrl\ +\ d\ quand\ vous\ avez\ finit\ d'entrer\ les\ commandes}}}$

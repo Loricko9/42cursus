@@ -3,7 +3,8 @@
 [![fr](https://img.shields.io/badge/Langue-fr-blue)](README.fr.md)
 
 <div style="text-align: center;"><img src="https://i.imgur.com/cDx1mo4.jpg" alt="drawing" width="700"/></div>
-<div style="color: darkgreen; font-weight: bold; text-align: center; font-size: 35px;"><p> 125/100 ✅</p></div>
+
+$$\color{darkgreen}{{\Huge \mathbf {125/100 ✅}}}$$
 
 ## The goal
 
@@ -23,6 +24,8 @@ To help us, we can use a second stack and this list of movement :
 | rrb | Shift down every element in the stack b (last element become the first) |
 | rrr | Do rra and rrb at the same time |
 <div style="color: red; font-weight: bold;">This project sort 100 numbers in less than 600 movements and 500 numbers in less than 5000 movements. </div>
+
+$\color{red}{\large {\mathbf {This\ project\ sort\ 100\ numbres\ in\ less\ than\ 600\ movements\ and\ 500\ numbers\ in\ less\ than\ 5000\ movements.}}}$
 
 ## Execution
 
@@ -46,4 +49,5 @@ $> ARG="your number"; ./push_swap $ARG | ./checker $ARG
 ````
 Or you can also enter manualy all command
 <div style="text-align: center;"><img src="https://i.imgur.com/nio9olJ.jpg" alt="drawing" width="500"/></div>
-<div style="color: red; font-weight: bold; font-size: 17px;">⚠ Don't forget to press Crtl + d when you finish to enter your command </div>
+
+$\color{red}{\large {\mathbf {⚠\ Don't\ forget\ to\ press\ Crtl\ +\ d\ when\ you\ finish\ to\ enter\ your\ command}}}$
