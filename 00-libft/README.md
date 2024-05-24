@@ -2,9 +2,10 @@
 
 [![fr](https://img.shields.io/badge/Langue-fr-blue)](README.fr.md)
 
-<p align="center"><img src="https://i.imgur.com/UQ00ah6.jpg" alt="drawing" width="2000"/></p>
-<p align="center"><span style="color: darkgreen; font-weight: bold; font-size: 35px;">123/100 ✅</span></p>
 
+<p align="center"><img src="https://i.imgur.com/UQ00ah6.jpg" alt="drawing" width="2000"/></p>
+
+$$\color{darkgreen}{{\huge \mathbf {123/100 ✅}}}$$
 ## The goal
 
 Recode all basic function in C like : 
@@ -21,7 +22,7 @@ You can use this librairy by adding flag during the compilation, you may have so
 ````sh
 cc -I include/ -L [lib_folder] [your_file] -lft
 ````
-<div style="color: red; font-weight: bold; font-size: 20px;">⚠ You need to add `libft.h` in your include directory </div>
+$$\color{red}{\large {\mathbf {⚠\ You\ need\ to\ add\ libft.h\ in\ your\ include\ directory}}}$$
 
 ## Bonus
 
