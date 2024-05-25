@@ -1,4 +1,4 @@
-# CPP Piscine Part 1
+# CPP Piscine Part 2
 
 [![en](https://img.shields.io/badge/Language-en-red)](README.md)
 
@@ -8,7 +8,7 @@ $$\color{darkgreen}{{\Huge \mathbf {100/100 ✅}}}$$
 
 ## L'objectif
 
-C'est la première serie d'exercie CPP pour découvrir le programmation orienté objet avec les classes.
+C'est la seconde serie d'exercie CPP pour découvrir le programmation orienté objet avec les notions de polymorphisme, de template et de cast.
 
 ## Execution
 

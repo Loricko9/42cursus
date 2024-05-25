@@ -1,4 +1,4 @@
-# CPP Piscine Part 1
+# CPP Piscine Part 2
 
 [![fr](https://img.shields.io/badge/Langue-fr-blue)](README.fr.md)
 
@@ -8,7 +8,7 @@ $$\color{darkgreen}{{\Huge \mathbf {100/100 ✅}}}$$
 
 ## The goal
 
-The first serie of CPP exercise to discover object-oriented programming with classes.
+The first serie of CPP exercise to discover object-oriented programming with the concept of polymorphism, template & cast.
 
 ## Execution
 
