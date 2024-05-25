@@ -2,7 +2,7 @@
 
 [![fr](https://img.shields.io/badge/Langue-fr-blue)](README.fr.md)
 
-<p align="center"><img src="https://i.imgur.com/zEbeMMp.jpeg" alt="drawing" width="2000"/></p>
+<p align="center"><img src="https://i.imgur.com/zEbeMMp.jpeg" alt="drawing" width="400"/></p>
 
 $$\color{darkgreen}{{\Huge \mathbf {125/100 ✅}}}$$
 $$\color{dark}{\huge {Coded\ with\ Arpages}}$$

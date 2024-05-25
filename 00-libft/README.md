@@ -3,7 +3,7 @@
 [![fr](https://img.shields.io/badge/Langue-fr-blue)](README.fr.md)
 
 
-<p align="center"><img src="https://i.imgur.com/UQ00ah6.jpg" alt="drawing" width="2000"/></p>
+<p align="center"><img src="https://i.imgur.com/UQ00ah6.jpg" alt="drawing" width="400"/></p>
 
 $$\color{darkgreen}{{\Huge \mathbf {123/100 ✅}}}$$
 

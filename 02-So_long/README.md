@@ -2,7 +2,7 @@
 
 [![fr](https://img.shields.io/badge/Langue-fr-blue)](README.fr.md)
 
-<div style="text-align: center;"><img src="https://i.imgur.com/oxsa34o.jpg " alt="drawing" width="2000"/></div>
+<div style="text-align: center;"><img src="https://i.imgur.com/oxsa34o.jpg " alt="drawing" width="400"/></div>
 
 $$\color{darkgreen}{{\Huge \mathbf {120/100 ✅}}}$$
 
