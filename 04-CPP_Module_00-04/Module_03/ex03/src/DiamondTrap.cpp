@@ -28,7 +28,7 @@ DiamondTrap::DiamondTrap(std::string str)
 {
 	DiamondTrap::name = str;
 	ClapTrap::name = str + "_clap_name";
-	FragTrap::Hit_pt = 100;
+	this->FragTrap::Hit_pt = 100;
 	ScavTrap::Energy_pt = 50;
 	FragTrap::Attack_damage = 30;
 	std::cout << "Name Constructor DiamondTrap called" << std::endl;
