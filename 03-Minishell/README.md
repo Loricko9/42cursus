@@ -4,7 +4,7 @@
 
 <p align="center"><img src="https://i.imgur.com/zEbeMMp.jpeg" alt="drawing" width="400"/></p>
 
-$$\color{darkgreen}{{\Huge \mathbf {125/100 ✅}}}$$
+$$\color{darkgreen}{{\Huge \mathbf {101/100 ✅}}}$$
 $$\color{dark}{\huge {Coded\ with\ Arpages}}$$
 
 ## The goal
