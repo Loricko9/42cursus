@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 12:02:14 by lle-saul          #+#    #+#             */
-/*   Updated: 2024/05/29 16:43:41 by lle-saul         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:52:49 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ std::string	SOCKET::recv_msg()
 	
 	//Get every char in vector
 	size_needed = ntohs(size_needed);
-	std::vector<unsigned char> buff;
-	buff.resize(size_needed);
+	char buff[4028]
+	recv(fdsocket, buff, (size_needed - size_get) * sizeof(unsigned char), 0)
 	for (int size_get = 0; size_get < size_needed;) {
 		int res = recv(fdsocket, reinterpret_cast<char *>(&buff[size_get]), (size_needed - size_get) * sizeof(unsigned char), 0);
 		if (res <= 0) {
