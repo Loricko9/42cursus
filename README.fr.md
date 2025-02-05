@@ -49,3 +49,10 @@ Chaque projet écrit en C sont écrit en accordance avec la Norme de 42.
 | [Push_swap](02-Push_swap/) | Coder un algorithme pour trier une pile de nombre | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
 | [Pipex](02-Pipex/) | Recoder les pipe en C | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
 | [Philosopher](03-Philosopher/) | Controler les vie de philosophes | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
+| [Minishell](03-Minishell/) | Recoder un terminal avec des fonctions basique | <div style="color: darkgreen; font-weight: bold;"> 101/100 </div> |
+| [CPP Module 00-04](04-CPP_Module_00-04/) | Decouvrir la programmation orientée objet en C++ | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
+| [Cube3d](04-Cube3d/) | Code un jeux 3d en C s'inspirant de DOOM | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
+| [CPP Module 05-09](05-CPP_Module_05-09/) | Approfondir nos connaissance en C++ avec différentes notions | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
+| [Ft_irc](05-ft_irc/) | Coder en C++ un serveur IRC | <div style="color: darkgreen; font-weight: bold;"> 100/100 </div> |
+| [Inception](05-Inception/) | Créer plusieur image Docker et héberger un Wordpress | <div style="color: darkgreen; font-weight: bold;"> 100/100 </div> |
+| [Ft_Transcendence](https://github.com/Loricko9/Transcendence) | Créer avec Django, un site web de tournois de Pong  | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |

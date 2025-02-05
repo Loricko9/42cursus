@@ -49,4 +49,11 @@ Every project written in C are in accordance with the Norm of 42.
 | [Push_swap](02-Push_swap/) | Code a algorithme to sort a stack a number | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
 | [Pipex](02-Pipex/) | Recode pipe in C | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
 | [Philosopher](03-Philosopher/) | Controlling the lives of philosophers | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
+| [Minishell](03-Minishell/) | Recode a terminal with basic feature | <div style="color: darkgreen; font-weight: bold;"> 101/100 </div> |
+| [CPP Module 00-04](04-CPP_Module_00-04/) | Discover the object oriented programming in C++ | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
+| [Cube3d](04-Cube3d/) | Code a game in C in 3d like a Doom | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
+| [CPP Module 05-09](05-CPP_Module_05-09/) | Extending our knowledge of C++ with differents concepts | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
+| [Ft_irc](05-ft_irc/) | Code in C++ a IRC server | <div style="color: darkgreen; font-weight: bold;"> 100/100 </div> |
+| [Inception](05-Inception/) | Create several  Docker images and host a Wordpress website  | <div style="color: darkgreen; font-weight: bold;"> 100/100 </div> |
+| [Ft_Transcendence](05-Inception/) | Create with django, a complete website of Pong tournament  | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
 
