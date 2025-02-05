@@ -55,5 +55,5 @@ Every project written in C are in accordance with the Norm of 42.
 | [CPP Module 05-09](05-CPP_Module_05-09/) | Extending our knowledge of C++ with differents concepts | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
 | [Ft_irc](05-ft_irc/) | Code in C++ a IRC server | <div style="color: darkgreen; font-weight: bold;"> 100/100 </div> |
 | [Inception](05-Inception/) | Create several  Docker images and host a Wordpress website  | <div style="color: darkgreen; font-weight: bold;"> 100/100 </div> |
-| [Ft_Transcendence](05-Inception/) | Create with django, a complete website of Pong tournament  | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
+| [Ft_Transcendence](https://github.com/Loricko9/Transcendence) | Create with django, a complete website of Pong tournament  | <div style="color: darkgreen; font-weight: bold;"> 125/100 </div> |
 
