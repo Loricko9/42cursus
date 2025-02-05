@@ -8,7 +8,7 @@ $$\color{darkgreen}{{\Huge \mathbf {100/100 ✅}}}$$
 
 ## The goal
 
-The first serie of CPP exercise to discover object-oriented programming with the concept of polymorphism, template & cast.
+The Second serie of CPP exercise to discover object-oriented programming with the concept of polymorphism, template & cast.
 
 ## Execution
 
